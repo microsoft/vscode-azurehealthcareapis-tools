@@ -1,0 +1,20 @@
+{
+	"name": "vscode-health-fhir-converter-server",
+	"description": "Language server for FHIR Converter",
+	"version": "1.0.0",
+	"author": "Microsoft Corporation",
+	"license": "MIT",
+	"engines": {
+		"node": "*"
+	},
+	"repository": {
+		"type": "git",
+		"url": ""
+	},
+	"dependencies": {
+		"vscode-languageserver": "^6.1.1",
+		"vscode-languageserver-textdocument": "^1.0.1",
+		"glob": "^7.1.4",
+		"@types/glob": "^7.1.1"
+	}
+}

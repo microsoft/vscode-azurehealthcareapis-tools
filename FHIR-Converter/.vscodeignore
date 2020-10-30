@@ -1,0 +1,25 @@
+**/*.map
+**/package-lock.json
+**/tsconfig.json
+**/tslint.json
+**/@types/**
+*.vsix
+.gitignore
+.mocha-reporter/**
+.vscode/**
+.vscode-test/**
+.vscode test/**
+assets/**/*.gif
+assets/**/*.png
+azure-pipelines.yml
+client/src/**
+client/out/test/**
+client/test/**
+test-data
+node_modules/**
+scripts/**
+server/src/**
+server/out/test/**
+server/test/**
+src/**
+test/**
