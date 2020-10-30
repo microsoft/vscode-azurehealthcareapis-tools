@@ -1,0 +1,48 @@
+trigger:
+  branches:
+    include:
+    - personal/yankhuan/converter-vsc-extension
+  tags:
+    include:
+    - v*
+
+jobs:
+- job: FHIR_Converter_CI_Tests
+  displayName: FHIR-Converter CI Tests
+
+  strategy:
+    matrix:
+      windows:
+        imageName: 'windows-2019'
+
+  pool:
+    vmImage: $(imageName)
+
+  variables:
+    basicPath: $(Build.SourcesDirectory)/FHIR-Converter
+
+  steps:
+  - template: ./fhir-converter-pipeline.yml
+  
+  - task: CredScan@2
+    inputs:
+      toolMajorVersion: 'V1'
+  - task: ComponentGovernanceComponentDetection@0
+    inputs:
+      scanType: 'Register'
+      verbosity: 'Verbose'
+      alertWarningLevel: 'High'
+  - task: TSLint@1
+    inputs:
+      RuleLibrary: 'tslint'
+      Ruleset: 'tsrecommended'
+      FileSelectionType: 'fileGlob'
+      Files: '**\*.ts'
+      OutputFormat: 'json'
+      ToolVersion: 'latest'
+      TypeScriptVersion: 'latest'
+  - task: BinSkim@3
+    inputs:
+      InputType: 'CommandLine'
+      arguments: 'analyze Microsoft.Health.*.dll Microsoft.Health.*.exe --recurse'
+
