@@ -143,7 +143,7 @@ suite('Utils Test Suite', () => {
 		if(fs.existsSync(targetFolders)){
 			fs.rmdirSync(targetFolders);
 		}
-		utils.createFolders(targetFolders);
+		utils.checkCreateFolders(targetFolders);
 		assert.strictEqual(true, fs.existsSync(targetFolders));
 	});
 

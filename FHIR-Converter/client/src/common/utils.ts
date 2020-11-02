@@ -52,7 +52,7 @@ export function syncTemplateFolder() {
     }
 }
 
-export function createFolders(resultFolder: string) {
+export function checkCreateFolders(resultFolder: string) {
     if (!fs.existsSync(resultFolder))
         fs.mkdirSync(resultFolder, { recursive: true });
 }
@@ -148,6 +148,11 @@ export async function showDialogSaveWorkspace(label: string, errorMessage: strin
 
 export function wirtePrettyJson(filePath: string, json: object){
 	fs.writeFileSync(filePath, convertPrettyJsonString(json));
+}
+
+export function checkFolderWirtePrettyJson(fileName: string, msg: object){
+    checkCreateFolders(path.dirname(fileName));
+    wirtePrettyJson(fileName, msg);
 }
 
 export function convertPrettyJsonString(json: object){
