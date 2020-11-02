@@ -1,6 +1,5 @@
 import { existsSync, readFileSync } from "fs";
-import { resolve } from "path";
-import { extensions } from "vscode";
+import { resolve, join } from "path";
 import { ILanguagePack } from "./models/language-pack.model";
 
 export class Localize {
@@ -38,8 +37,7 @@ export class Localize {
     const languageFormat = "package.nls{0}.json";
     const defaultLanguage = languageFormat.replace("{0}", "");
 
-    const rootPath = extensions.getExtension("microsoft.vscode-health-fhir-converter")
-      .extensionPath;
+    const rootPath = join(__dirname, '../..');
 
     const resolvedLanguage = this.recurseCandidates(
       rootPath,
