@@ -188,6 +188,6 @@ export function getStatusBarString(activeDataPath: string | undefined, activeTem
     if(activeTemplatePath){
         templateName = path.basename(activeTemplatePath);
     }
-    let str = localize("microsoft.health.fhir.converter.configuration.title") + ": "  + localize("common.data") + " - " + dataName + ", " + localize("common.template") + " - " + templateName;
+    let str = `${localize("microsoft.health.fhir.converter.configuration.title")}: ${localize("common.data")} - ${dataName}, ${localize("common.template")} - ${templateName}`
     return str;
 }
