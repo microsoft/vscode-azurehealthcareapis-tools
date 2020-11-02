@@ -8,7 +8,7 @@
 	"microsoft.health.fhir.converter.configuration.templateFolder.description": "The Path to the folder the conversion templates are saved in.",
 	"microsoft.health.fhir.converter.configuration.resultFolder.description": "The Path to the folder the results are saved in.",
 	"error.refreshPreview.prefix": "Error when refreshing preview - ",
-	"error.updateTemplateFolder.prefix": "Error when selecting template - ",
+	"error.updateTemplateFolder.prefix": "Error when updating template folder - ",
 	"error.selectTemplate.prefix": "Error when selecting template - ",
 	"error.selectData.prefix": "Error when selecting data - ",
 	"error.createConverterWorkspace.prefix": "Error when creating converter workspace - ",

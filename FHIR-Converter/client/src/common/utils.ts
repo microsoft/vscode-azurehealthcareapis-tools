@@ -6,6 +6,8 @@ import { globals } from '../init/globals';
 import { fhirConversion } from './conversion';
 import { Status } from './status';
 import localize from "../localize";
+import { ConverterError } from '../common/error';
+import { ErrorHandler } from '../common/error-handler';
 
 export function initWorkspace() {
     if (converterWorkspaceExists()) {
@@ -19,7 +21,7 @@ export function initWorkspace() {
                 resultFolder = path.join(resultFolder, 'fhirConverterResult');
                 vscode.workspace.getConfiguration('fhirConverter').update('resultFolder', resultFolder, false);
             } else {
-                vscode.window.showErrorMessage(localize("messsage.noResultFolderProvided"));
+                vscode.window.showInformationMessage(localize("messsage.noResultFolderProvided"));
             }
         }
         syncTemplateFolder();
@@ -43,11 +45,11 @@ export function syncTemplateFolder() {
             }
         }
         else{
-            vscode.window.showErrorMessage(localize("messsage.noTemplateFolderProvided"));
+            vscode.window.showInformationMessage(localize("messsage.noTemplateFolderProvided"));
         }
     }
-    catch(e){
-        vscode.window.showErrorMessage(localize("error.syncTemplateFolder.prefix") + e.message);
+    catch(error){
+        new ErrorHandler(ConverterError.updateConfiguration, error).handle();
     }
 }
 
@@ -74,7 +76,7 @@ export function getTemplateNameWithoutExt(templateName: string): string {
 export function getConfiguration(section: string, key: string, errorMessage): string {
     let value: string = vscode.workspace.getConfiguration(section).get(key);
     if(!value){
-        vscode.window.showErrorMessage(errorMessage);
+        vscode.window.showInformationMessage(errorMessage);
         return undefined
     }
     return value;
@@ -102,7 +104,7 @@ export async function convert(dataContext: string, entryTemplate: string, templa
 export async function openDialogSelectFolder(label: string, errorMessage: string) {
     let selectedFolder = await vscode.window.showOpenDialog({ canSelectMany: false, canSelectFiles: false, canSelectFolders: true, openLabel: label });
     if(!selectedFolder){
-        vscode.window.showErrorMessage(errorMessage);
+        vscode.window.showInformationMessage(errorMessage);
         return undefined;
     }
     else{
@@ -137,7 +139,7 @@ export function generatePrettyFolderName(templateFolder: string) {
 export async function showDialogSaveWorkspace(label: string, errorMessage: string, filter: string){
 	let workspacePath = await vscode.window.showSaveDialog({saveLabel: label, filters: {'workspace':[filter]}});
 	if(!workspacePath){
-        vscode.window.showErrorMessage(errorMessage);
+        vscode.window.showInformationMessage(errorMessage);
         return undefined;
     }
     else{

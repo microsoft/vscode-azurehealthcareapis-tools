@@ -26,6 +26,9 @@ export class ErrorHandler{
 		else if( this.errorType === ConverterError.updateTemplateFolderError){
 			this.display("error.selectTemplate.prefix");
 		}
+		else if( this.errorType === ConverterError.updateConfiguration){
+			this.display("error.updateConfiguration.prefix");
+		}
 	}
 
 	display(id: string): void{

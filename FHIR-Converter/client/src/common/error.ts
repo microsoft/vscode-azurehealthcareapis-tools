@@ -3,5 +3,6 @@ export enum ConverterError{
 	refreshPreviewError,
 	selectDataError,
 	selectTemplateError,
-	updateTemplateFolderError
+	updateTemplateFolderError,
+	updateConfiguration
 }
