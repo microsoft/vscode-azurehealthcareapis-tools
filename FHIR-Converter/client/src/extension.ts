@@ -11,7 +11,7 @@ import { updateTemplateFolderCommand } from  './commands/updateTemplateFolder';
 import { selectTemplateCommand } from  './commands/selectTemplate';
 import { selectDataCommand } from  './commands/selectData';
 import { globals } from './init/globals';
-import { initWorkspace } from './common/utils'
+import { initWorkspace } from './common/utils';
 import * as vscode from 'vscode';
 
 var client: LanguageClient;
@@ -28,7 +28,7 @@ export async function activate(context: vscode.ExtensionContext) {
     let disposableRefreshPreview = vscode.commands.registerCommand(
         'microsoft.health.fhir.converter.refreshPreview', 
         refreshPreviewCommand
-        );
+    );
 
     let disposableUpdateTemplateFolder = vscode.commands.registerCommand(
         'microsoft.health.fhir.converter.updateTemplateFolder',

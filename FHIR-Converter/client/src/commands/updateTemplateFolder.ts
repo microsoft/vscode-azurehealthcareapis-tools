@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 import { converterWorkspaceExists, openDialogSelectFolder } from '../common/utils';
 import localize from "../localize";
+import { ConverterError } from '../common/error';
+import { ErrorHandler } from '../common/error-handler';
 
 export async function updateTemplateFolderCommand() {
 	try{
@@ -8,13 +10,13 @@ export async function updateTemplateFolderCommand() {
 			return undefined;
 		}
 		
-		let templateFolder:vscode.Uri = await openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
+		let templateFolder: vscode.Uri = await openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
 		if (!templateFolder){
 			return undefined;
 		}
 		vscode.workspace.getConfiguration('fhirConverter').update('templateFolder', templateFolder.fsPath, false);
 	}
 	catch(error){
-		vscode.window.showErrorMessage(localize("error.updateTemplateFolder.prefix") + error.message);
+		new ErrorHandler(ConverterError.updateTemplateFolderError, error).handle();
 	}
 }

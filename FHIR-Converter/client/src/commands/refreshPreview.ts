@@ -3,6 +3,8 @@ import { getUnsavedTemplates, askSaveTemplates } from '../common/utils';
 import { fhirConversion } from '../common/conversion';
 import { globals } from '../init/globals';
 import localize from "../localize";
+import { ConverterError } from '../common/error';
+import { ErrorHandler } from '../common/error-handler';
 
 export async function refreshPreviewCommand() {
 	try{
@@ -15,7 +17,7 @@ export async function refreshPreviewCommand() {
 		}
 	}
 	catch(error){
-		vscode.window.showErrorMessage(localize("error.refreshPreview.prefix") + error.message);
+		new ErrorHandler(ConverterError.refreshPreviewError, error).handle();
 	}
 }
 

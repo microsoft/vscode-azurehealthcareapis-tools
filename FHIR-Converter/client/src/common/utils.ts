@@ -4,7 +4,7 @@ import * as path from 'path';
 import * as cp from 'child_process';
 import { globals } from '../init/globals';
 import { fhirConversion } from './conversion';
-import { STATUS } from '../common/constants';
+import { Status } from './status';
 import localize from "../localize";
 
 export function initWorkspace() {
@@ -64,10 +64,7 @@ export function updateEditorContext(resultEditor: vscode.TextEditor, msg: string
 }
 
 export function checkEngineStatus(msg: any) {
-    if (msg.Status === STATUS.Fail) {
-        return false;
-    }
-    return true;
+    return msg.Status === Status.OK;
 }
 
 export function getTemplateNameWithoutExt(templateName: string): string {

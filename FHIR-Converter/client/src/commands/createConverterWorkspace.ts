@@ -1,12 +1,14 @@
 import * as vscode from 'vscode';
 import { openDialogSelectFolder, generaterWorkspaceConfig, showDialogSaveWorkspace, wirtePrettyJson } from '../common/utils';
 import localize from "../localize";
+import { ConverterError } from '../common/error';
+import { ErrorHandler } from '../common/error-handler';
 
 export async function createConverterWorkspaceCommand() {
 	try{
-		let templateFolder:vscode.Uri;
-		let dataFolder:vscode.Uri;
-		let workspacePath:vscode.Uri;
+		let templateFolder: vscode.Uri;
+		let dataFolder: vscode.Uri;
+		let workspacePath: vscode.Uri;
 
 		templateFolder = await openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
 		if (!templateFolder){
@@ -30,6 +32,6 @@ export async function createConverterWorkspaceCommand() {
 		await vscode.commands.executeCommand('vscode.openFolder', workspacePath, false);
 	}
 	catch(error){
-		vscode.window.showErrorMessage(localize("error.createConverterWorkspace.prefix") + error.message);
+		new ErrorHandler(ConverterError.createConverterWorkspaceError, error).handle();
 	}
 }

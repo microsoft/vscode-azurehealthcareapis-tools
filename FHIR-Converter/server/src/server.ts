@@ -24,7 +24,7 @@ import {
 } from 'vscode-languageserver-textdocument';
 import * as path from 'path';
 import { SettingsManager } from './common/settings';
-import * as utils from './common/utils'
+import * as utils from './common/utils';
 import localize from "./localize";
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.

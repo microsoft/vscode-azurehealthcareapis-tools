@@ -3,6 +3,8 @@ import { globals } from '../init/globals';
 import { fhirConversion } from '../common/conversion';
 import { getStatusBarString } from '../common/utils';
 import localize from "../localize";
+import { ConverterError } from '../common/error';
+import { ErrorHandler } from '../common/error-handler';
 
 export async function selectDataCommand(event) {
 	try{
@@ -17,6 +19,6 @@ export async function selectDataCommand(event) {
 		}
 	}
 	catch(error){
-		vscode.window.showErrorMessage(localize("error.selectData.prefix") + error.message);
+		new ErrorHandler(ConverterError.selectDataError, error).handle();
 	}
 }
