@@ -5,7 +5,7 @@ import * as cp from 'child_process';
 import { globals } from '../init/globals';
 import { fhirConversion } from './conversion';
 import localize from "../localize";
-import { ConverterError, Status } from './constants';
+import { ConverterError, Status, FileType } from './constants';
 import { ErrorHandler } from '../common/error-handler';
 
 export function initWorkspace() {
@@ -191,4 +191,26 @@ export function getStatusBarString(activeDataPath: string | undefined, activeTem
     }
     let str = `${localize("microsoft.health.fhir.converter.configuration.title")}: ${localize("common.data")} - ${dataName}, ${localize("common.template")} - ${templateName}`
     return str;
+}
+
+export function updateActiveFile(file: string, type: FileType){
+	if(type === FileType.data){
+		globals.activeDataPath = file;
+		globals.context.workspaceState.update('microsoft.health.fhir.converter.activeDataPath', globals.activeDataPath);
+	}
+	else if(type === FileType.template){
+		globals.activeTemplatePath = file;
+		globals.context.workspaceState.update('microsoft.health.fhir.converter.activeTemplatePath', globals.activeTemplatePath);
+	}
+	vscode.window.setStatusBarMessage(getStatusBarString(globals.activeDataPath, globals.activeTemplatePath));
+}
+
+export function selectFileFromExplorer(event: any, type: FileType){
+	if(event && event.fsPath){
+		updateActiveFile(event.fsPath, type);
+		fhirConversion(globals.activeDataPath, globals.activeTemplatePath);
+	}
+	else{
+		vscode.window.showErrorMessage(localize("messsage.failSelectData"));
+	}
 }

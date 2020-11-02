@@ -11,3 +11,8 @@ export enum Status {
     Fail = "Fail", 
     OK = "OK" 
 }
+
+export enum FileType { 
+    template = 'template', 
+    data = 'data' 
+}
