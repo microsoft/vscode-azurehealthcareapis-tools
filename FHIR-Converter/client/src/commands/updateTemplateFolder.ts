@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { converterWorkspaceExists, openDialogSelectFolder } from '../common/utils';
 import localize from "../localize";
-import { ConverterError } from '../common/error';
+import { ConverterError } from '../common/constants';
 import { ErrorHandler } from '../common/error-handler';
 
 export async function updateTemplateFolderCommand() {

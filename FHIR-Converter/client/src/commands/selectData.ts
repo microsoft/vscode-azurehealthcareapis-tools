@@ -3,7 +3,7 @@ import { globals } from '../init/globals';
 import { fhirConversion } from '../common/conversion';
 import { getStatusBarString } from '../common/utils';
 import localize from "../localize";
-import { ConverterError } from '../common/error';
+import { ConverterError } from '../common/constants';
 import { ErrorHandler } from '../common/error-handler';
 
 export async function selectDataCommand(event) {

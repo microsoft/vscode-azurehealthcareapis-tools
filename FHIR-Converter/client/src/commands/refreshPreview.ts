@@ -3,7 +3,7 @@ import { getUnsavedTemplates, askSaveTemplates } from '../common/utils';
 import { fhirConversion } from '../common/conversion';
 import { globals } from '../init/globals';
 import localize from "../localize";
-import { ConverterError } from '../common/error';
+import { ConverterError } from '../common/constants';
 import { ErrorHandler } from '../common/error-handler';
 
 export async function refreshPreviewCommand() {

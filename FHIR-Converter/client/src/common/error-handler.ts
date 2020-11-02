@@ -1,4 +1,4 @@
-import { ConverterError } from './error';
+import { ConverterError } from './constants';
 import * as vscode from 'vscode';
 import localize from "../localize";
 
@@ -11,27 +11,6 @@ export class ErrorHandler{
 	}
 
 	handle(): void {
-		if( this.errorType === ConverterError.createConverterWorkspaceError){
-			this.display("error.createConverterWorkspace.prefix");
-		}
-		else if( this.errorType === ConverterError.refreshPreviewError){
-			this.display("error.refreshPreview.prefix");
-		}
-		else if( this.errorType === ConverterError.selectDataError){
-			this.display("error.selectData.prefix");
-		}
-		else if( this.errorType === ConverterError.selectTemplateError){
-			this.display("error.selectTemplate.prefix");
-		}
-		else if( this.errorType === ConverterError.updateTemplateFolderError){
-			this.display("error.selectTemplate.prefix");
-		}
-		else if( this.errorType === ConverterError.updateConfiguration){
-			this.display("error.updateConfiguration.prefix");
-		}
-	}
-
-	display(id: string): void{
-		vscode.window.showErrorMessage(localize(id) + this.error.message);
+		vscode.window.showErrorMessage(localize(this.errorType + '.prefix') + this.error.message);
 	}
 }

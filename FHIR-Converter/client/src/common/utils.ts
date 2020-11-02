@@ -4,9 +4,8 @@ import * as path from 'path';
 import * as cp from 'child_process';
 import { globals } from '../init/globals';
 import { fhirConversion } from './conversion';
-import { Status } from './status';
 import localize from "../localize";
-import { ConverterError } from '../common/error';
+import { ConverterError, Status } from './constants';
 import { ErrorHandler } from '../common/error-handler';
 
 export function initWorkspace() {

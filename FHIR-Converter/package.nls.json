@@ -13,7 +13,7 @@
 	"error.selectData.prefix": "Error when selecting data - ",
 	"error.createConverterWorkspace.prefix": "Error when creating converter workspace - ",
 	"error.conversion.prefix": "Error when converting data to FHIR - ",
-	"error.syncTemplateFolder.prefix": "Error when updating the configuration - ",
+	"error.updateConfiguration.prefix": "Error when updating the configuration - ",
 	"messsage.selectRootTemplateFolder": "Select root template folder",
 	"messsage.selectDataFolder": "Select a data folder",
 	"messsage.saveWorkspaceFileAs": "Save workspace file as",
