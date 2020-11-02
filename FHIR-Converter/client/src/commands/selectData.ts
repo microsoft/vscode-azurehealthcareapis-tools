@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import { globals } from '../init/globals';
 import { fhirConversion } from '../common/conversion';
 import { getStatusBarString } from '../common/utils';
-import { LABELS } from '../common/constants';
+import localize from "../localize";
 
 export async function selectDataCommand(event) {
 	try{
@@ -13,10 +13,10 @@ export async function selectDataCommand(event) {
 			fhirConversion(globals.activeDataPath, globals.activeTemplatePath);
 		}
 		else{
-			vscode.window.showErrorMessage(LABELS["messsage.failSelectData"]);
+			vscode.window.showErrorMessage(localize("messsage.failSelectData"));
 		}
 	}
 	catch(error){
-		vscode.window.showErrorMessage(LABELS["error.selectData.prefix"] + error.message);
+		vscode.window.showErrorMessage(localize("error.selectData.prefix") + error.message);
 	}
 }

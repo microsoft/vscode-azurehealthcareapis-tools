@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as utils from '../common/utils'
-import { LABELS } from '../common/constants';
+import localize from "../localize";
 
 export async function fhirConversion(activeDataPath: string, activeTemplatePath: string) {
     try{
@@ -11,11 +11,11 @@ export async function fhirConversion(activeDataPath: string, activeTemplatePath:
         }
         
         if(!activeDataPath){
-            vscode.window.showInformationMessage(LABELS["messsage.needSelectData"]);
+            vscode.window.showInformationMessage(localize("messsage.needSelectData"));
             return undefined;
         }
         if(!activeTemplatePath){
-            vscode.window.showInformationMessage(LABELS["messsage.needSelectTemplate"]);
+            vscode.window.showInformationMessage(localize("messsage.needSelectTemplate"));
             return undefined;
         }
 
@@ -29,7 +29,7 @@ export async function fhirConversion(activeDataPath: string, activeTemplatePath:
         });
 
         // save result
-        let resultFolder:string = utils.getConfiguration('fhirConverter', 'resultFolder', LABELS["messsage.noResultFolderProvided"]);
+        let resultFolder:string = utils.getConfiguration('fhirConverter', 'resultFolder', localize("messsage.noResultFolderProvided"));
         if(!resultFolder){
             return undefined;
         }
@@ -37,7 +37,7 @@ export async function fhirConversion(activeDataPath: string, activeTemplatePath:
         const dataName = path.basename(activeDataPath);
         const templateName = path.basename(activeTemplatePath);
         let dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-        let templateFolder: string = utils.getConfiguration('fhirConverter', 'templateFolder', LABELS["messsage.noTemplateFolderProvided"]);
+        let templateFolder: string = utils.getConfiguration('fhirConverter', 'templateFolder', localize("messsage.noTemplateFolderProvided"));
         if(!templateFolder){
             return undefined;
         }
@@ -69,6 +69,6 @@ export async function fhirConversion(activeDataPath: string, activeTemplatePath:
         }
     }
     catch(err){
-        vscode.window.showErrorMessage(LABELS["error.conversion.prefix"] + err.message);
+        vscode.window.showErrorMessage(localize("error.conversion.prefix") + err.message);
     }
 }

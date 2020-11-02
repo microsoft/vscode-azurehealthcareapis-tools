@@ -24,8 +24,8 @@ import {
 } from 'vscode-languageserver-textdocument';
 import * as path from 'path';
 import { SettingsManager } from './common/settings';
-import { LABELS } from './common/constants';
 import * as utils from './common/utils'
+import localize from "./localize";
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -91,7 +91,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 					start: textDocument.positionAt(m.index + m[1].length),
 					end: textDocument.positionAt(m.index + m[0].length)
 				},
-				message: `${partialTemplate} ` + LABELS["messsage.invalidTemplate"] + ` (${templateFolder.replace(/\\/g,'/')})`,
+				message: `${partialTemplate} ` + localize("messsage.invalidTemplate") + ` (${templateFolder.replace(/\\/g,'/')})`,
 				source: 'ex'
 			};
 

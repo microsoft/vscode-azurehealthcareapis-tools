@@ -4,7 +4,8 @@ import * as path from 'path';
 import * as cp from 'child_process';
 import { globals } from '../init/globals';
 import { fhirConversion } from './conversion';
-import { LABELS, STATUS } from '../common/constants';
+import { STATUS } from '../common/constants';
+import localize from "../localize";
 
 export function initWorkspace() {
     if (converterWorkspaceExists()) {
@@ -18,7 +19,7 @@ export function initWorkspace() {
                 resultFolder = path.join(resultFolder, 'fhirConverterResult');
                 vscode.workspace.getConfiguration('fhirConverter').update('resultFolder', resultFolder, false);
             } else {
-                vscode.window.showErrorMessage(LABELS["messsage.noResultFolderProvided"]);
+                vscode.window.showErrorMessage(localize("messsage.noResultFolderProvided"));
             }
         }
         syncTemplateFolder();
@@ -42,11 +43,11 @@ export function syncTemplateFolder() {
             }
         }
         else{
-            vscode.window.showErrorMessage(LABELS["messsage.noTemplateFolderProvided"]);
+            vscode.window.showErrorMessage(localize("messsage.noTemplateFolderProvided"));
         }
     }
     catch(e){
-        vscode.window.showErrorMessage(LABELS["error.syncTemplateFolder.prefix"] + e.message);
+        vscode.window.showErrorMessage(localize("error.syncTemplateFolder.prefix") + e.message);
     }
 }
 
@@ -84,11 +85,11 @@ export function getConfiguration(section: string, key: string, errorMessage): st
 
 export function converterWorkspaceExists(){
     let workspaceFile = vscode.workspace.workspaceFile;
-    if( workspaceFile !== undefined && workspaceFile.fsPath.endsWith(LABELS["common.workspaceFileExtension"])){
+    if( workspaceFile !== undefined && workspaceFile.fsPath.endsWith(localize("common.workspaceFileExtension"))){
         return true;
     }
     else{
-        vscode.window.showInformationMessage(LABELS["messsage.needCreateWorkspace"]);
+        vscode.window.showInformationMessage(localize("messsage.needCreateWorkspace"));
         return false;
     }
 }
@@ -133,7 +134,7 @@ export function generaterWorkspaceConfig(templateFolder: string, dataFolder: vsc
 }
 
 export function generatePrettyFolderName(templateFolder: string) {
-    return path.basename(templateFolder) + ' ' + LABELS["common.templateFolder.suffix"];
+    return path.basename(templateFolder) + ' ' + localize("common.templateFolder.suffix");
 }
 
 export async function showDialogSaveWorkspace(label: string, errorMessage: string, filter: string){
@@ -190,6 +191,6 @@ export function getStatusBarString(activeDataPath: string | undefined, activeTem
     if(activeTemplatePath){
         templateName = path.basename(activeTemplatePath);
     }
-    let str = LABELS["microsoft.health.fhir.converter.configuration.title"] + ": "  + LABELS["common.data"] + " - " + dataName + ", " + LABELS["common.template"] + " - " + templateName;
+    let str = localize("microsoft.health.fhir.converter.configuration.title") + ": "  + localize("common.data") + " - " + dataName + ", " + localize("common.template") + " - " + templateName;
     return str;
 }

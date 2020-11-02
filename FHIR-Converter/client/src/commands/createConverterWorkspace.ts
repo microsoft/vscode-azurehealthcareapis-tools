@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { openDialogSelectFolder, generaterWorkspaceConfig, showDialogSaveWorkspace, wirtePrettyJson } from '../common/utils';
-import { LABELS } from '../common/constants';
+import localize from "../localize";
 
 export async function createConverterWorkspaceCommand() {
 	try{
@@ -8,17 +8,17 @@ export async function createConverterWorkspaceCommand() {
 		let dataFolder:vscode.Uri;
 		let workspacePath:vscode.Uri;
 
-		templateFolder = await openDialogSelectFolder(LABELS["messsage.selectRootTemplateFolder"], LABELS["messsage.noTemplateFolderProvided"]);
+		templateFolder = await openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
 		if (!templateFolder){
 			return undefined;
 		}
 
-		dataFolder = await openDialogSelectFolder(LABELS["messsage.selectDataFolder"], LABELS["messsage.noDataFolderProvided"]);
+		dataFolder = await openDialogSelectFolder(localize("messsage.selectDataFolder"), localize("messsage.noDataFolderProvided"));
 		if (!dataFolder) {
 			return undefined;
 		}
 
-		workspacePath = await showDialogSaveWorkspace(LABELS["messsage.saveWorkspaceFileAs"], LABELS["messsage.noWorkspacePathProvided"], LABELS["common.workspaceFileExtension"]);
+		workspacePath = await showDialogSaveWorkspace(localize("messsage.saveWorkspaceFileAs"), localize("messsage.noWorkspacePathProvided"), localize("common.workspaceFileExtension"));
 		if (!workspacePath) {
 			return undefined;
 		}
@@ -30,6 +30,6 @@ export async function createConverterWorkspaceCommand() {
 		await vscode.commands.executeCommand('vscode.openFolder', workspacePath, false);
 	}
 	catch(error){
-		vscode.window.showErrorMessage(LABELS["error.createConverterWorkspace.prefix"] + error.message);
+		vscode.window.showErrorMessage(localize("error.createConverterWorkspace.prefix") + error.message);
 	}
 }
