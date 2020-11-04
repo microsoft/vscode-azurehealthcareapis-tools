@@ -9,16 +9,16 @@ import { globals } from '../init/globals';
 import { DataType } from '../models/data-type.model';
 
 export async function conversionProcess(activeDataPath: string, activeTemplatePath: string) {
-	try{
-		if(!workspace.converterWorkspaceExists()){
+	try {
+		if (!workspace.converterWorkspaceExists()) {
 			return undefined;
 		}
 		
-		if(!activeDataPath){
+		if (!activeDataPath) {
 			vscode.window.showInformationMessage(localize("messsage.needSelectData"));
 			return undefined;
 		}
-		if(!activeTemplatePath){
+		if (!activeTemplatePath) {
 			vscode.window.showInformationMessage(localize("messsage.needSelectTemplate"));
 			return undefined;
 		}
@@ -26,17 +26,17 @@ export async function conversionProcess(activeDataPath: string, activeTemplatePa
 		await openShowFile(activeDataPath, activeTemplatePath);
 
 		const resultFolder: string = workspace.getConfiguration('fhirConverter', 'resultFolder', localize("messsage.noResultFolderProvided"));
-		if(!resultFolder){
+		if (!resultFolder) {
 			return undefined;
 		}
 
 		const templateFolder: string = workspace.getConfiguration('fhirConverter', 'templateFolder', localize("messsage.noTemplateFolderProvided"));
-		if(!templateFolder){
+		if (!templateFolder) {
 			return undefined;
 		}
 
 		await convertSaveFileShowDifferentialView(activeDataPath, activeTemplatePath, resultFolder, templateFolder);
-	}catch(err){
+	} catch (err) {
 		vscode.window.showErrorMessage(localize("error.conversion.prefix") + err.message);
 	}
 }
@@ -51,7 +51,7 @@ async function convertSaveFileShowDifferentialView(activeDataPath: string, activ
 
 	const msg = globals.coverterEngineHandler.getEngine(DataType.hl7v2).convert(dataDoc, utils.getTemplateNameWithoutExt(templateName), templateFolder, resultFolder); // get the data type from configuration later
 	
-	if(!utils.checkEngineStatus(msg)){
+	if (!utils.checkEngineStatus(msg)) {
 		throw new Error(msg.ErrorMessage);
 	}
 
@@ -83,7 +83,7 @@ async function openShowFile(activeDataPath: string, activeTemplatePath: string) 
 	});
 }
 
-async function showResultEditor(resultFileName){
+async function showResultEditor(resultFileName) {
 	return vscode.window.showTextDocument(
 		await vscode.workspace.openTextDocument(resultFileName), {
 		viewColumn: vscode.ViewColumn.Three

@@ -91,7 +91,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 					start: textDocument.positionAt(m.index + m[1].length),
 					end: textDocument.positionAt(m.index + m[0].length)
 				},
-				message: `${partialTemplate} ` + localize("messsage.invalidTemplate") + ` (${templateFolder.replace(/\\/g,'/')})`,
+				message: `${partialTemplate} ` + localize("messsage.invalidTemplate") + ` (${templateFolder.replace(/\\/g, '/')})`,
 				source: 'ex'
 			};
 
@@ -108,10 +108,10 @@ connection.onCompletion( async (_textDocumentPosition: TextDocumentPositionParam
 	const templates = utils.getAllTemplatePaths(await getTemplateFolder(_textDocumentPosition.textDocument.uri));
 	const allPartialTemplates = [];
 	let index = 0;
-	for(let templatePath of templates){
+	for (let templatePath of templates) {
 		const dirname = path.dirname(templatePath);
 		const basename = path.basename(templatePath);
-		if(basename === undefined || basename[0] !== '_'){
+		if (basename === undefined || basename[0] !== '_') {
 			continue;
 		}
 		templatePath = utils.getSnippetTemplateName(dirname, basename);

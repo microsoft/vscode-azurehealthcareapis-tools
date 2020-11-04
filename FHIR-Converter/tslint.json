@@ -1,6 +1,14 @@
 {
 	"rules": {
         "indent": [true, "tabs", 4],
+        "whitespace": [
+                true,
+                "check-branch",
+                "check-decl",
+                "check-operator",
+                "check-separator",
+                "check-type"
+              ],
         "no-var-keyword": true,
         "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
         "prefer-const": [true, {"destructuring": "all"}],
@@ -18,7 +26,7 @@
         "typedef": false,
         "no-string-throw": true,
         "missing-jsdoc": false,
-        "one-line": [true, "check-catch", "check-finally", "check-else"],
+        "one-line": [true, "check-open-brace", "check-catch", "check-finally", "check-else", "check-whitespace"],
         "no-parameter-properties": false,
         "no-parameter-reassignment": false,
         "no-reserved-keywords": false,

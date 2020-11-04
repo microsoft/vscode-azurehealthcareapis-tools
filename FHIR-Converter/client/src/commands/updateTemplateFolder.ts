@@ -3,20 +3,19 @@ import * as workspace from '../common/workspace';
 import * as interaction from '../common/interaction';
 import localize from "../localize";
 import { ConverterError } from '../models/converter-error.model';
-import { ErrorHandler } from '../common/error-handler';
+import * as ErrorHandler from '../common/error-handler';
 
 export async function updateTemplateFolderCommand() {
-	try{
-		if(!workspace.converterWorkspaceExists()){
+	try {
+		if (!workspace.converterWorkspaceExists()) {
 			return undefined;
 		}
-		
 		const templateFolder: vscode.Uri = await interaction.openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
-		if (!templateFolder){
+		if (!templateFolder) {
 			return undefined;
 		}
 		vscode.workspace.getConfiguration('fhirConverter').update('templateFolder', templateFolder.fsPath, false);
-	}catch(error){
-		new ErrorHandler(ConverterError.updateTemplateFolderError, error).handle();
+	} catch (error) {
+		ErrorHandler.handle(ConverterError.updateTemplateFolderError, error);
 	}
 }

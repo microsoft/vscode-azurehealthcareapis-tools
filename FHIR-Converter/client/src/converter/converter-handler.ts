@@ -2,7 +2,7 @@ import { IConverterEngine } from './converter-engine';
 import { Hl7v2ConverterEngine } from './hl7v2-converter-engine';
 import { DataType } from '../models/data-type.model';
 
-export class ConverterHandler{
+export class ConverterHandler {
 	private coverterEngine: IConverterEngine;
 
 	createEngine(dataType): IConverterEngine {
@@ -11,10 +11,10 @@ export class ConverterHandler{
 		}
 	}
 
-	getEngine(dataType): IConverterEngine{
-		if(this.coverterEngine && dataType === DataType.hl7v2) {
+	getEngine(dataType): IConverterEngine {
+		if (this.coverterEngine && dataType === DataType.hl7v2) {
 			return this.coverterEngine;
-		}else{
+		} else {
 			return this.createEngine(dataType);
 		}
 	}

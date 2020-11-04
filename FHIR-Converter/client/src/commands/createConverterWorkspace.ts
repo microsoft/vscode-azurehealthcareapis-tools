@@ -4,16 +4,16 @@ import * as workspace from '../common/workspace';
 import * as interaction from '../common/interaction';
 import localize from "../localize";
 import { ConverterError } from '../models/converter-error.model';
-import { ErrorHandler } from '../common/error-handler';
+import * as ErrorHandler from '../common/error-handler';
 
 export async function createConverterWorkspaceCommand() {
-	try{
+	try {
 		let templateFolder: vscode.Uri;
 		let dataFolder: vscode.Uri;
 		let workspacePath: vscode.Uri;
 
 		templateFolder = await interaction.openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
-		if (!templateFolder){
+		if (!templateFolder) {
 			return undefined;
 		}
 
@@ -32,7 +32,7 @@ export async function createConverterWorkspaceCommand() {
 		utils.wirtePrettyJson(workspacePath.fsPath, msg);
 
 		await vscode.commands.executeCommand('vscode.openFolder', workspacePath, false);
-	}catch(error){
-		new ErrorHandler(ConverterError.createConverterWorkspaceError, error).handle();
+	} catch (error) {
+		ErrorHandler.handle(ConverterError.createConverterWorkspaceError, error);
 	}
 }

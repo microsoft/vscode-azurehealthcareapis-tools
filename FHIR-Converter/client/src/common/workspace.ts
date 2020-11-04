@@ -2,7 +2,7 @@ import * as vscode from 'vscode';
 import * as path from 'path';
 import { globals } from '../init/globals';
 import localize from "../localize";
-import { ErrorHandler } from './error-handler';
+import * as ErrorHandler from './error-handler';
 import { ConverterError } from '../models/converter-error.model';
 import { ConverterHandler } from '../converter/converter-handler';
 import * as utils from './utils';
@@ -31,29 +31,29 @@ export function initWorkspace() {
 }
 
 export function syncTemplateFolder() {
-	try{
+	try {
 		const templateFolder: string = vscode.workspace.getConfiguration('fhirConverter').get('templateFolder');
 		if (templateFolder) {
 			const folders = vscode.workspace.workspaceFolders;
 			const folderName = utils.generatePrettyFolderName(templateFolder);
-			if(!folders){
+			if (!folders) {
 				vscode.workspace.updateWorkspaceFolders(0, null, {uri: vscode.Uri.file(templateFolder), name: folderName});
-			}else{
+			} else {
 				vscode.workspace.updateWorkspaceFolders(0, 1, {uri: vscode.Uri.file(templateFolder), name: folderName});
 			}
-		}else{
+		} else {
 			vscode.window.showInformationMessage(localize("messsage.noTemplateFolderProvided"));
 		}
-	}catch(error){
-		new ErrorHandler(ConverterError.updateConfiguration, error).handle();
+	} catch (error) {
+		ErrorHandler.handle(ConverterError.updateConfiguration, error);
 	}
 }
 
-export function converterWorkspaceExists(){
+export function converterWorkspaceExists() {
 	const workspaceFile = vscode.workspace.workspaceFile;
-	if( workspaceFile !== undefined && workspaceFile.fsPath.endsWith(localize("common.workspaceFileExtension"))){
+	if ( workspaceFile !== undefined && workspaceFile.fsPath.endsWith(localize("common.workspaceFileExtension"))) {
 		return true;
-	}else{
+	} else {
 		vscode.window.showInformationMessage(localize("messsage.needCreateWorkspace"));
 		return false;
 	}
@@ -81,7 +81,7 @@ export function generaterWorkspaceConfig(templateFolder: string, dataFolder: vsc
 
 export function getConfiguration(section: string, key: string, errorMessage): string {
 	const value: string = vscode.workspace.getConfiguration(section).get(key);
-	if(!value){
+	if (!value) {
 		vscode.window.showInformationMessage(errorMessage);
 		return undefined;
 	}

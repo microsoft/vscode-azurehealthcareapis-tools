@@ -4,18 +4,18 @@ import { conversionProcess } from '../common/conversion-process';
 import { globals } from '../init/globals';
 import localize from "../localize";
 import { ConverterError } from '../models/converter-error.model';
-import { ErrorHandler } from '../common/error-handler';
+import * as ErrorHandler from '../common/error-handler';
 
 export async function refreshPreviewCommand() {
-	try{
+	try {
 		const unsavedTemplates: vscode.TextDocument[] = interaction.getUnsavedTemplates('.liquid');
-		if (unsavedTemplates.length > 0){
+		if (unsavedTemplates.length > 0) {
 			interaction.askSaveTemplates(unsavedTemplates, localize("messsage.saveBeforeRefresh"), localize("messsage.save"), localize("messsage.ignore"));
-		}else{
+		} else {
 			await conversionProcess(globals.activeDataPath, globals.activeTemplatePath);
 		}
-	}catch(error){
-		new ErrorHandler(ConverterError.refreshPreviewError, error).handle();
+	} catch (error) {
+		ErrorHandler.handle(ConverterError.refreshPreviewError, error);
 	}
 }
 

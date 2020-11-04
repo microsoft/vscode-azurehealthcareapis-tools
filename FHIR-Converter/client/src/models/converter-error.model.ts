@@ -1,4 +1,4 @@
-export enum ConverterError{
+export enum ConverterError {
 	createConverterWorkspaceError = "error.createConverterWorkspace",
 	refreshPreviewError = "error.refreshPreview",
 	selectDataError = "error.selectData",

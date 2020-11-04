@@ -57,7 +57,7 @@ suite('Utils Test Suite', () => {
 
 	test('Function wirtePrettyJson - should write the pretty string from a json object to a file', () => {
 		const filePath = path.join(resultFolder, 'test.json');
-		if(fs.existsSync(filePath)){
+		if (fs.existsSync(filePath)) {
 			fs.unlinkSync(filePath);
 		}
 		assert.strictEqual(false, fs.existsSync(filePath));
@@ -78,7 +78,7 @@ suite('Utils Test Suite', () => {
 	});
 
 	test('Function getStatusBarString - should return a string which contains both template name and data name', () => {
-		const str = utils.getStatusBarString('myDataFile','myTemplateFile');
+		const str = utils.getStatusBarString('myDataFile', 'myTemplateFile');
 		assert.strictEqual("FHIR Converter: data - myDataFile, template - myTemplateFile", str);
 	});
 
@@ -87,7 +87,7 @@ suite('Utils Test Suite', () => {
 		const templateFolder = path.join(testPath, 'templates/Hl7v2');
 		const resultFile = path.join(resultFolder, 'temp.json');
 		const entryTemplate = 'ADT_A01';
-		if(fs.existsSync(resultFile)){
+		if (fs.existsSync(resultFile)) {
 			fs.unlinkSync(resultFile);
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
@@ -102,7 +102,7 @@ suite('Utils Test Suite', () => {
 		const templateFolder = path.join(testPath, 'templates/Hl7v2');
 		const resultFile = path.join(resultFolder, 'temp.json');
 		const entryTemplate = 'ADT_A01';
-		if(fs.existsSync(resultFile)){
+		if (fs.existsSync(resultFile)) {
 			fs.unlinkSync(resultFile);
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
@@ -117,7 +117,7 @@ suite('Utils Test Suite', () => {
 		const templateFolder = path.join(testPath, 'templates/Hl7v2');
 		const resultFile = path.join(resultFolder, 'temp.json');
 		const entryTemplate = 'ADT_A01_Error';
-		if(fs.existsSync(resultFile)){
+		if (fs.existsSync(resultFile)) {
 			fs.unlinkSync(resultFile);
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
@@ -132,7 +132,7 @@ suite('Utils Test Suite', () => {
 		const templateFolder = path.join(testPath, 'templates');
 		const resultFile = path.join(resultFolder, 'temp.json');
 		const entryTemplate = 'ADT_A01';
-		if(fs.existsSync(resultFile)){
+		if (fs.existsSync(resultFile)) {
 			fs.unlinkSync(resultFile);
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
@@ -144,7 +144,7 @@ suite('Utils Test Suite', () => {
 
 	test('Function createFolders - should can create recursive folders', () => {
 		const targetFolders = path.join(resultFolder, 'frist/second');
-		if(fs.existsSync(targetFolders)){
+		if (fs.existsSync(targetFolders)) {
 			fs.rmdirSync(targetFolders);
 		}
 		utils.checkCreateFolders(targetFolders);

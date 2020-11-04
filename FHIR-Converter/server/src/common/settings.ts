@@ -29,7 +29,7 @@ export class SettingsManager {
 		
 	private hasConfigurationCapability: boolean = false;
 
-	constructor (private connection: Connection, capabilities: ClientCapabilities, callback: (doc: TextDocument) => void){
+	constructor (private connection: Connection, capabilities: ClientCapabilities, callback: (doc: TextDocument) => void) {
 		// Does the client support the `workspace/configuration` request?
 		// If not, we will fall back using global settings
 		this.hasConfigurationCapability = !!(
