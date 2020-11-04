@@ -46,6 +46,10 @@ export function getStatusBarString(activeDataPath: string | undefined, activeTem
     return str;
 }
 
+export function getResultFileName(dataName, templateName){
+    return `${dataName} - ${templateName}.json`;
+}
+
 
 
 

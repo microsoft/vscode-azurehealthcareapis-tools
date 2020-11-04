@@ -3,6 +3,7 @@ import { DataType } from '../models/data-type.model';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as cp from 'child_process';
+import * as utils from '../common/utils';
 
 export class Hl7v2ConverterEngine implements IConverterEngine {
 	type: DataType;

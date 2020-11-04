@@ -151,5 +151,11 @@ suite('Utils Test Suite', () => {
 		assert.strictEqual(true, fs.existsSync(targetFolders));
 	});
 
+	test('Function getResultFileName - should return file name with data filename and template filename', () => {
+		let templateFile = 'ADT_A01.liquid';
+		let dataFile = 'ADT01-23.hl7';
+		assert.strictEqual('ADT01-23.hl7 - ADT_A01.liquid.json', utils.getResultFileName(dataFile, templateFile));
+	});
+	
 
 });
