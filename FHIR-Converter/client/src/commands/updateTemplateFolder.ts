@@ -1,16 +1,17 @@
 import * as vscode from 'vscode';
-import { converterWorkspaceExists, openDialogSelectFolder } from '../common/utils';
+import * as workspace from '../common/workspace';
+import * as interaction from '../common/interaction';
 import localize from "../localize";
-import { ConverterError } from '../common/constants';
+import { ConverterError } from '../models/converter-error.model';
 import { ErrorHandler } from '../common/error-handler';
 
 export async function updateTemplateFolderCommand() {
 	try{
-		if(!converterWorkspaceExists()){
+		if(!workspace.converterWorkspaceExists()){
 			return undefined;
 		}
 		
-		let templateFolder: vscode.Uri = await openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
+		let templateFolder: vscode.Uri = await interaction.openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
 		if (!templateFolder){
 			return undefined;
 		}

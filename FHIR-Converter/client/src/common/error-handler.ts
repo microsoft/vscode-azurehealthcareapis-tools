@@ -1,4 +1,4 @@
-import { ConverterError } from './constants';
+import { ConverterError } from '../models/converter-error.model';
 import * as vscode from 'vscode';
 import localize from "../localize";
 

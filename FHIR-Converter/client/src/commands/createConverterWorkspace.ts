@@ -1,7 +1,9 @@
 import * as vscode from 'vscode';
-import { openDialogSelectFolder, generaterWorkspaceConfig, showDialogSaveWorkspace, wirtePrettyJson } from '../common/utils';
+import * as utils from '../common/utils';
+import * as workspace from '../common/workspace';
+import * as interaction from '../common/interaction';
 import localize from "../localize";
-import { ConverterError } from '../common/constants';
+import { ConverterError } from '../models/converter-error.model';
 import { ErrorHandler } from '../common/error-handler';
 
 export async function createConverterWorkspaceCommand() {
@@ -10,24 +12,24 @@ export async function createConverterWorkspaceCommand() {
 		let dataFolder: vscode.Uri;
 		let workspacePath: vscode.Uri;
 
-		templateFolder = await openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
+		templateFolder = await interaction.openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
 		if (!templateFolder){
 			return undefined;
 		}
 
-		dataFolder = await openDialogSelectFolder(localize("messsage.selectDataFolder"), localize("messsage.noDataFolderProvided"));
+		dataFolder = await interaction.openDialogSelectFolder(localize("messsage.selectDataFolder"), localize("messsage.noDataFolderProvided"));
 		if (!dataFolder) {
 			return undefined;
 		}
 
-		workspacePath = await showDialogSaveWorkspace(localize("messsage.saveWorkspaceFileAs"), localize("messsage.noWorkspacePathProvided"), localize("common.workspaceFileExtension"));
+		workspacePath = await interaction.showDialogSaveWorkspace(localize("messsage.saveWorkspaceFileAs"), localize("messsage.noWorkspacePathProvided"), localize("common.workspaceFileExtension"));
 		if (!workspacePath) {
 			return undefined;
 		}
 
-		let msg = generaterWorkspaceConfig(templateFolder.fsPath, dataFolder);
+		let msg = workspace.generaterWorkspaceConfig(templateFolder.fsPath, dataFolder);
 
-		wirtePrettyJson(workspacePath.fsPath, msg);
+		utils.wirtePrettyJson(workspacePath.fsPath, msg);
 
 		await vscode.commands.executeCommand('vscode.openFolder', workspacePath, false);
 	}

@@ -6,13 +6,3 @@ export enum ConverterError{
 	updateTemplateFolderError = "error.selectTemplate",
 	updateConfiguration = "error.updateConfiguration"
 }
-
-export enum Status { 
-    Fail = "Fail", 
-    OK = "OK" 
-}
-
-export enum FileType { 
-    template = 'template', 
-    data = 'data' 
-}

@@ -1,12 +1,16 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as utils from '../common/utils';
+import * as utils from './utils';
+import * as workspace from './workspace';
+import * as interaction from './interaction';
 import localize from "../localize";
+import { globals } from '../init/globals';
+import { DataType } from '../models/data-type.model';
 
-export async function fhirConversion(activeDataPath: string, activeTemplatePath: string) {
+export async function conversionProcess(activeDataPath: string, activeTemplatePath: string) {
     try{
-        if(!utils.converterWorkspaceExists()){
+        if(!workspace.converterWorkspaceExists()){
             return undefined;
         }
         
@@ -29,7 +33,7 @@ export async function fhirConversion(activeDataPath: string, activeTemplatePath:
         });
 
         // save result
-        let resultFolder:string = utils.getConfiguration('fhirConverter', 'resultFolder', localize("messsage.noResultFolderProvided"));
+        let resultFolder:string = workspace.getConfiguration('fhirConverter', 'resultFolder', localize("messsage.noResultFolderProvided"));
         if(!resultFolder){
             return undefined;
         }
@@ -37,12 +41,13 @@ export async function fhirConversion(activeDataPath: string, activeTemplatePath:
         const dataName = path.basename(activeDataPath);
         const templateName = path.basename(activeTemplatePath);
         let dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-        let templateFolder: string = utils.getConfiguration('fhirConverter', 'templateFolder', localize("messsage.noTemplateFolderProvided"));
+        let templateFolder: string = workspace.getConfiguration('fhirConverter', 'templateFolder', localize("messsage.noTemplateFolderProvided"));
         if(!templateFolder){
             return undefined;
         }
         
-        let msg = await utils.convert(dataDoc, utils.getTemplateNameWithoutExt(templateName), templateFolder, resultFolder)
+        // get the data type from configuration later
+        let msg = globals.coverterEngineHandler.getEngine(DataType.hl7v2).convert(dataDoc, utils.getTemplateNameWithoutExt(templateName), templateFolder, resultFolder)
 
         if(!utils.checkEngineStatus(msg)){
             throw new Error(msg.ErrorMessage);
@@ -63,7 +68,7 @@ export async function fhirConversion(activeDataPath: string, activeTemplatePath:
 
         // show differential view
         if(exists){
-            utils.updateEditorContext(resultEditor, utils.convertPrettyJsonString(msg.FhirResource));
+            interaction.updateEditorContext(resultEditor, utils.convertPrettyJsonString(msg.FhirResource));
             vscode.commands.executeCommand('workbench.files.action.compareWithSaved');
         }
     }

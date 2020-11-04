@@ -3,6 +3,8 @@ import * as fs from 'fs';
 import * as utils from '../../common/utils';
 import * as path from 'path';
 import * as vscode from 'vscode';
+import { DataType } from '../../models/data-type.model';
+import { ConverterHandler } from '../../converter/converter-handler';
 
 suite('Utils Test Suite', () => {
 	const testPath = path.join(__dirname, '../../../../test-data');
@@ -27,6 +29,8 @@ suite('Utils Test Suite', () => {
 	}
 
 	const resultFolder = path.join(testPath, 'result');
+
+	const hl7v2Engine = new ConverterHandler().getEngine(DataType.hl7v2);
 
 	test('Function getTemplateNameWithoutExt - should return template name without extension', () => {
 		let templateName = utils.getTemplateNameWithoutExt("ADT_A01.liquid");
@@ -88,7 +92,7 @@ suite('Utils Test Suite', () => {
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
 		let dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-		let msg = await utils.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
+		let msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('OK', msg.Status);
 	}).timeout(20000);
@@ -103,7 +107,7 @@ suite('Utils Test Suite', () => {
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
 		let dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-		let msg = await utils.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
+		let msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('Fail', msg.Status);
 	});
@@ -118,7 +122,7 @@ suite('Utils Test Suite', () => {
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
 		let dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-		let msg = await utils.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
+		let msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('Fail', msg.Status);
 	});
@@ -133,7 +137,7 @@ suite('Utils Test Suite', () => {
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
 		let dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-		let msg = await utils.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
+		let msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('Fail', msg.Status);
 	});
