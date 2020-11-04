@@ -1,9 +1,8 @@
-import { IConverterEngine } from './converter-engine'
+import { IConverterEngine } from './converter-engine';
 import { DataType } from '../models/data-type.model';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as cp from 'child_process';
-import * as utils from '../common/utils';
 
 export class Hl7v2ConverterEngine implements IConverterEngine {
 	type: DataType;
@@ -11,14 +10,15 @@ export class Hl7v2ConverterEngine implements IConverterEngine {
 	
 	constructor(type: DataType, exePath?: string) { 
 		this.type = type; 
-		if (exePath)
+		if (exePath) {
 			this.exePath = exePath;
+		}
 	}
 
 	convert(dataContext: string, entryTemplate: string, templateFolder: string, resultFolder: string): any {
-		let resultFile = path.join(resultFolder, 'temp.json');
+		const resultFile = path.join(resultFolder, 'temp.json');
 		cp.execFileSync(this.exePath, ['-d', templateFolder, '-n',  entryTemplate, '-c', dataContext, '-f', resultFile]);
-		let returnMsg = JSON.parse(fs.readFileSync(resultFile).toString());
+		const returnMsg = JSON.parse(fs.readFileSync(resultFile).toString());
 		return returnMsg;
 	}
 	

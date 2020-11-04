@@ -6,14 +6,15 @@ export class ConverterHandler{
 	private coverterEngine: IConverterEngine;
 
 	createEngine(dataType): IConverterEngine {
-		if (dataType === DataType.hl7v2)
+		if (dataType === DataType.hl7v2) {
 			return new Hl7v2ConverterEngine(DataType.hl7v2);
+		}
 	}
 
 	getEngine(dataType): IConverterEngine{
-		if(this.coverterEngine && dataType === DataType.hl7v2)
+		if(this.coverterEngine && dataType === DataType.hl7v2) {
 			return this.coverterEngine;
-		else{
+		}else{
 			return this.createEngine(dataType);
 		}
 	}

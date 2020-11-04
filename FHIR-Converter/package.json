@@ -134,7 +134,8 @@
 		"watch": "tsc -b -w",
 		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
 		"test": "npm run compile && node ./client/out/test/runTest.js && node ./server/out/test/runTest.js",
-		"package": "vsce package"
+		"package": "vsce package",
+		"lint": "tslint --fix client/src/**/*.ts  server/src/**/*.ts"
 	},
 	"devDependencies": {
 		"@types/node": "^12.12.0",

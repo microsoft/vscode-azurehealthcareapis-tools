@@ -29,16 +29,16 @@ import localize from "./localize";
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
-let connection = createConnection(ProposedFeatures.all);
+const connection = createConnection(ProposedFeatures.all);
 
 // Create a simple text document manager. The text document manager
 // supports full document sync only
-let documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
+const documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 
 let settingsManager: SettingsManager;
 
 connection.onInitialize((params: InitializeParams) => {
-	let capabilities = params.capabilities;
+	const capabilities = params.capabilities;
 
 	settingsManager = new SettingsManager(connection, capabilities, validateTextDocument);
 
@@ -78,14 +78,14 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 	const pattern = /(\{\%\s*include\s*\')([^\']*)/g;
 	let m: RegExpExecArray | null;
 
-	let templateFolder = await getTemplateFolder(textDocument.uri); 
+	const templateFolder = await getTemplateFolder(textDocument.uri); 
 	const templates = utils.getAllTemplatePaths(templateFolder);
 
-	let diagnostics: Diagnostic[] = [];
+	const diagnostics: Diagnostic[] = [];
 	while ((m = pattern.exec(text))) {
-		let partialTemplate = utils.addUnderlineExt((m)[2]);
+		const partialTemplate = utils.addUnderlineExt((m)[2]);
 		if (!templates.some(uri => uri === partialTemplate)) {
-			let diagnostic: Diagnostic = {
+			const diagnostic: Diagnostic = {
 				severity: DiagnosticSeverity.Error,
 				range: {
 					start: textDocument.positionAt(m.index + m[1].length),
@@ -106,13 +106,13 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 // This handler provides the initial list of the completion items.
 connection.onCompletion( async (_textDocumentPosition: TextDocumentPositionParams): Promise<CompletionItem[]> => {
 	const templates = utils.getAllTemplatePaths(await getTemplateFolder(_textDocumentPosition.textDocument.uri));
-	let allPartialTemplates = [];
-	let index = 0
+	const allPartialTemplates = [];
+	let index = 0;
 	for(let templatePath of templates){
-		let dirname = path.dirname(templatePath);
-		let basename = path.basename(templatePath);
+		const dirname = path.dirname(templatePath);
+		const basename = path.basename(templatePath);
 		if(basename === undefined || basename[0] !== '_'){
-			continue
+			continue;
 		}
 		templatePath = utils.getSnippetTemplateName(dirname, basename);
 		allPartialTemplates.push(
@@ -143,8 +143,8 @@ connection.onDefinition(async (params: DefinitionParams): Promise<DefinitionLink
 	const pattern = /\'(.*)\'/g;
 	let match: RegExpExecArray | null;
 	if ((match = pattern.exec(contextString)) !== null) {
-		let relativeFilePath = utils.addUnderlineExt(match[1]);
-		let templateFolder = await getTemplateFolder(params.textDocument.uri);
+		const relativeFilePath = utils.addUnderlineExt(match[1]);
+		const templateFolder = await getTemplateFolder(params.textDocument.uri);
 		if (utils.getAllTemplatePaths(templateFolder).some(uri => uri === relativeFilePath)) {
 			const fileUri = 'file:///' + templateFolder + '/' + relativeFilePath;
 			const firstChar = {
@@ -163,7 +163,7 @@ connection.onDefinition(async (params: DefinitionParams): Promise<DefinitionLink
 					targetRange: firstChar,
 					targetSelectionRange: firstChar
 				}
-			]
+			];
 		}
 	}
 	return [];
@@ -174,11 +174,11 @@ function getSuroundingText(location: TextDocumentPositionParams): string {
 	const start = {
 		line: location.position.line,
 		character: 0
-	}
+	};
 	const end = {
 		line: location.position.line + 1,
 		character: 0
-	} 
+	}; 
 
 	const targetLine = documents.get(location.textDocument.uri)?.getText({start, end}).trimRight();
 	if (!targetLine) {
@@ -199,7 +199,7 @@ function getSuroundingText(location: TextDocumentPositionParams): string {
 }
 
 export async function getTemplateFolder(uri: string): Promise<string> {
-	let templateFolder = path.normalize((await settingsManager.getDocumentSettings(uri)).templateFolder);
+	const templateFolder = path.normalize((await settingsManager.getDocumentSettings(uri)).templateFolder);
 	return templateFolder;
 }
 

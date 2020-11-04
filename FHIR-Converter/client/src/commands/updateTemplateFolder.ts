@@ -11,13 +11,12 @@ export async function updateTemplateFolderCommand() {
 			return undefined;
 		}
 		
-		let templateFolder: vscode.Uri = await interaction.openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
+		const templateFolder: vscode.Uri = await interaction.openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
 		if (!templateFolder){
 			return undefined;
 		}
 		vscode.workspace.getConfiguration('fhirConverter').update('templateFolder', templateFolder.fsPath, false);
-	}
-	catch(error){
+	}catch(error){
 		new ErrorHandler(ConverterError.updateTemplateFolderError, error).handle();
 	}
 }

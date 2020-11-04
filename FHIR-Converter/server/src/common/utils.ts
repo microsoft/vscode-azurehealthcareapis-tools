@@ -2,7 +2,7 @@ import * as path from 'path';
 import * as glob from 'glob';
 
 export function addUnderlineExt(filePath: string){
-	filePath = path.join(path.dirname(filePath), '_' + path.basename(filePath) + '.liquid')
+	filePath = path.join(path.dirname(filePath), '_' + path.basename(filePath) + '.liquid');
 	filePath = filePath.replace(/\\/g,'/');
 	return filePath;
 }

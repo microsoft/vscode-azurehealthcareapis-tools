@@ -6,8 +6,7 @@ import * as interaction from '../common/interaction';
 export async function selectDataCommand(event) {
 	try{
 		interaction.selectFileFromExplorer(event, FileType.data);
-	}
-	catch(error){
+	}catch(error){
 		new ErrorHandler(ConverterError.selectDataError, error).handle();
 	}
 }

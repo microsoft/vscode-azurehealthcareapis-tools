@@ -6,8 +6,7 @@ import * as interaction from '../common/interaction';
 export async function selectTemplateCommand(event) {
 	try{
 		interaction.selectFileFromExplorer(event, FileType.template);
-	}
-	catch(error){
+	}catch(error){
 		new ErrorHandler(ConverterError.selectTemplateError, error).handle();
 	}
 }

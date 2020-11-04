@@ -20,20 +20,20 @@ suite('Utils Test Suite', () => {
 				}
 			}]
 		}
-	}
+	};
 
 	const msgFail = {
 		Status: "Fail",
 		ErrorType: "System.FormatException",
 		ErrorMessage: "Invalid Hl7 v2 message, first segment id = |^~"
-	}
+	};
 
 	const resultFolder = path.join(testPath, 'result');
 
 	const hl7v2Engine = new ConverterHandler().getEngine(DataType.hl7v2);
 
 	test('Function getTemplateNameWithoutExt - should return template name without extension', () => {
-		let templateName = utils.getTemplateNameWithoutExt("ADT_A01.liquid");
+		const templateName = utils.getTemplateNameWithoutExt("ADT_A01.liquid");
 		assert.strictEqual("ADT_A01", templateName);
 	});
 
@@ -46,104 +46,104 @@ suite('Utils Test Suite', () => {
 	});
 
 	test('Function convertPrettyJsonString - should output the pretty string from a json object', () => {
-		let prettyStr = utils.convertPrettyJsonString(msgOk);
+		const prettyStr = utils.convertPrettyJsonString(msgOk);
 		assert.strictEqual(JSON.stringify(msgOk, null, 4), prettyStr);
 	});
 
 	test('Function generatePrettyFolderName - should append the string \'(Templates)\' to the template folder name at the exploerer view', () => {
-		let prettyFolderName = utils.generatePrettyFolderName('Hl7v2');
+		const prettyFolderName = utils.generatePrettyFolderName('Hl7v2');
 		assert.strictEqual('Hl7v2 (Templates)', prettyFolderName);
 	});
 
 	test('Function wirtePrettyJson - should write the pretty string from a json object to a file', () => {
-		let filePath = path.join(resultFolder, 'test.json');
+		const filePath = path.join(resultFolder, 'test.json');
 		if(fs.existsSync(filePath)){
 			fs.unlinkSync(filePath);
 		}
 		assert.strictEqual(false, fs.existsSync(filePath));
-		utils.wirtePrettyJson(filePath, msgOk)
+		utils.wirtePrettyJson(filePath, msgOk);
 		assert.strictEqual(true, fs.existsSync(filePath));
-		let obj = JSON.parse(fs.readFileSync(filePath).toString());
+		const obj = JSON.parse(fs.readFileSync(filePath).toString());
 		assert.strictEqual('OK', obj.Status);
 	});
 
 	test('Function getStatusBarString - should return a string which contains template name, but without data name', () => {
-		let str = utils.getStatusBarString(undefined, 'myTemplateFile');
+		const str = utils.getStatusBarString(undefined, 'myTemplateFile');
 		assert.strictEqual("FHIR Converter: data - none, template - myTemplateFile", str);
 	});
 
 	test('Function getStatusBarString - should return a string which contains the data name, but without template name', () => {
-		let str = utils.getStatusBarString('myDataFile', undefined);
+		const str = utils.getStatusBarString('myDataFile', undefined);
 		assert.strictEqual("FHIR Converter: data - myDataFile, template - none", str);
 	});
 
 	test('Function getStatusBarString - should return a string which contains both template name and data name', () => {
-		let str = utils.getStatusBarString('myDataFile','myTemplateFile');
+		const str = utils.getStatusBarString('myDataFile','myTemplateFile');
 		assert.strictEqual("FHIR Converter: data - myDataFile, template - myTemplateFile", str);
 	});
 
 	test('Function convert - should return a json object with OK status given data, template and template folder', async () => {
-		let activeDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23.hl7');
-		let templateFolder = path.join(testPath, 'templates/Hl7v2');
-		let resultFile = path.join(resultFolder, 'temp.json');
-		let entryTemplate = 'ADT_A01';
+		const activeDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23.hl7');
+		const templateFolder = path.join(testPath, 'templates/Hl7v2');
+		const resultFile = path.join(resultFolder, 'temp.json');
+		const entryTemplate = 'ADT_A01';
 		if(fs.existsSync(resultFile)){
 			fs.unlinkSync(resultFile);
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
-		let dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-		let msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
+		const dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
+		const msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('OK', msg.Status);
 	}).timeout(20000);
 
 	test('Function convert - should return a json object with Fail status given invalid data', async () => {
-		let activeDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23-error.hl7');
-		let templateFolder = path.join(testPath, 'templates/Hl7v2');
-		let resultFile = path.join(resultFolder, 'temp.json');
-		let entryTemplate = 'ADT_A01';
+		const activeDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23-error.hl7');
+		const templateFolder = path.join(testPath, 'templates/Hl7v2');
+		const resultFile = path.join(resultFolder, 'temp.json');
+		const entryTemplate = 'ADT_A01';
 		if(fs.existsSync(resultFile)){
 			fs.unlinkSync(resultFile);
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
-		let dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-		let msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
+		const dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
+		const msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('Fail', msg.Status);
 	});
 
 	test('Function convert - should return a json object with Fail status given invalid template', async () => {
-		let activeDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23.hl7');
-		let templateFolder = path.join(testPath, 'templates/Hl7v2');
-		let resultFile = path.join(resultFolder, 'temp.json');
-		let entryTemplate = 'ADT_A01_Error';
+		const activeDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23.hl7');
+		const templateFolder = path.join(testPath, 'templates/Hl7v2');
+		const resultFile = path.join(resultFolder, 'temp.json');
+		const entryTemplate = 'ADT_A01_Error';
 		if(fs.existsSync(resultFile)){
 			fs.unlinkSync(resultFile);
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
-		let dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-		let msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
+		const dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
+		const msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('Fail', msg.Status);
 	});
 
 	test('Function convert - should return a json object with Fail status given invalid template folder', async () => {
-		let activeDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23.hl7');
-		let templateFolder = path.join(testPath, 'templates');
-		let resultFile = path.join(resultFolder, 'temp.json');
-		let entryTemplate = 'ADT_A01';
+		const activeDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23.hl7');
+		const templateFolder = path.join(testPath, 'templates');
+		const resultFile = path.join(resultFolder, 'temp.json');
+		const entryTemplate = 'ADT_A01';
 		if(fs.existsSync(resultFile)){
 			fs.unlinkSync(resultFile);
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
-		let dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-		let msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
+		const dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
+		const msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('Fail', msg.Status);
 	});
 
 	test('Function createFolders - should can create recursive folders', () => {
-		let targetFolders = path.join(resultFolder, 'frist/second');
+		const targetFolders = path.join(resultFolder, 'frist/second');
 		if(fs.existsSync(targetFolders)){
 			fs.rmdirSync(targetFolders);
 		}
@@ -152,8 +152,8 @@ suite('Utils Test Suite', () => {
 	});
 
 	test('Function getResultFileName - should return file name with data filename and template filename', () => {
-		let templateFile = 'ADT_A01.liquid';
-		let dataFile = 'ADT01-23.hl7';
+		const templateFile = 'ADT_A01.liquid';
+		const dataFile = 'ADT01-23.hl7';
 		assert.strictEqual('ADT01-23.hl7 - ADT_A01.liquid.json', utils.getResultFileName(dataFile, templateFile));
 	});
 	

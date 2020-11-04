@@ -27,13 +27,12 @@ export async function createConverterWorkspaceCommand() {
 			return undefined;
 		}
 
-		let msg = workspace.generaterWorkspaceConfig(templateFolder.fsPath, dataFolder);
+		const msg = workspace.generaterWorkspaceConfig(templateFolder.fsPath, dataFolder);
 
 		utils.wirtePrettyJson(workspacePath.fsPath, msg);
 
 		await vscode.commands.executeCommand('vscode.openFolder', workspacePath, false);
-	}
-	catch(error){
+	}catch(error){
 		new ErrorHandler(ConverterError.createConverterWorkspaceError, error).handle();
 	}
 }
