@@ -51,7 +51,7 @@ export async function fhirConversion(activeDataPath: string, activeTemplatePath:
         const resultFileName = path.join(resultFolder ,dataName + ' - ' + templateName + '.json');
         let exists = fs.existsSync(resultFileName);
         if(!exists){
-            utils.checkFolderWirtePrettyJson(resultFileName, msg);
+            utils.checkFolderWirtePrettyJson(resultFileName, msg.FhirResource);
         }
 
         // show result
