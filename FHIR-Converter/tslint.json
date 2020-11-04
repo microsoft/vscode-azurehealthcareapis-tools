@@ -1,6 +1,7 @@
 {
 	"rules": {
         "indent": [true, "tabs", 4],
+        "no-var-keyword": true,
         "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
         "prefer-const": [true, {"destructuring": "all"}],
         "no-unused-expression": true,

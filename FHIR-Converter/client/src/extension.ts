@@ -14,7 +14,7 @@ import { globals } from './init/globals';
 import * as workspace from './common/workspace';
 import * as vscode from 'vscode';
 
-var client: LanguageClient;
+let client: LanguageClient;
 
 export async function activate(context: vscode.ExtensionContext) {
 	globals.context = context;
