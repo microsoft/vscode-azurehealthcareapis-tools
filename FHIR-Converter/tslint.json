@@ -1,5 +1,5 @@
 {
-	"rules": {
+    "rules": {
         "indent": [true, "tabs", 4],
         "whitespace": [
                 true,
@@ -8,7 +8,7 @@
                 "check-operator",
                 "check-separator",
                 "check-type"
-              ],
+        ],
         "no-var-keyword": true,
         "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
         "prefer-const": [true, {"destructuring": "all"}],
@@ -57,5 +57,5 @@
         "no-submodule-imports": false,
         "no-redundant-jsdoc": false,
         "binary-expression-operand-order": false
-	}
+    }
 }
