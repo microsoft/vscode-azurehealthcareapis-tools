@@ -3,7 +3,6 @@ import * as path from 'path';
 import { globals } from '../init/globals';
 import { getStatusBarString } from './utils';
 import { FileType } from '../models/file-type';
-import { fhirConversion } from '../commands/fhirConversion';
 
 export async function openDialogSelectFolder(label: string) {
 	const selectedFolder = await vscode.window.showOpenDialog({ canSelectMany: false, canSelectFiles: false, canSelectFolders: true, openLabel: label });
@@ -24,13 +23,15 @@ export async function showDialogSaveWorkspace(label: string, filter: string) {
 }
 
 export function askSaveTemplates(unsavedTemplates: vscode.TextDocument[], infoMessage: string, acceptButtonLabel: string, rejectButtonLabel: string) {
-	vscode.window.showWarningMessage(infoMessage, acceptButtonLabel, rejectButtonLabel)
+	return new Promise(resolve => {
+		vscode.window.showWarningMessage(infoMessage, acceptButtonLabel, rejectButtonLabel)
 		.then(async function (select) {
 			if (select === acceptButtonLabel) {
 				await saveAllFiles(unsavedTemplates);
 			}
-			await fhirConversion(globals.activeDataPath, globals.activeTemplatePath);
+			resolve();
 		});
+	});
 }
 
 export function updateEditorContext(resultEditor: vscode.TextEditor, msg: string) {
