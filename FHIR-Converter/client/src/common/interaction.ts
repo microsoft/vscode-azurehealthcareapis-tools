@@ -1,37 +1,25 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { globals } from '../init/globals';
-import localize from "../localize";
 import { getStatusBarString } from './utils';
-import { FileType } from '../models/file-type.model';
-import { conversionProcess } from '../common/conversion-process';
+import { FileType } from '../models/file-type';
+import { fhirConversion } from '../commands/fhirConversion';
 
-export async function openDialogSelectFolder(label: string, errorMessage: string) {
+export async function openDialogSelectFolder(label: string) {
 	const selectedFolder = await vscode.window.showOpenDialog({ canSelectMany: false, canSelectFiles: false, canSelectFolders: true, openLabel: label });
 	if (!selectedFolder) {
-		vscode.window.showInformationMessage(errorMessage);
 		return undefined;
 	} else {
 		return selectedFolder[0];
 	}
 }
 
-export async function showDialogSaveWorkspace(label: string, errorMessage: string, filter: string) {
+export async function showDialogSaveWorkspace(label: string, filter: string) {
 	const workspacePath = await vscode.window.showSaveDialog({saveLabel: label, filters: {'workspace': [filter]}});
 	if (!workspacePath) {
-		vscode.window.showInformationMessage(errorMessage);
 		return undefined;
 	} else {
 		return workspacePath;
-	}
-}
-
-export async function selectFileFromExplorer(event: any, type: FileType) {
-	if (event && event.fsPath) {
-		updateActiveFile(event.fsPath, type);
-		await conversionProcess(globals.activeDataPath, globals.activeTemplatePath);
-	} else {
-		vscode.window.showErrorMessage(localize("messsage.failSelectData"));
 	}
 }
 
@@ -39,9 +27,9 @@ export function askSaveTemplates(unsavedTemplates: vscode.TextDocument[], infoMe
 	vscode.window.showWarningMessage(infoMessage, acceptButtonLabel, rejectButtonLabel)
 		.then(async function (select) {
 			if (select === acceptButtonLabel) {
-				saveAllFiles(unsavedTemplates);
+				await saveAllFiles(unsavedTemplates);
 			}
-			await conversionProcess(globals.activeDataPath, globals.activeTemplatePath);
+			await fhirConversion(globals.activeDataPath, globals.activeTemplatePath);
 		});
 }
 
@@ -62,10 +50,8 @@ export function getUnsavedTemplates(type: string) {
 	return unsavedTemplates;
 }
 
-export function saveAllFiles(unsavedFiles: vscode.TextDocument[]) {
-	for (const doc of unsavedFiles) {
-		doc.save();
-	}
+export async function saveAllFiles(unsavedFiles: vscode.TextDocument[]) {
+	await Promise.all(unsavedFiles.map(doc => doc.save()));
 }
 
 export function updateActiveFile(file: string, type: FileType) {

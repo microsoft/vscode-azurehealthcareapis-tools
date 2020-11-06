@@ -5,55 +5,28 @@
 
 import { LanguageClient } from 'vscode-languageclient';
 import { generateLanguageClient } from './init/language-client';
-import { createConverterWorkspaceCommand } from './commands/createConverterWorkspace';
-import { refreshPreviewCommand } from  './commands/refreshPreview';
-import { updateTemplateFolderCommand } from  './commands/updateTemplateFolder';
-import { selectTemplateCommand } from  './commands/selectTemplate';
-import { selectDataCommand } from  './commands/selectData';
 import { globals } from './init/globals';
 import * as workspace from './common/workspace';
 import * as vscode from 'vscode';
+import { CommandID }  from './models/command-id';
+import { registerCommand }  from './common/command';
 
 let client: LanguageClient;
 
 export async function activate(context: vscode.ExtensionContext) {
+	// init workspace
 	globals.context = context;
 	workspace.initWorkspace();
-
-	const disposableCreateConverterWorkspace = vscode.commands.registerCommand(
-		'microsoft.health.fhir.converter.createConverterWorkspace', 
-		createConverterWorkspaceCommand
-	);
-
-	const disposableRefreshPreview = vscode.commands.registerCommand(
-		'microsoft.health.fhir.converter.refreshPreview', 
-		refreshPreviewCommand
-	);
-
-	const disposableUpdateTemplateFolder = vscode.commands.registerCommand(
-		'microsoft.health.fhir.converter.updateTemplateFolder',
-		updateTemplateFolderCommand
-	);
-
-	const disposableSelectTemplate = vscode.commands.registerCommand(
-		'microsoft.health.fhir.converter.selectTemplate',
-		selectTemplateCommand
-	);
-
-	const disposableSelectData = vscode.commands.registerCommand(
-		'microsoft.health.fhir.converter.selectData',
-		selectDataCommand
-	);
+	
+	// register commands
+	for (const item in CommandID) {
+		// context.subscriptions.push(vscode.commands.registerCommand(commandID, commandHandler, commandID));
+		registerCommand(context, CommandID[item]);
+	}
 
 	// Start the client. This will also launch the server
-	client = generateLanguageClient(globals.context);
+	client = generateLanguageClient(context);
 	client.start();
-	
-	globals.context.subscriptions.push(disposableCreateConverterWorkspace);
-	globals.context.subscriptions.push(disposableRefreshPreview);
-	globals.context.subscriptions.push(disposableUpdateTemplateFolder);
-	globals.context.subscriptions.push(disposableSelectTemplate);
-	globals.context.subscriptions.push(disposableSelectData);
 }
 
 export function deactivate(context: vscode.ExtensionContext): Thenable<void> | undefined {

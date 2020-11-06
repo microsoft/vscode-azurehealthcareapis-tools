@@ -1,12 +1,12 @@
-import { IConverterEngine } from './converter-engine';
-import { DataType } from '../models/data-type.model';
+import { IConverterEngine } from './interface-converter-engine';
+import { DataType } from '../models/data-type';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as cp from 'child_process';
 
 export class Hl7v2ConverterEngine implements IConverterEngine {
 	type: DataType;
-	exePath: string = path.join(__dirname, "../../engine/Microsoft.Health.Fhir.Converter.Tool.exe");
+	exePath: string = path.join(__dirname, '../../engine/Microsoft.Health.Fhir.Converter.Tool.exe');
 	
 	constructor(type: DataType, exePath?: string) { 
 		this.type = type; 

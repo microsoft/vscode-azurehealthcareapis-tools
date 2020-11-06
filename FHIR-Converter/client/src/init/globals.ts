@@ -5,5 +5,5 @@ export module globals {
 	export let activeTemplatePath: string;
 	export let activeDataPath: string;
 	export let context: vscode.ExtensionContext;
-	export let coverterEngineHandler: ConverterHandler;
+	export let converterEngineHandler: ConverterHandler;
 }

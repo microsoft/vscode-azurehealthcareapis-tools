@@ -25,7 +25,7 @@ import {
 import * as path from 'path';
 import { SettingsManager } from './common/settings';
 import * as utils from './common/utils';
-import localize from "./localize";
+import localize from './localize';
 
 // Create a connection for the server. The connection uses Node's IPC as a transport.
 // Also include all preview / proposed LSP features.
@@ -68,8 +68,8 @@ connection.onInitialize((params: InitializeParams) => {
 
 // The content of a text document has changed. This event is emitted
 // when the text document first opened or when its content has changed.
-documents.onDidChangeContent(change => {
-	validateTextDocument(change.document);
+documents.onDidChangeContent(async change => {
+	await validateTextDocument(change.document);
 });
 
 async function validateTextDocument(textDocument: TextDocument): Promise<void> {
@@ -91,7 +91,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 					start: textDocument.positionAt(m.index + m[1].length),
 					end: textDocument.positionAt(m.index + m[0].length)
 				},
-				message: `${partialTemplate} ` + localize("messsage.invalidTemplate") + ` (${templateFolder.replace(/\\/g, '/')})`,
+				message: `${partialTemplate} ` + localize('message.invalidTemplate') + ` (${templateFolder.replace(/\\/g, '/')})`,
 				source: 'ex'
 			};
 

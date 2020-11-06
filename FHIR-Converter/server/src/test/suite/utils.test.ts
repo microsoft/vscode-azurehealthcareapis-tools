@@ -7,14 +7,14 @@ suite('Utils Test Suite', () => {
 	const testPath = path.join(__dirname, '../../../../test-data');
 
 	test('Function addUnderlineExt - should return the fullname of snippet template with underline and extension', () => {
-		const templateName = utils.addUnderlineExt("snippet_template");
-		assert.strictEqual("_snippet_template.liquid", templateName);
+		const templateName = utils.addUnderlineExt('snippet_template');
+		assert.strictEqual('_snippet_template.liquid', templateName);
 	});
 
 	test('Function getSnippetTemplateName - should return the path of snippet template for completion', () => {
-		let completionString = utils.getSnippetTemplateName(".\\Resource", "_Patient.liquid");
+		let completionString = utils.getSnippetTemplateName('.\\Resource', '_Patient.liquid');
 		assert.strictEqual("\'Resource/Patient\'", completionString);
-		completionString = utils.getSnippetTemplateName(".\\Reference\\Account", "_Coverage_Coverage.liquid");
+		completionString = utils.getSnippetTemplateName('.\\Reference\\Account', '_Coverage_Coverage.liquid');
 		assert.strictEqual("\'Reference/Account/Coverage_Coverage\'", completionString);
 	});
 

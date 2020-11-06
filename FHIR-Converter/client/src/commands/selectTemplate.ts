@@ -1,12 +1,6 @@
-import { ConverterError } from '../models/converter-error.model';
-import { FileType } from '../models/file-type.model';
-import * as ErrorHandler from '../common/error-handler';
-import * as interaction from '../common/interaction';
+import { FileType } from '../models/file-type';
+import { selectFileFromExplorer } from './selectFileFromExplorer';
 
 export async function selectTemplateCommand(event) {
-	try {
-		await interaction.selectFileFromExplorer(event, FileType.template);
-	} catch (error) {
-		ErrorHandler.handle(ConverterError.selectTemplateError, error);
-	}
+	await selectFileFromExplorer(event, FileType.template);
 }

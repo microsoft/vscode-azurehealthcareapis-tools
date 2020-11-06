@@ -1,6 +1,6 @@
-import { existsSync, readFileSync } from "fs";
-import { resolve, join } from "path";
-import { ILanguagePack } from "./models/language-pack.model";
+import { existsSync, readFileSync } from 'fs';
+import { resolve, join } from 'path';
+import { ILanguagePack } from './models/language-pack.model';
 
 export class Localize {
   private bundle = this.resolveLanguagePack();
@@ -15,7 +15,7 @@ export class Localize {
 	try {
 		this.options = {
 		...this.options,
-		...JSON.parse(process.env.VSCODE_NLS_CONFIG || "{}")
+		...JSON.parse(process.env.VSCODE_NLS_CONFIG || '{}')
 		};
 	} catch (err) {
 		throw err;
@@ -34,8 +34,8 @@ export class Localize {
   private resolveLanguagePack(): ILanguagePack {
 	this.init();
 
-	const languageFormat = "package.nls{0}.json";
-	const defaultLanguage = languageFormat.replace("{0}", "");
+	const languageFormat = 'package.nls{0}.json';
+	const defaultLanguage = languageFormat.replace('{0}', '');
 
 	const rootPath = join(__dirname, '../..');
 
@@ -50,12 +50,12 @@ export class Localize {
 	try {
 		const defaultLanguageBundle = JSON.parse(
 		resolvedLanguage !== defaultLanguage
-			? readFileSync(resolve(rootPath, defaultLanguage), "utf-8")
-			: "{}"
+			? readFileSync(resolve(rootPath, defaultLanguage), 'utf-8')
+			: '{}'
 		);
 
 		const resolvedLanguageBundle = JSON.parse(
-		readFileSync(languageFilePath, "utf-8")
+		readFileSync(languageFilePath, 'utf-8')
 		);
 
 		return { ...defaultLanguageBundle, ...resolvedLanguageBundle };
@@ -69,15 +69,15 @@ export class Localize {
 	format: string,
 	candidate: string
   ): string {
-	const filename = format.replace("{0}", `.${candidate}`);
+	const filename = format.replace('{0}', `.${candidate}`);
 	const filepath = resolve(rootPath, filename);
 	if (existsSync(filepath)) {
 		return filename;
 	}
-	if (candidate.split("-")[0] !== candidate) {
-		return this.recurseCandidates(rootPath, format, candidate.split("-")[0]);
+	if (candidate.split('-')[0] !== candidate) {
+		return this.recurseCandidates(rootPath, format, candidate.split('-')[0]);
 	}
-	return format.replace("{0}", "");
+	return format.replace('{0}', '');
   }
 }
 

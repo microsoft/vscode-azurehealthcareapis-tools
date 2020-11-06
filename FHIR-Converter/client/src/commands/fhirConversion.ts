@@ -1,44 +1,35 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as utils from './utils';
-import * as workspace from './workspace';
-import * as interaction from './interaction';
-import localize from "../localize";
+import * as utils from '../common/utils';
+import * as workspace from '../common/workspace';
+import * as interaction from '../common/interaction';
+import localize from '../localize';
 import { globals } from '../init/globals';
-import { DataType } from '../models/data-type.model';
+import { DataType } from '../models/data-type';
+import { ConversionError } from '../errors/conversion-error';
 
-export async function conversionProcess(activeDataPath: string, activeTemplatePath: string) {
-	try {
-		if (!workspace.converterWorkspaceExists()) {
-			return undefined;
-		}
-		
-		if (!activeDataPath) {
-			vscode.window.showInformationMessage(localize("messsage.needSelectData"));
-			return undefined;
-		}
-		if (!activeTemplatePath) {
-			vscode.window.showInformationMessage(localize("messsage.needSelectTemplate"));
-			return undefined;
-		}
-
-		await openShowFile(activeDataPath, activeTemplatePath);
-
-		const resultFolder: string = workspace.getConfiguration('fhirConverter', 'resultFolder', localize("messsage.noResultFolderProvided"));
-		if (!resultFolder) {
-			return undefined;
-		}
-
-		const templateFolder: string = workspace.getConfiguration('fhirConverter', 'templateFolder', localize("messsage.noTemplateFolderProvided"));
-		if (!templateFolder) {
-			return undefined;
-		}
-
-		await convertSaveFileShowDifferentialView(activeDataPath, activeTemplatePath, resultFolder, templateFolder);
-	} catch (err) {
-		vscode.window.showErrorMessage(localize("error.conversion.prefix") + err.message);
+export async function fhirConversion(activeDataPath: string, activeTemplatePath: string) {
+	if (!activeDataPath) {
+		throw new ConversionError(localize('message.needSelectData'));
 	}
+	if (!activeTemplatePath) {
+		throw new ConversionError(localize('message.needSelectTemplate'));
+	}
+
+	await openShowFile(activeDataPath, activeTemplatePath);
+
+	const resultFolder: string = workspace.getConfiguration('fhirConverter', 'resultFolder', );
+	if (!resultFolder) {
+		throw new ConversionError(localize('message.noResultFolderProvided'));
+	}
+
+	const templateFolder: string = workspace.getConfiguration('fhirConverter', 'templateFolder');
+	if (!templateFolder) {
+		throw new ConversionError(localize('message.noTemplateFolderProvided'));
+	}
+
+	await convertSaveFileShowDifferentialView(activeDataPath, activeTemplatePath, resultFolder, templateFolder);
 }
 
 async function convertSaveFileShowDifferentialView(activeDataPath: string, activeTemplatePath: string, resultFolder: string, templateFolder: string) {
@@ -49,15 +40,15 @@ async function convertSaveFileShowDifferentialView(activeDataPath: string, activ
 
 	const dataDoc = await getDocText(activeDataPath);
 
-	const msg = globals.coverterEngineHandler.getEngine(DataType.hl7v2).convert(dataDoc, utils.getTemplateNameWithoutExt(templateName), templateFolder, resultFolder); // get the data type from configuration later
+	const msg = globals.converterEngineHandler.getEngine(DataType.hl7v2).convert(dataDoc, utils.getTemplateNameWithoutExt(templateName), templateFolder, resultFolder); // get the data type from configuration later
 	
 	if (!utils.checkEngineStatus(msg)) {
-		throw new Error(msg.ErrorMessage);
+		throw new ConversionError(msg.ErrorMessage);
 	}
 
 	const exists = fs.existsSync(resultFileName);
 	if (!exists) {
-		utils.checkFolderWirtePrettyJson(resultFileName, msg.FhirResource);
+		utils.checkFolderWritePrettyJson(resultFileName, msg.FhirResource);
 	}
 
 	// show result

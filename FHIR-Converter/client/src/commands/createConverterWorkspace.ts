@@ -2,37 +2,32 @@ import * as vscode from 'vscode';
 import * as utils from '../common/utils';
 import * as workspace from '../common/workspace';
 import * as interaction from '../common/interaction';
-import localize from "../localize";
-import { ConverterError } from '../models/converter-error.model';
-import * as ErrorHandler from '../common/error-handler';
+import { ReminderError } from '../errors/reminder-error';
+import localize from '../localize';
 
 export async function createConverterWorkspaceCommand() {
-	try {
-		let templateFolder: vscode.Uri;
-		let dataFolder: vscode.Uri;
-		let workspacePath: vscode.Uri;
+	let templateFolder: vscode.Uri;
+	let dataFolder: vscode.Uri;
+	let workspacePath: vscode.Uri;
 
-		templateFolder = await interaction.openDialogSelectFolder(localize("messsage.selectRootTemplateFolder"), localize("messsage.noTemplateFolderProvided"));
-		if (!templateFolder) {
-			return undefined;
-		}
-
-		dataFolder = await interaction.openDialogSelectFolder(localize("messsage.selectDataFolder"), localize("messsage.noDataFolderProvided"));
-		if (!dataFolder) {
-			return undefined;
-		}
-
-		workspacePath = await interaction.showDialogSaveWorkspace(localize("messsage.saveWorkspaceFileAs"), localize("messsage.noWorkspacePathProvided"), localize("common.workspaceFileExtension"));
-		if (!workspacePath) {
-			return undefined;
-		}
-
-		const msg = workspace.generaterWorkspaceConfig(templateFolder.fsPath, dataFolder);
-
-		utils.wirtePrettyJson(workspacePath.fsPath, msg);
-
-		await vscode.commands.executeCommand('vscode.openFolder', workspacePath, false);
-	} catch (error) {
-		ErrorHandler.handle(ConverterError.createConverterWorkspaceError, error);
+	templateFolder = await interaction.openDialogSelectFolder(localize('message.selectRootTemplateFolder'));
+	if (!templateFolder) {
+		throw new ReminderError(localize('message.noTemplateFolderProvided'));
 	}
+
+	dataFolder = await interaction.openDialogSelectFolder(localize('message.selectDataFolder'));
+	if (!dataFolder) {
+		throw new ReminderError(localize('message.noDataFolderProvided'));
+	}
+
+	workspacePath = await interaction.showDialogSaveWorkspace(localize('message.saveWorkspaceFileAs'), localize('common.workspaceFileExtension'));
+	if (!workspacePath) {
+		throw new ReminderError(localize('message.noWorkspacePathProvided'));
+	}
+
+	const msg = workspace.generaterWorkspaceConfig(templateFolder.fsPath, dataFolder);
+
+	utils.writePrettyJson(workspacePath.fsPath, msg);
+
+	await vscode.commands.executeCommand('vscode.openFolder', workspacePath, false);
 }

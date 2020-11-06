@@ -3,29 +3,29 @@ import * as fs from 'fs';
 import * as utils from '../../common/utils';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { DataType } from '../../models/data-type.model';
+import { DataType } from '../../models/data-type';
 import { ConverterHandler } from '../../converter/converter-handler';
 
 suite('Utils Test Suite', () => {
 	const testPath = path.join(__dirname, '../../../../test-data');
 	const msgOk = {
-		Status: "OK",
+		Status: 'OK',
 		FhirResource: {
-			"resourceType": "Bundle",
-			"type": "transaction",
-			"entry": [{
-				"fullUrl": "uuid-sample",
-				"resource": {
-					"resourceType": "Patient"
+			'resourceType': 'Bundle',
+			'type': 'transaction',
+			'entry': [{
+				'fullUrl': 'uuid-sample',
+				'resource': {
+					'resourceType': 'Patient'
 				}
 			}]
 		}
 	};
 
 	const msgFail = {
-		Status: "Fail",
-		ErrorType: "System.FormatException",
-		ErrorMessage: "Invalid Hl7 v2 message, first segment id = |^~"
+		Status: 'Fail',
+		ErrorType: 'System.FormatException',
+		ErrorMessage: 'Invalid Hl7 v2 message, first segment id = |^~'
 	};
 
 	const resultFolder = path.join(testPath, 'result');
@@ -33,8 +33,8 @@ suite('Utils Test Suite', () => {
 	const hl7v2Engine = new ConverterHandler().getEngine(DataType.hl7v2);
 
 	test('Function getTemplateNameWithoutExt - should return template name without extension', () => {
-		const templateName = utils.getTemplateNameWithoutExt("ADT_A01.liquid");
-		assert.strictEqual("ADT_A01", templateName);
+		const templateName = utils.getTemplateNameWithoutExt('ADT_A01.liquid');
+		assert.strictEqual('ADT_A01', templateName);
 	});
 
 	test('Function checkEngineStatus - should return true when the status of response from engine is OK', () => {
@@ -55,13 +55,13 @@ suite('Utils Test Suite', () => {
 		assert.strictEqual('Hl7v2 (Templates)', prettyFolderName);
 	});
 
-	test('Function wirtePrettyJson - should write the pretty string from a json object to a file', () => {
+	test('Function writePrettyJson - should write the pretty string from a json object to a file', () => {
 		const filePath = path.join(resultFolder, 'test.json');
 		if (fs.existsSync(filePath)) {
 			fs.unlinkSync(filePath);
 		}
 		assert.strictEqual(false, fs.existsSync(filePath));
-		utils.wirtePrettyJson(filePath, msgOk);
+		utils.writePrettyJson(filePath, msgOk);
 		assert.strictEqual(true, fs.existsSync(filePath));
 		const obj = JSON.parse(fs.readFileSync(filePath).toString());
 		assert.strictEqual('OK', obj.Status);
@@ -69,17 +69,17 @@ suite('Utils Test Suite', () => {
 
 	test('Function getStatusBarString - should return a string which contains template name, but without data name', () => {
 		const str = utils.getStatusBarString(undefined, 'myTemplateFile');
-		assert.strictEqual("FHIR Converter: data - none, template - myTemplateFile", str);
+		assert.strictEqual('FHIR Converter: data - none, template - myTemplateFile', str);
 	});
 
 	test('Function getStatusBarString - should return a string which contains the data name, but without template name', () => {
 		const str = utils.getStatusBarString('myDataFile', undefined);
-		assert.strictEqual("FHIR Converter: data - myDataFile, template - none", str);
+		assert.strictEqual('FHIR Converter: data - myDataFile, template - none', str);
 	});
 
 	test('Function getStatusBarString - should return a string which contains both template name and data name', () => {
 		const str = utils.getStatusBarString('myDataFile', 'myTemplateFile');
-		assert.strictEqual("FHIR Converter: data - myDataFile, template - myTemplateFile", str);
+		assert.strictEqual('FHIR Converter: data - myDataFile, template - myTemplateFile', str);
 	});
 
 	test('Function convert - should return a json object with OK status given data, template and template folder', async () => {

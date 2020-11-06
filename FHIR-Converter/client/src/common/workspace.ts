@@ -1,17 +1,17 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { globals } from '../init/globals';
-import localize from "../localize";
-import * as ErrorHandler from './error-handler';
-import { ConverterError } from '../models/converter-error.model';
+import localize from '../localize';
 import { ConverterHandler } from '../converter/converter-handler';
 import * as utils from './utils';
+import { ReminderError } from '../errors/reminder-error';
+import { ConfigurationError } from '../errors/configuration-error';
 
 export function initWorkspace() {
 	if (converterWorkspaceExists()) {
 		globals.activeTemplatePath = globals.context.workspaceState.get('microsoft.health.fhir.converter.activeTemplatePath');
 		globals.activeDataPath = globals.context.workspaceState.get('microsoft.health.fhir.converter.activeDataPath');
-		globals.coverterEngineHandler = new ConverterHandler();
+		globals.converterEngineHandler = new ConverterHandler();
 		vscode.window.setStatusBarMessage(utils.getStatusBarString(globals.activeDataPath, globals.activeTemplatePath));
 		let resultFolder: string = vscode.workspace.getConfiguration('fhirConverter').get('resultFolder');
 		if (!resultFolder) {
@@ -20,7 +20,7 @@ export function initWorkspace() {
 				resultFolder = path.join(resultFolder, 'fhirConverterResult');
 				vscode.workspace.getConfiguration('fhirConverter').update('resultFolder', resultFolder, false);
 			} else {
-				vscode.window.showInformationMessage(localize("messsage.noResultFolderProvided"));
+				throw new ReminderError(localize('message.noResultFolderProvided'));
 			}
 		}
 		syncTemplateFolder();
@@ -31,30 +31,25 @@ export function initWorkspace() {
 }
 
 export function syncTemplateFolder() {
-	try {
-		const templateFolder: string = vscode.workspace.getConfiguration('fhirConverter').get('templateFolder');
-		if (templateFolder) {
-			const folders = vscode.workspace.workspaceFolders;
-			const folderName = utils.generatePrettyFolderName(templateFolder);
-			if (!folders) {
-				vscode.workspace.updateWorkspaceFolders(0, null, {uri: vscode.Uri.file(templateFolder), name: folderName});
-			} else {
-				vscode.workspace.updateWorkspaceFolders(0, 1, {uri: vscode.Uri.file(templateFolder), name: folderName});
-			}
+	const templateFolder: string = vscode.workspace.getConfiguration('fhirConverter').get('templateFolder');
+	if (templateFolder) {
+		const folders = vscode.workspace.workspaceFolders;
+		const folderName = utils.generatePrettyFolderName(templateFolder);
+		if (!folders) {
+			vscode.workspace.updateWorkspaceFolders(0, null, {uri: vscode.Uri.file(templateFolder), name: folderName});
 		} else {
-			vscode.window.showInformationMessage(localize("messsage.noTemplateFolderProvided"));
+			vscode.workspace.updateWorkspaceFolders(0, 1, {uri: vscode.Uri.file(templateFolder), name: folderName});
 		}
-	} catch (error) {
-		ErrorHandler.handle(ConverterError.updateConfiguration, error);
+	} else {
+		throw new ConfigurationError(localize('message.noTemplateFolderProvided'));
 	}
 }
 
 export function converterWorkspaceExists() {
 	const workspaceFile = vscode.workspace.workspaceFile;
-	if ( workspaceFile !== undefined && workspaceFile.fsPath.endsWith(localize("common.workspaceFileExtension"))) {
+	if ( workspaceFile !== undefined && workspaceFile.fsPath.endsWith(localize('common.workspaceFileExtension'))) {
 		return true;
 	} else {
-		vscode.window.showInformationMessage(localize("messsage.needCreateWorkspace"));
 		return false;
 	}
 }
@@ -62,29 +57,36 @@ export function converterWorkspaceExists() {
 export function generaterWorkspaceConfig(templateFolder: string, dataFolder: vscode.Uri) {
 	const folderName = utils.generatePrettyFolderName(templateFolder);
 	return {
-		"folders": [
+		'folders': [
 			{
-				"name": folderName,
-				"path": templateFolder
+				'name': folderName,
+				'path': templateFolder
 			},
 			{
-				"path": dataFolder.fsPath
+				'path': dataFolder.fsPath
 			}
 		],
-		"settings": {
-			"workbench.editor.enablePreview": false,
-			"diffEditor.renderSideBySide": false,
-			"fhirConverter.templateFolder": templateFolder
+		'settings': {
+			'workbench.editor.enablePreview': false,
+			'diffEditor.renderSideBySide': false,
+			'fhirConverter.templateFolder': templateFolder
 		}
 	};
 }
 
-export function getConfiguration(section: string, key: string, errorMessage): string {
+export function getConfiguration(section: string, key: string): string {
 	const value: string = vscode.workspace.getConfiguration(section).get(key);
 	if (!value) {
-		vscode.window.showInformationMessage(errorMessage);
 		return undefined;
 	}
 	return value;
+}
+
+export function updateConfiguration(section: string, key: string): void {
+	try {
+		vscode.workspace.getConfiguration(section).update(key, false);
+	} catch (error) {
+		throw new ConfigurationError(error.message);
+	}
 }
 
