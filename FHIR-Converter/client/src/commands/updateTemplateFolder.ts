@@ -9,5 +9,5 @@ export async function updateTemplateFolderCommand() {
 	if (!templateFolder) {
 		throw new ReminderError(localize('message.noTemplateFolderProvided'));
 	}
-	workspace.updateConfiguration('fhirConverter', templateFolder.fsPath);
+	workspace.updateConfiguration('fhirConverter', 'templateFolder', templateFolder.fsPath);
 }

@@ -6,6 +6,7 @@ import { ConverterHandler } from '../converter/converter-handler';
 import * as utils from './utils';
 import { ReminderError } from '../errors/reminder-error';
 import { ConfigurationError } from '../errors/configuration-error';
+import * as workspace from '../common/workspace';
 
 export function initWorkspace() {
 	if (converterWorkspaceExists()) {
@@ -18,7 +19,7 @@ export function initWorkspace() {
 			resultFolder = globals.context.storagePath;
 			if (resultFolder) {
 				resultFolder = path.join(resultFolder, 'fhirConverterResult');
-				vscode.workspace.getConfiguration('fhirConverter').update('resultFolder', resultFolder, false);
+				workspace.updateConfiguration('fhirConverter', 'resultFolder', resultFolder);
 			} else {
 				throw new ReminderError(localize('message.noResultFolderProvided'));
 			}
@@ -82,7 +83,7 @@ export function getConfiguration(section: string, key: string): string {
 	return value;
 }
 
-export function updateConfiguration(section: string, key: string): void {
+export function updateConfiguration(section: string, key: string, value: string): void {
 	try {
 		vscode.workspace.getConfiguration(section).update(key, false);
 	} catch (error) {
