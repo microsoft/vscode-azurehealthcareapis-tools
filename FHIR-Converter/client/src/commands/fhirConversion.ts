@@ -8,13 +8,14 @@ import localize from '../localize';
 import { globals } from '../init/globals';
 import { DataType } from '../models/data-type';
 import { ConversionError } from '../errors/conversion-error';
+import { ReminderError } from '../errors/reminder-error';
 
 export async function fhirConversion(activeDataPath: string, activeTemplatePath: string) {
 	if (!activeDataPath) {
-		throw new ConversionError(localize('message.needSelectData'));
+		throw new ReminderError(localize('message.needSelectData'));
 	}
 	if (!activeTemplatePath) {
-		throw new ConversionError(localize('message.needSelectTemplate'));
+		throw new ReminderError(localize('message.needSelectTemplate'));
 	}
 
 	await openShowFile(activeDataPath, activeTemplatePath);

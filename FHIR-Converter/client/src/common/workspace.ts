@@ -6,7 +6,6 @@ import { ConverterHandler } from '../converter/converter-handler';
 import * as utils from './utils';
 import { ReminderError } from '../errors/reminder-error';
 import { ConfigurationError } from '../errors/configuration-error';
-import * as workspace from '../common/workspace';
 
 export function initWorkspace() {
 	if (converterWorkspaceExists()) {
@@ -14,12 +13,12 @@ export function initWorkspace() {
 		globals.activeDataPath = globals.context.workspaceState.get('microsoft.health.fhir.converter.activeDataPath');
 		globals.converterEngineHandler = new ConverterHandler();
 		vscode.window.setStatusBarMessage(utils.getStatusBarString(globals.activeDataPath, globals.activeTemplatePath));
-		let resultFolder: string = vscode.workspace.getConfiguration('fhirConverter').get('resultFolder');
+		let resultFolder: string = getConfiguration('fhirConverter', 'resultFolder');
 		if (!resultFolder) {
 			resultFolder = globals.context.storagePath;
 			if (resultFolder) {
 				resultFolder = path.join(resultFolder, 'fhirConverterResult');
-				workspace.updateConfiguration('fhirConverter', 'resultFolder', resultFolder);
+				updateConfiguration('fhirConverter', 'resultFolder', resultFolder);
 			} else {
 				throw new ReminderError(localize('message.noResultFolderProvided'));
 			}
@@ -32,7 +31,7 @@ export function initWorkspace() {
 }
 
 export function syncTemplateFolder() {
-	const templateFolder: string = vscode.workspace.getConfiguration('fhirConverter').get('templateFolder');
+	const templateFolder: string = getConfiguration('fhirConverter', 'templateFolder');
 	if (templateFolder) {
 		const folders = vscode.workspace.workspaceFolders;
 		const folderName = utils.generatePrettyFolderName(templateFolder);
@@ -85,7 +84,7 @@ export function getConfiguration(section: string, key: string): string {
 
 export function updateConfiguration(section: string, key: string, value: string): void {
 	try {
-		vscode.workspace.getConfiguration(section).update(key, false);
+		vscode.workspace.getConfiguration(section).update(key, value, false);
 	} catch (error) {
 		throw new ConfigurationError(error.message);
 	}

@@ -8,21 +8,29 @@ import { generateLanguageClient } from './init/language-client';
 import { globals } from './init/globals';
 import * as workspace from './common/workspace';
 import * as vscode from 'vscode';
-import { CommandID }  from './models/command-id';
-import { registerCommand }  from './common/command';
-
+import { createConverterWorkspaceCommand } from './commands/createConverterWorkspace';
+import { refreshPreviewCommand } from  './commands/refreshPreview';
+import { updateTemplateFolderCommand } from  './commands/updateTemplateFolder';
+import { selectTemplateCommand } from  './commands/selectTemplate';
+import { selectDataCommand } from  './commands/selectData';
+import { registerCommand } from './common/command';
 let client: LanguageClient;
 
 export async function activate(context: vscode.ExtensionContext) {
 	// init workspace
 	globals.context = context;
 	workspace.initWorkspace();
-	
+
 	// register commands
-	for (const item in CommandID) {
-		// context.subscriptions.push(vscode.commands.registerCommand(commandID, commandHandler, commandID));
-		registerCommand(context, CommandID[item]);
-	}
+	registerCommand(context, 'microsoft.health.fhir.converter.createConverterWorkspace', createConverterWorkspaceCommand);
+
+	registerCommand(context, 'microsoft.health.fhir.converter.refreshPreview', refreshPreviewCommand);
+
+	registerCommand(context, 'microsoft.health.fhir.converter.selectData', selectDataCommand);
+
+	registerCommand(context, 'microsoft.health.fhir.converter.selectTemplate', selectTemplateCommand);
+
+	registerCommand(context, 'microsoft.health.fhir.converter.updateTemplateFolder', updateTemplateFolderCommand);
 
 	// Start the client. This will also launch the server
 	client = generateLanguageClient(context);
