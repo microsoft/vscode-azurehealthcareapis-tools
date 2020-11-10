@@ -1,8 +1,5 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import { globals } from '../init/globals';
-import { getStatusBarString } from './utils';
-import { FileType } from '../models/file-type';
 
 export async function openDialogSelectFolder(label: string) {
 	const selectedFolder = await vscode.window.showOpenDialog({ canSelectMany: false, canSelectFiles: false, canSelectFolders: true, openLabel: label });
@@ -22,7 +19,7 @@ export async function showDialogSaveWorkspace(label: string, filter: string) {
 	}
 }
 
-export function askSaveTemplates(unsavedTemplates: vscode.TextDocument[], infoMessage: string, acceptButtonLabel: string, rejectButtonLabel: string) {
+export function askSaveFiles(unsavedTemplates: vscode.TextDocument[], infoMessage: string, acceptButtonLabel: string, rejectButtonLabel: string) {
 	return new Promise(resolve => {
 		vscode.window.showWarningMessage(infoMessage, acceptButtonLabel, rejectButtonLabel)
 		.then(async function (select) {
@@ -41,7 +38,7 @@ export function updateEditorContext(resultEditor: vscode.TextEditor, msg: string
 	});
 }
 
-export function getUnsavedTemplates(type: string) {
+export function getUnsavedFiles(type: string) {
 	const unsavedTemplates: vscode.TextDocument[] = [];
 	for (const doc of vscode.workspace.textDocuments) {
 		if (doc && doc.isDirty && path.extname(doc.fileName) === type) {
@@ -53,15 +50,4 @@ export function getUnsavedTemplates(type: string) {
 
 export async function saveAllFiles(unsavedFiles: vscode.TextDocument[]) {
 	await Promise.all(unsavedFiles.map(doc => doc.save()));
-}
-
-export function updateActiveFile(file: string, type: FileType) {
-	if (type === FileType.data) {
-		globals.activeDataPath = file;
-		globals.context.workspaceState.update('microsoft.health.fhir.converter.activeDataPath', globals.activeDataPath);
-	} else if (type === FileType.template) {
-		globals.activeTemplatePath = file;
-		globals.context.workspaceState.update('microsoft.health.fhir.converter.activeTemplatePath', globals.activeTemplatePath);
-	}
-	vscode.window.setStatusBarMessage(getStatusBarString(globals.activeDataPath, globals.activeTemplatePath));
 }

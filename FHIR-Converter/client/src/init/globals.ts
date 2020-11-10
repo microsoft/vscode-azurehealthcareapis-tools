@@ -1,9 +1,7 @@
-import * as vscode from 'vscode';
-import { ConverterHandler } from '../converter/converter-handler';
+import { ConverterEngineProvider } from '../converter/converter-engine-provider';
+import { SettingManager } from './settings';
 
 export module globals {
-	export let activeTemplatePath: string;
-	export let activeDataPath: string;
-	export let context: vscode.ExtensionContext;
-	export let converterEngineHandler: ConverterHandler;
+	export let settingManager: SettingManager;
+	export let converterEngineProvider: ConverterEngineProvider;
 }

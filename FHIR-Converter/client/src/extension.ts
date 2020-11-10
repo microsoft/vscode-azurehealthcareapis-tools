@@ -6,25 +6,29 @@
 import { LanguageClient } from 'vscode-languageclient';
 import { generateLanguageClient } from './init/language-client';
 import { globals } from './init/globals';
-import * as workspace from './common/workspace';
 import * as vscode from 'vscode';
-import { createConverterWorkspaceCommand } from './commands/createConverterWorkspace';
-import { refreshPreviewCommand } from  './commands/refreshPreview';
-import { updateTemplateFolderCommand } from  './commands/updateTemplateFolder';
-import { selectTemplateCommand } from  './commands/selectTemplate';
-import { selectDataCommand } from  './commands/selectData';
+import { createConverterWorkspaceCommand } from './commands/create-converter-workspace';
+import { convertAndDiffCommand } from  './commands/convert-and-diff';
+import { updateTemplateFolderCommand } from  './commands/update-template-folder';
+import { selectTemplateCommand } from  './commands/select-template';
+import { selectDataCommand } from  './commands/select-data';
 import { registerCommand } from './common/command';
+import { SettingManager } from './init/settings';
+import { ConverterEngineProvider } from './converter/converter-engine-provider';
+import * as constants from './common/constants';
+
 let client: LanguageClient;
 
 export async function activate(context: vscode.ExtensionContext) {
 	// init workspace
-	globals.context = context;
-	workspace.initWorkspace();
+	globals.settingManager = new SettingManager(context, constants.ConfigurationSection);
+	await globals.settingManager.initWorkspace();
+	globals.converterEngineProvider = new ConverterEngineProvider();
 
 	// register commands
 	registerCommand(context, 'microsoft.health.fhir.converter.createConverterWorkspace', createConverterWorkspaceCommand);
 
-	registerCommand(context, 'microsoft.health.fhir.converter.refreshPreview', refreshPreviewCommand);
+	registerCommand(context, 'microsoft.health.fhir.converter.convertAndDiff', convertAndDiffCommand);
 
 	registerCommand(context, 'microsoft.health.fhir.converter.selectData', selectDataCommand);
 

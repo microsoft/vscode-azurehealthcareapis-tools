@@ -1,5 +1,0 @@
-{
-  "Status": "Fail",
-  "ErrorType": "DotLiquid.Exceptions.FileSystemException",
-  "ErrorMessage": "Template not found: ADT_A01 in template folder: d:\\project\\health\\vscode-azurehealthcareapis-tools\\FHIR-Converter\\test-data\\templates"
-}

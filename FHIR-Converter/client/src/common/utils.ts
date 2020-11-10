@@ -47,12 +47,8 @@ export function getStatusBarString(activeDataPath: string | undefined, activeTem
 	return str;
 }
 
-export function getResultFileName(dataName: string, templateName: string) {
+export function getResultFileName(dataPath: string, templatePath: string) {
+	const dataName = path.basename(dataPath);
+	const templateName = path.basename(templatePath);
 	return `${dataName} - ${templateName}.json`;
 }
-
-
-
-
-
-

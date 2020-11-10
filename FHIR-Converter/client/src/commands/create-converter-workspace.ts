@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
 import * as utils from '../common/utils';
-import * as workspace from '../common/workspace';
 import * as interaction from '../common/interaction';
-import { ReminderError } from '../errors/reminder-error';
+import { ReminderError } from '../common/errors/reminder-error';
 import localize from '../localize';
+import { globals } from '../init/globals';
 
 export async function createConverterWorkspaceCommand() {
 	let templateFolder: vscode.Uri;
@@ -25,7 +25,7 @@ export async function createConverterWorkspaceCommand() {
 		throw new ReminderError(localize('message.noWorkspacePathProvided'));
 	}
 
-	const msg = workspace.generaterWorkspaceConfig(templateFolder.fsPath, dataFolder);
+	const msg = globals.settingManager.generaterWorkspaceConfig(templateFolder.fsPath, dataFolder.fsPath);
 
 	utils.writePrettyJson(workspacePath.fsPath, msg);
 

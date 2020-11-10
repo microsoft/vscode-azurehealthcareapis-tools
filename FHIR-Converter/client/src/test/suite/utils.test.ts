@@ -4,7 +4,8 @@ import * as utils from '../../common/utils';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { DataType } from '../../models/data-type';
-import { ConverterHandler } from '../../converter/converter-handler';
+import { ConverterEngineProvider } from '../../converter/converter-engine-provider';
+import { ConverterEngineOption } from '../../converter/converter-engine-option';
 
 suite('Utils Test Suite', () => {
 	const testPath = path.join(__dirname, '../../../../test-data');
@@ -30,7 +31,7 @@ suite('Utils Test Suite', () => {
 
 	const resultFolder = path.join(testPath, 'result');
 
-	const hl7v2Engine = new ConverterHandler().getEngine(DataType.hl7v2);
+	const hl7v2Engine = new ConverterEngineProvider().getEngine(DataType.hl7v2);
 
 	test('Function getTemplateNameWithoutExt - should return template name without extension', () => {
 		const templateName = utils.getTemplateNameWithoutExt('ADT_A01.liquid');
@@ -92,7 +93,13 @@ suite('Utils Test Suite', () => {
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
 		const dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-		const msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
+		const converterEngineOption: ConverterEngineOption = {
+			data: dataDoc,
+			template: entryTemplate,
+			templateFolder: templateFolder,
+			resultFile: resultFile
+		};
+		const msg = await hl7v2Engine.convert(converterEngineOption);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('OK', msg.Status);
 	}).timeout(20000);
@@ -107,7 +114,13 @@ suite('Utils Test Suite', () => {
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
 		const dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-		const msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
+		const converterEngineOption: ConverterEngineOption = {
+			data: dataDoc,
+			template: entryTemplate,
+			templateFolder: templateFolder,
+			resultFile: resultFile
+		};
+		const msg = await hl7v2Engine.convert(converterEngineOption);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('Fail', msg.Status);
 	});
@@ -122,7 +135,13 @@ suite('Utils Test Suite', () => {
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
 		const dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-		const msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
+		const converterEngineOption: ConverterEngineOption = {
+			data: dataDoc,
+			template: entryTemplate,
+			templateFolder: templateFolder,
+			resultFile: resultFile
+		};
+		const msg = await hl7v2Engine.convert(converterEngineOption);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('Fail', msg.Status);
 	});
@@ -137,7 +156,13 @@ suite('Utils Test Suite', () => {
 		}
 		assert.strictEqual(false, fs.existsSync(resultFile));
 		const dataDoc = (await vscode.workspace.openTextDocument(activeDataPath)).getText();
-		const msg = await hl7v2Engine.convert(dataDoc, entryTemplate, templateFolder, resultFolder);
+		const converterEngineOption: ConverterEngineOption = {
+			data: dataDoc,
+			template: entryTemplate,
+			templateFolder: templateFolder,
+			resultFile: resultFile
+		};
+		const msg = await hl7v2Engine.convert(converterEngineOption);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('Fail', msg.Status);
 	});
@@ -156,6 +181,4 @@ suite('Utils Test Suite', () => {
 		const dataFile = 'ADT01-23.hl7';
 		assert.strictEqual('ADT01-23.hl7 - ADT_A01.liquid.json', utils.getResultFileName(dataFile, templateFile));
 	});
-	
-
 });

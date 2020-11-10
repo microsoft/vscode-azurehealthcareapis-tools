@@ -1,13 +1,14 @@
 import * as vscode from 'vscode';
-import * as workspace from '../common/workspace';
+import { globals } from '../init/globals';
 import * as interaction from '../common/interaction';
+import * as constants from '../common/constants';
 import localize from '../localize';
-import { ReminderError } from '../errors/reminder-error';
+import { ReminderError } from '../common/errors/reminder-error';
 
 export async function updateTemplateFolderCommand() {
 	const templateFolder: vscode.Uri = await interaction.openDialogSelectFolder(localize('message.selectRootTemplateFolder'));
 	if (!templateFolder) {
 		throw new ReminderError(localize('message.noTemplateFolderProvided'));
 	}
-	workspace.updateConfiguration('fhirConverter', 'templateFolder', templateFolder.fsPath);
+	await globals.settingManager.updateConfiguration(constants.ConfigurationTemplateFolderKey, templateFolder.fsPath);
 }

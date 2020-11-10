@@ -1,5 +1,5 @@
 {
-	"microsoft.health.fhir.converter.command.refreshPreview.title":  "FHIR Converter: Refresh Preview",
+	"microsoft.health.fhir.converter.command.convertAndDiff.title":  "FHIR Converter: Refresh Preview",
 	"microsoft.health.fhir.converter.command.updateTemplateFolder.title":  "FHIR Converter: Update template folder",
 	"microsoft.health.fhir.converter.command.selectTemplate.title":  "FHIR Converter: Select as template",
 	"microsoft.health.fhir.converter.command.selectData.title":  "FHIR Converter: Select as data file",
@@ -20,6 +20,7 @@
 	"message.noDataFolderProvided": "No data folder provided.",
 	"message.noWorkspacePathProvided": "No workspace path provided.",
 	"message.noResultFolderProvided": "No result folder provided.",
+	"message.noResultBefore": "No result before",
 	"message.saveBeforeRefresh": "Templates have been modified but not saved. Please save them before refresh.",
 	"message.save": "Save",
 	"message.ignore": "Ignore",
