@@ -1,11 +1,11 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import localize from '../localize';
-import * as utils from '../common/utils';
+import * as utils from '../common/utils/string-utils';
 import { ConfigurationError } from '../common/errors/configuration-error';
 import * as constants from '../common/constants';
-import { DataType } from '../models/data-type';
-import { FileType } from '../models/file-type';
+import { DataType } from '../core/enum/data-type';
+import { FileType } from '../core/enum/file-type';
 
 export class SettingManager {
 	workspaceSection: string;

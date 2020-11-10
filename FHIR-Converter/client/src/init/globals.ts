@@ -1,4 +1,4 @@
-import { ConverterEngineProvider } from '../converter/converter-engine-provider';
+import { ConverterEngineProvider } from '../core/converter-engine/converter-engine-provider';
 import { SettingManager } from './settings';
 
 export module globals {

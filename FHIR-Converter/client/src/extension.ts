@@ -12,9 +12,9 @@ import { convertAndDiffCommand } from  './commands/convert-and-diff';
 import { updateTemplateFolderCommand } from  './commands/update-template-folder';
 import { selectTemplateCommand } from  './commands/select-template';
 import { selectDataCommand } from  './commands/select-data';
-import { registerCommand } from './common/command';
+import { registerCommand } from './common/command-helper/register-command';
 import { SettingManager } from './init/settings';
-import { ConverterEngineProvider } from './converter/converter-engine-provider';
+import { ConverterEngineProvider } from './core/converter-engine/converter-engine-provider';
 import * as constants from './common/constants';
 
 let client: LanguageClient;

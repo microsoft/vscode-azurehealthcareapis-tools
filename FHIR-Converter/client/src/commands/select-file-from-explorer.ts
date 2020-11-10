@@ -1,6 +1,6 @@
 import { globals } from '../init/globals';
 import localize from '../localize';
-import { FileType } from '../models/file-type';
+import { FileType } from '../core/enum/file-type';
 import { convertAndDiffCommand } from './convert-and-diff';
 import { ConversionError } from '../common/errors/conversion-error';
 

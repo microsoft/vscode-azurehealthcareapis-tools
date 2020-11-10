@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
-import * as utils from '../common/utils';
-import * as interaction from '../common/interaction';
+import * as interaction from '../common/view/common-interaction-api';
 import { ReminderError } from '../common/errors/reminder-error';
 import localize from '../localize';
 import { globals } from '../init/globals';
+import * as fileUtils from '../common/utils/file-utils';
 
 export async function createConverterWorkspaceCommand() {
 	let templateFolder: vscode.Uri;
@@ -27,7 +27,7 @@ export async function createConverterWorkspaceCommand() {
 
 	const msg = globals.settingManager.generaterWorkspaceConfig(templateFolder.fsPath, dataFolder.fsPath);
 
-	utils.writePrettyJson(workspacePath.fsPath, msg);
+	fileUtils.writePrettyJson(workspacePath.fsPath, msg);
 
 	await vscode.commands.executeCommand('vscode.openFolder', workspacePath, false);
 }

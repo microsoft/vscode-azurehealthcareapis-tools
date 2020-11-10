@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { globals } from '../init/globals';
-import * as interaction from '../common/interaction';
+import * as interaction from '../common/view/common-interaction-api';
 import * as constants from '../common/constants';
 import localize from '../localize';
 import { ReminderError } from '../common/errors/reminder-error';

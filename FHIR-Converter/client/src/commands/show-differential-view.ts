@@ -1,9 +1,9 @@
 import * as vscode from 'vscode';
-import * as interaction from '../common/interaction';
+import * as interaction from '../common/view/common-interaction-api';
 import * as fs from 'fs';
 import { ConversionError } from '../common/errors/conversion-error';
 import localize from '../localize';
-import * as utils from '../common/utils';
+import * as utils from '../common/utils/string-utils';
 
 export async function showDifferentialView(resultFile: string, msg: object) {
 	// check file exist

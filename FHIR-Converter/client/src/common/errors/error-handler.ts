@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import localize from '../localize';
+import localize from '../../localize';
 
 export function handle(error: Error): void {
 	if (error.name === 'error.reminder') {

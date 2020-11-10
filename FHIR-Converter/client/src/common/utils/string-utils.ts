@@ -1,29 +1,8 @@
-import * as fs from 'fs';
 import * as path from 'path';
-import localize from '../localize';
-import { Status } from '../models/status';
-
-export function checkCreateFolders(resultFolder: string) {
-	if (!fs.existsSync(resultFolder)) {
-		fs.mkdirSync(resultFolder, { recursive: true });
-	}
-}
-
-export function checkEngineStatus(msg: any) {
-	return msg.Status === Status.OK;
-}
+import localize from '../../localize';
 
 export function getTemplateNameWithoutExt(templateName: string): string {
 	return templateName.substring(0, templateName.lastIndexOf('.'));
-}
-
-export function writePrettyJson(filePath: string, json: object) {
-	fs.writeFileSync(filePath, convertPrettyJsonString(json));
-}
-
-export function checkFolderWritePrettyJson(fileName: string, msg: object) {
-	checkCreateFolders(path.dirname(fileName));
-	writePrettyJson(fileName, msg);
 }
 
 export function convertPrettyJsonString(json: object) {

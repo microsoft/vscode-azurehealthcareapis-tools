@@ -1,6 +1,6 @@
 import { existsSync, readFileSync } from 'fs';
 import { resolve, join } from 'path';
-import { ILanguagePack } from './models/language-pack';
+import { ILanguagePack } from './core/interface/language-pack';
 
 export class Localize {
   private bundle = this.resolveLanguagePack();
