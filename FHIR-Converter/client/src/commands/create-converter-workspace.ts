@@ -10,24 +10,30 @@ export async function createConverterWorkspaceCommand() {
 	let dataFolder: vscode.Uri;
 	let workspacePath: vscode.Uri;
 
+	// Select root template folder
 	templateFolder = await interaction.openDialogSelectFolder(localize('message.selectRootTemplateFolder'));
 	if (!templateFolder) {
 		throw new ReminderError(localize('message.noTemplateFolderProvided'));
 	}
 
+	// Select data folder
 	dataFolder = await interaction.openDialogSelectFolder(localize('message.selectDataFolder'));
 	if (!dataFolder) {
 		throw new ReminderError(localize('message.noDataFolderProvided'));
 	}
 
+	// Select workspace path
 	workspacePath = await interaction.showDialogSaveWorkspace(localize('message.saveWorkspaceFileAs'), localize('common.workspaceFileExtension'));
 	if (!workspacePath) {
 		throw new ReminderError(localize('message.noWorkspacePathProvided'));
 	}
 
-	const msg = globals.settingManager.generaterWorkspaceConfig(templateFolder.fsPath, dataFolder.fsPath);
+	// Generate the basic workspace configuration
+	const workspaceConfig = globals.settingManager.generateWorkspaceConfig(templateFolder.fsPath, dataFolder.fsPath);
 
-	fileUtils.writePrettyJson(workspacePath.fsPath, msg);
+	// Save the workspace configuration
+	fileUtils.writePrettyJson(workspacePath.fsPath, workspaceConfig);
 
+	// Open the workspace
 	await vscode.commands.executeCommand('vscode.openFolder', workspacePath, false);
 }

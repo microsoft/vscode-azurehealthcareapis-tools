@@ -6,9 +6,12 @@ import localize from '../localize';
 import { ReminderError } from '../common/errors/reminder-error';
 
 export async function updateTemplateFolderCommand() {
+	// Select a root template folder
 	const templateFolder: vscode.Uri = await interaction.openDialogSelectFolder(localize('message.selectRootTemplateFolder'));
 	if (!templateFolder) {
 		throw new ReminderError(localize('message.noTemplateFolderProvided'));
 	}
+
+	// Update the configuration
 	await globals.settingManager.updateConfiguration(constants.ConfigurationTemplateFolderKey, templateFolder.fsPath);
 }

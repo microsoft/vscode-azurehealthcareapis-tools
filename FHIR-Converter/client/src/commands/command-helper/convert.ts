@@ -12,11 +12,13 @@ import * as constants from '../../common/constants';
 import * as engineUtils from '../../common/utils/engine-utils';
 
 export async function convert() {
+	// Check whether there is any template not saved and ask if users want to save it
 	const unsavedTemplates: vscode.TextDocument[] = interaction.getUnsavedFiles(TemplateFileExt);
 	if (unsavedTemplates.length > 0) {
 		await interaction.askSaveFiles(unsavedTemplates, localize('message.saveBeforeRefresh'), localize('message.save'), localize('message.ignore'));
 	}
 
+	// Check that both the data and template files are available 
 	if (!globals.settingManager.activeDataPath) {
 		throw new ReminderError(localize('message.needSelectData'));
 	}
@@ -24,6 +26,7 @@ export async function convert() {
 		throw new ReminderError(localize('message.needSelectTemplate'));
 	}
 
+	// Check that the necessary configurations like result folder and template folder are available
 	const resultFolder: string = globals.settingManager.getConfiguration(constants.ConfigurationResultFolderKey);
 	if (!resultFolder) {
 		throw new ConversionError(localize('message.noResultFolderProvided'));
@@ -34,21 +37,22 @@ export async function convert() {
 		throw new ConversionError(localize('message.noTemplateFolderProvided'));
 	}
 	
+	// Open the data and template in the editor
 	await openShowFile(globals.settingManager.activeDataPath, globals.settingManager.activeTemplatePath);
 
+	// Obtain the engine
 	const engine = globals.converterEngineProvider.getEngine(globals.settingManager.getWorkspaceType());
 
-	const dataDoc = (await vscode.workspace.openTextDocument(globals.settingManager.activeDataPath)).getText();
-
+	// Obtain the converter engine option
 	const converterEngineOption: ConverterEngineOption = {
-		data: dataDoc,
+		data: (await vscode.workspace.openTextDocument(globals.settingManager.activeDataPath)).getText(),
 		template: utils.getTemplateNameWithoutExt(path.basename(globals.settingManager.activeTemplatePath)),
 		templateFolder: templateFolder,
 		resultFile: path.join(resultFolder, constants.DefaultEngineResultFile)
 	};
 
+	// Execute the conversion process
 	const msg = engine.process(converterEngineOption);
-
 	if (!engineUtils.checkEngineStatus(msg)) {
 		throw new ConversionError(msg.ErrorMessage);
 	}

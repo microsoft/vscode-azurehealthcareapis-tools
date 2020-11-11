@@ -18,7 +18,7 @@ export class SettingManager {
 		this.context = context;
 	}
 
-	generaterWorkspaceConfig(templateFolder?: string, dataFolder?: string) {
+	generateWorkspaceConfig(templateFolder?: string, dataFolder?: string) {
 		const folderName = utils.generatePrettyFolderName(templateFolder);
 		const folders: any[] = [];
 		const settings = {
