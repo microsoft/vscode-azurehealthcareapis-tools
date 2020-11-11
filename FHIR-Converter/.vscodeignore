@@ -9,11 +9,14 @@
 .vscode/**
 .vscode-test/**
 .vscode test/**
+
 assets/**/*.gif
 assets/**/*.png
 azure-pipelines.yml
-client/src/**
+client/.nyc_output/**
+client/coverage/**
 client/out/test/**
+client/src/**
 client/test/**
 test-data
 node_modules/**

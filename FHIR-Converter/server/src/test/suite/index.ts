@@ -1,37 +1,68 @@
-import * as path from 'path';
-import * as Mocha from 'mocha';
+/*---------------------------------------------------------
+ * Copyright (C) Microsoft Corporation. All rights reserved.
+ *--------------------------------------------------------*/
+
 import * as glob from 'glob';
+import * as Mocha from 'mocha';
+import { join } from 'path';
+import './test-hooks';
 
-export function run(): Promise<void> {
-	// Create the mocha test
-	const mocha = new Mocha({
+function setupCoverage() {
+	const NYC = require('nyc');
+	const nyc = new NYC({
+		cwd: join(__dirname, '..', '..', '..'),
+		exclude: ['**/test/**', '.vscode-test/**'],
+		reporter: ['text', 'html', 'text-summary'],
+		all: true,
+		instrument: true,
+		hookRequire: true,
+		hookRunInContext: true,
+		hookRunInThisContext: true,
+	});
+
+	nyc.reset();
+	nyc.wrap();
+
+	return nyc;
+}
+
+export async function run(): Promise<void> {
+	const nyc = setupCoverage();
+
+	const mochaOpts = {
+		timeout: 10 * 1000,
 		ui: 'tdd',
-	});
-	mocha.useColors(true);
+		...JSON.parse(process.env.PWA_TEST_OPTIONS || '{}'),
+	};	
 
-	const testsRoot = path.resolve(__dirname, '..');
+	const logTestReporter = join(__dirname, '../reporters/logTestReporter');
 
-	return new Promise((c, e) => {
-		glob('**/**.test.js', { cwd: testsRoot }, (err, files) => {
-			if (err) {
-				return e(err);
-			}
+	mochaOpts.reporter = 'mocha-multi-reporters';
+	mochaOpts.reporterOptions = {
+	reporterEnabled: logTestReporter,
+  };
 
-			// Add files to the test suite
-			files.forEach(f => mocha.addFile(path.resolve(testsRoot, f)));
+	const runner = new Mocha(mochaOpts);
 
-			try {
-				// Run the mocha test
-				mocha.run(failures => {
-					if (failures > 0) {
-						e(new Error(`${failures} tests failed.`));
-					} else {
-						c();
-					}
-				});
-			} catch (err) {
-				e(err);
-			}
-		});
-	});
+	runner.useColors(true);
+
+	const options = { cwd: __dirname };
+	const files = glob.sync('**/*utils.test.js', options);
+
+	for (const file of files) {
+		runner.addFile(join(__dirname, file));
+	}
+
+	try {
+		await new Promise((resolve, reject) =>
+			runner.run(failures =>
+			failures ? reject(new Error(`${failures} tests failed`)) : resolve(),
+			),
+	);
+	} finally {
+		if (nyc) {
+			nyc.writeCoverageFile();
+			await nyc.report();
+		}
+	}
 }

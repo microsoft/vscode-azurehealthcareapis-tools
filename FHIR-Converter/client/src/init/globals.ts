@@ -1,7 +1,7 @@
-import { ConverterEngineProvider } from '../core/converter-engine/converter-engine-provider';
+import { ConverterEngineFactory } from '../core/converter-engine/converter-engine-factory';
 import { SettingManager } from './settings';
 
 export module globals {
 	export let settingManager: SettingManager;
-	export let converterEngineProvider: ConverterEngineProvider;
+	export let converterEngineFactory: ConverterEngineFactory;
 }

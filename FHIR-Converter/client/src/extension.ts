@@ -14,7 +14,7 @@ import { selectTemplateCommand } from  './commands/select-template';
 import { selectDataCommand } from  './commands/select-data';
 import { registerCommand } from './commands/command-helper/register-command';
 import { SettingManager } from './init/settings';
-import { ConverterEngineProvider } from './core/converter-engine/converter-engine-provider';
+import { ConverterEngineFactory } from './core/converter-engine/converter-engine-factory';
 import * as constants from './common/constants';
 
 let client: LanguageClient;
@@ -23,7 +23,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	// init workspace
 	globals.settingManager = new SettingManager(context, constants.ConfigurationSection);
 	await globals.settingManager.initWorkspace();
-	globals.converterEngineProvider = new ConverterEngineProvider();
+	globals.converterEngineFactory = new ConverterEngineFactory();
 
 	// register commands
 	registerCommand(context, 'microsoft.health.fhir.converter.createConverterWorkspace', createConverterWorkspaceCommand);

@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { DataType } from '../../core/enum/data-type';
-import { ConverterEngineProvider } from '../../core/converter-engine/converter-engine-provider';
+import { ConverterEngineFactory } from '../../core/converter-engine/converter-engine-factory';
 import { ConverterEngineOption } from '../../core/interface/converter-engine-option';
 import * as engineUtils from '../../common/utils/engine-utils';
 
@@ -31,7 +31,7 @@ suite('Engine Utils Test Suite', () => {
 
 	const resultFolder = path.join(testPath, 'result');
 
-	const hl7v2Engine = new ConverterEngineProvider().getEngine(DataType.hl7v2);
+	const hl7v2Engine = new ConverterEngineFactory().getEngine(DataType.hl7v2);
 
 	test('Function checkEngineStatus - should return true when the status of response from engine is OK', () => {
 		assert.strictEqual(true, engineUtils.checkEngineStatus(msgOk));

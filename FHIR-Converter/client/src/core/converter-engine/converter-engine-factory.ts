@@ -4,7 +4,7 @@ import { DataType } from '../enum/data-type';
 import { ConfigurationError } from '../../common/errors/configuration-error';
 import localize from '../../localize';
 
-export class ConverterEngineProvider {
+export class ConverterEngineFactory {
 	private converterEngine: IDataEngine;
 
 	createEngine(dataType): IDataEngine {

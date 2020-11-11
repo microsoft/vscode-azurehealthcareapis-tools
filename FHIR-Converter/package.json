@@ -11,7 +11,7 @@
 		"url": "https://github.com/yankunhuang-pku/images"
 	},
 	"license": "SEE LICENSE IN LICENSE",
-	"version": "0.3.32",
+	"version": "0.3.33",
 	"enableProposedApi": true,
 	"engines": {
 		"vscode": "^1.44.0"
@@ -137,14 +137,20 @@
 		"lint": "tslint --fix client/src/**/*.ts  server/src/**/*.ts"
 	},
 	"devDependencies": {
-		"@types/node": "^12.12.0",
-		"tslint": "^5.19.0",
-		"typescript": "^3.8.3",
-		"@types/vscode": "^1.44.0",
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^5.2.6",
+		"@types/node": "^12.12.0",
+		"@types/vscode": "^1.44.0",
+		"chai": "^4.2.0",
+		"chai-as-promised": "^7.1.1",
+		"chai-subset": "^1.6.0",
 		"glob": "^7.1.4",
 		"mocha": "^6.1.4",
+		"mocha-multi-reporters": "^1.5.1",
+		"nyc": "^15.1.0",
+		"reflect-metadata": "^0.1.13",
+		"tslint": "^5.19.0",
+		"typescript": "^3.8.3",
 		"vscode-test": "^1.2.0"
 	}
 }

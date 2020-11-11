@@ -41,7 +41,7 @@ export async function convert() {
 	await openShowFile(globals.settingManager.activeDataPath, globals.settingManager.activeTemplatePath);
 
 	// Obtain the engine
-	const engine = globals.converterEngineProvider.getEngine(globals.settingManager.getWorkspaceType());
+	const engine = globals.converterEngineFactory.getEngine(globals.settingManager.getWorkspaceType());
 
 	// Obtain the converter engine option
 	const converterEngineOption: ConverterEngineOption = {
