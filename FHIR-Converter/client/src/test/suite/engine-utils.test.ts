@@ -5,11 +5,9 @@ import * as vscode from 'vscode';
 import { DataType } from '../../core/enum/data-type';
 import { ConverterEngineProvider } from '../../core/converter-engine/converter-engine-provider';
 import { ConverterEngineOption } from '../../core/interface/converter-engine-option';
-import * as fileUtils from '../../common/utils/file-utils';
-import * as stringUtils from '../../common/utils/string-utils';
 import * as engineUtils from '../../common/utils/engine-utils';
 
-suite('Utils Test Suite', () => {
+suite('Engine Utils Test Suite', () => {
 	const testPath = path.join(__dirname, '../../../../test-data');
 	const msgOk = {
 		Status: 'OK',
@@ -35,54 +33,12 @@ suite('Utils Test Suite', () => {
 
 	const hl7v2Engine = new ConverterEngineProvider().getEngine(DataType.hl7v2);
 
-	test('Function getTemplateNameWithoutExt - should return template name without extension', () => {
-		const templateName = stringUtils.getTemplateNameWithoutExt('ADT_A01.liquid');
-		assert.strictEqual('ADT_A01', templateName);
-	});
-
 	test('Function checkEngineStatus - should return true when the status of response from engine is OK', () => {
 		assert.strictEqual(true, engineUtils.checkEngineStatus(msgOk));
 	});
 
 	test('Function checkEngineStatus - should return false when the status of response from engine is Fail', () => {
 		assert.strictEqual(false, engineUtils.checkEngineStatus(msgFail));
-	});
-
-	test('Function convertPrettyJsonString - should output the pretty string from a json object', () => {
-		const prettyStr = stringUtils.convertPrettyJsonString(msgOk);
-		assert.strictEqual(JSON.stringify(msgOk, null, 4), prettyStr);
-	});
-
-	test('Function generatePrettyFolderName - should append the string \'(Templates)\' to the template folder name at the exploerer view', () => {
-		const prettyFolderName = stringUtils.generatePrettyFolderName('Hl7v2');
-		assert.strictEqual('Hl7v2 (Templates)', prettyFolderName);
-	});
-
-	test('Function writePrettyJson - should write the pretty string from a json object to a file', () => {
-		const filePath = path.join(resultFolder, 'test.json');
-		if (fs.existsSync(filePath)) {
-			fs.unlinkSync(filePath);
-		}
-		assert.strictEqual(false, fs.existsSync(filePath));
-		fileUtils.writePrettyJson(filePath, msgOk);
-		assert.strictEqual(true, fs.existsSync(filePath));
-		const obj = JSON.parse(fs.readFileSync(filePath).toString());
-		assert.strictEqual('OK', obj.Status);
-	});
-
-	test('Function getStatusBarString - should return a string which contains template name, but without data name', () => {
-		const str = stringUtils.getStatusBarString(undefined, 'myTemplateFile');
-		assert.strictEqual('FHIR Converter: data - none, template - myTemplateFile', str);
-	});
-
-	test('Function getStatusBarString - should return a string which contains the data name, but without template name', () => {
-		const str = stringUtils.getStatusBarString('myDataFile', undefined);
-		assert.strictEqual('FHIR Converter: data - myDataFile, template - none', str);
-	});
-
-	test('Function getStatusBarString - should return a string which contains both template name and data name', () => {
-		const str = stringUtils.getStatusBarString('myDataFile', 'myTemplateFile');
-		assert.strictEqual('FHIR Converter: data - myDataFile, template - myTemplateFile', str);
 	});
 
 	test('Function convert - should return a json object with OK status given data, template and template folder', async () => {
@@ -167,20 +123,5 @@ suite('Utils Test Suite', () => {
 		const msg = await hl7v2Engine.process(converterEngineOption);
 		assert.strictEqual(true, fs.existsSync(resultFile));
 		assert.strictEqual('Fail', msg.Status);
-	});
-
-	test('Function createFolders - should can create recursive folders', () => {
-		const targetFolders = path.join(resultFolder, 'frist/second');
-		if (fs.existsSync(targetFolders)) {
-			fs.rmdirSync(targetFolders);
-		}
-		fileUtils.checkCreateFolders(targetFolders);
-		assert.strictEqual(true, fs.existsSync(targetFolders));
-	});
-
-	test('Function getResultFileName - should return file name with data filename and template filename', () => {
-		const templateFile = 'ADT_A01.liquid';
-		const dataFile = 'ADT01-23.hl7';
-		assert.strictEqual('ADT01-23.hl7 - ADT_A01.liquid.json', stringUtils.getResultFileName(dataFile, templateFile));
 	});
 });

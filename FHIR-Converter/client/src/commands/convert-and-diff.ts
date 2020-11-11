@@ -4,8 +4,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as fileUtils from '../common/utils/file-utils';
 import * as stringUtils from '../common/utils/string-utils';
-import { convert } from './convert';
-import { showDifferentialView } from './show-differential-view';
+import { convert } from './command-helper/convert';
+import { showDifferentialView } from './command-helper/show-differential-view';
 import * as constants from '../common/constants';
 
 

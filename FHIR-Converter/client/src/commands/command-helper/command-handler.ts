@@ -1,4 +1,4 @@
-import * as errorHandler from '../errors/error-handler';
+import * as errorHandler from '../../common/errors/error-handler';
 
 export async function commandHandler(event) {
 	try {

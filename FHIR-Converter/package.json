@@ -11,7 +11,7 @@
 		"url": "https://github.com/yankunhuang-pku/images"
 	},
 	"license": "SEE LICENSE IN LICENSE",
-	"version": "0.3.30",
+	"version": "0.3.31",
 	"enableProposedApi": true,
 	"engines": {
 		"vscode": "^1.44.0"

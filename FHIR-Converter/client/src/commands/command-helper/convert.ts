@@ -1,15 +1,15 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as utils from '../common/utils/string-utils';
-import { ConverterEngineOption } from '../core/interface/converter-engine-option';
-import * as interaction from '../common/view/common-interaction-api';
-import localize from '../localize';
-import { globals } from '../init/globals';
-import { ConversionError } from '../common/errors/conversion-error';
-import { ReminderError } from '../common/errors/reminder-error';
-import { TemplateFileExt } from '../common/constants';
-import * as constants from '../common/constants';
-import * as engineUtils from '../common/utils/engine-utils';
+import * as utils from '../../common/utils/string-utils';
+import { ConverterEngineOption } from '../../core/interface/converter-engine-option';
+import * as interaction from '../../common/view/common-interaction-api';
+import localize from '../../localize';
+import { globals } from '../../init/globals';
+import { ConversionError } from '../../common/errors/conversion-error';
+import { ReminderError } from '../../common/errors/reminder-error';
+import { TemplateFileExt } from '../../common/constants';
+import * as constants from '../../common/constants';
+import * as engineUtils from '../../common/utils/engine-utils';
 
 export async function convert() {
 	const unsavedTemplates: vscode.TextDocument[] = interaction.getUnsavedFiles(TemplateFileExt);
