@@ -46,8 +46,8 @@ export async function run(): Promise<void> {
 
 	runner.useColors(true);
 	  
-	runner.addFile(join(__dirname, './converter-engine-factory.test'));
-	runner.addFile(join(__dirname, './hl7v2-converter-engine.test'));
+	runner.addFile(join(__dirname, './engine/converter-engine-factory.test'));
+	runner.addFile(join(__dirname, './engine/hl7v2-converter-engine.test'));
 
 	const options = { cwd: __dirname };
 	const files = glob.sync('**/*utils.test.js', options);

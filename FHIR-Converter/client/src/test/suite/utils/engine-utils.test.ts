@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import * as engineUtils from '../../common/utils/engine-utils';
+import * as engineUtils from '../../../common/utils/engine-utils';
 
 suite('Engine Utils Test Suite', () => {
 	const msgOk = {

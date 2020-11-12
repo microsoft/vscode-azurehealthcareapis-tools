@@ -2,14 +2,14 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as vscode from 'vscode';
-import { DataType } from '../../core/enum/data-type';
-import { Hl7v2ConverterEngine } from '../../core/converter-engine/hl7v2-converter-engine';
-import { ConverterEngineOption } from '../../core/interface/converter-engine-option';
-import { DefaultHl7v2ExePath } from '../../common/constants';
+import { DataType } from '../../../core/enum/data-type';
+import { Hl7v2ConverterEngine } from '../../../core/converter-engine/hl7v2-converter-engine';
+import { ConverterEngineOption } from '../../../core/interface/converter-engine-option';
+import { DefaultHl7v2ExePath } from '../../../common/constants';
 import { beforeEach } from 'mocha';
 
 suite('Hl7v2 Converter Engine Test Suite', () => {
-	const testPath = path.join(__dirname, '../../../../test-data');
+	const testPath = path.join(__dirname, '../../../../../test-data');
 	const resultFolder = path.join(testPath, 'result');
 	const activeDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23.hl7');
 	const invalidActiveDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23-error.hl7');

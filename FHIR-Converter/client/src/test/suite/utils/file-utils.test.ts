@@ -1,10 +1,11 @@
 import * as assert from 'assert';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as fileUtils from '../../common/utils/file-utils';
+import * as fileUtils from '../../../common/utils/file-utils';
 
 suite('File Utils Test Suite', () => {
-	const testPath = path.join(__dirname, '../../../../test-data');
+	const testPath = path.join(__dirname, '../../../../../test-data');
+	const multiLayerFolder = path.join(testPath, 'result/first-dir/second-dir');
 	const msgOk = {
 		Status: 'OK',
 		FhirResource: {
@@ -19,15 +20,14 @@ suite('File Utils Test Suite', () => {
 		}
 	};
 
-	const resultFolder = path.join(testPath, 'result');
+	
 	test('Function checkFolderWritePrettyJson - should write the pretty string to a file given a filename', () => {
-		const targetFolder = path.join(resultFolder, 'frist/second');
-		const filePath = path.join(targetFolder, 'test.json');
+		const filePath = path.join(multiLayerFolder, 'test.json');
 		if (fs.existsSync(filePath)) {
 			fs.unlinkSync(filePath);
 		}
-		if (fs.existsSync(targetFolder)) {
-			fs.rmdirSync(targetFolder);
+		if (fs.existsSync(multiLayerFolder)) {
+			fs.rmdirSync(multiLayerFolder);
 		}
 		assert.strictEqual(false, fs.existsSync(filePath));
 		const exists = fileUtils.checkFolderWritePrettyJson(filePath, msgOk);
@@ -39,7 +39,7 @@ suite('File Utils Test Suite', () => {
 	
 
 	test('Function writePrettyJson - should write the pretty string from a json object to a file', () => {
-		const filePath = path.join(resultFolder, 'test.json');
+		const filePath = path.join(multiLayerFolder, 'test.json');
 		if (fs.existsSync(filePath)) {
 			fs.unlinkSync(filePath);
 		}
@@ -51,21 +51,19 @@ suite('File Utils Test Suite', () => {
 	});
 
 	test('Function createFolders - should create recursive folders when the folder do not exist', () => {
-		const targetFolder = path.join(resultFolder, 'first/second');
-		if (fs.existsSync(targetFolder)) {
-			fs.rmdirSync(targetFolder);
+		if (fs.existsSync(multiLayerFolder)) {
+			fs.rmdirSync(multiLayerFolder, { recursive: true });
 		}
-		const exists = fileUtils.checkCreateFolders(targetFolder);
+		const exists = fileUtils.checkCreateFolders(multiLayerFolder);
 		assert.strictEqual(false, exists);
-		assert.strictEqual(true, fs.existsSync(targetFolder));
+		assert.strictEqual(true, fs.existsSync(multiLayerFolder));
 	});
 
 	test('Function createFolders - should not create new folders when the folder exists', () => {
-		const targetFolder = path.join(resultFolder, 'first/second');
-		if (!fs.existsSync(targetFolder)) {
-			fs.mkdirSync(resultFolder, { recursive: true });
+		if (!fs.existsSync(multiLayerFolder)) {
+			fs.mkdirSync(multiLayerFolder, { recursive: true });
 		}
-		const exists = fileUtils.checkCreateFolders(targetFolder);
+		const exists = fileUtils.checkCreateFolders(multiLayerFolder);
 		assert.strictEqual(true, exists);
 	});
 

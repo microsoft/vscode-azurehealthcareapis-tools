@@ -1,7 +1,7 @@
-import { ConverterEngineFactory } from '../../core/converter-engine/converter-engine-factory';
+import { ConverterEngineFactory } from '../../../core/converter-engine/converter-engine-factory';
 import * as assert from 'assert';
-import { DataType } from '../../core/enum/data-type';
-import { Hl7v2ConverterEngine } from '../../core/converter-engine/hl7v2-converter-engine';
+import { DataType } from '../../../core/enum/data-type';
+import { Hl7v2ConverterEngine } from '../../../core/converter-engine/hl7v2-converter-engine';
 
 suite('Converter Engine Factory Test Suite', () => {
 
