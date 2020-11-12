@@ -4,7 +4,7 @@
  * ------------------------------------------------------------------------------------------ */
 
 import { LanguageClient } from 'vscode-languageclient';
-import { generateLanguageClient } from './init/language-client';
+import { createLanguageClient } from './init/language-client';
 import { globals } from './init/globals';
 import * as vscode from 'vscode';
 import { createConverterWorkspaceCommand } from './commands/create-converter-workspace';
@@ -20,12 +20,12 @@ import * as constants from './common/constants';
 let client: LanguageClient;
 
 export async function activate(context: vscode.ExtensionContext) {
-	// init workspace
+	// Init workspace
 	globals.settingManager = new SettingManager(context, constants.ConfigurationSection);
 	await globals.settingManager.initWorkspace();
 	globals.converterEngineFactory = new ConverterEngineFactory();
 
-	// register commands
+	// Register commands
 	registerCommand(context, 'microsoft.health.fhir.converter.createConverterWorkspace', createConverterWorkspaceCommand);
 
 	registerCommand(context, 'microsoft.health.fhir.converter.convertAndDiff', convertAndDiffCommand);
@@ -37,7 +37,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	registerCommand(context, 'microsoft.health.fhir.converter.updateTemplateFolder', updateTemplateFolderCommand);
 
 	// Start the client. This will also launch the server
-	client = generateLanguageClient(context);
+	client = createLanguageClient(context);
 	client.start();
 }
 

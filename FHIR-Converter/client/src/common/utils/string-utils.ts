@@ -1,5 +1,4 @@
 import * as path from 'path';
-import localize from '../../localize';
 
 export function getTemplateNameWithoutExt(templateName: string): string {
 	return templateName.substring(0, templateName.lastIndexOf('.'));
@@ -9,11 +8,12 @@ export function convertPrettyJsonString(json: object) {
 	return JSON.stringify(json, null, 4);
 }
 
-export function generatePrettyFolderName(templateFolder: string) {
-	return path.basename(templateFolder) + ' ' + localize('common.templateFolder.suffix');
+export function generatePrettyFolderName(templateFolder: string, templateFolderSuffix: string) {
+	return path.basename(templateFolder) + ' ' + templateFolderSuffix;
 }
 
-export function getStatusBarString(activeDataPath: string | undefined, activeTemplatePath: string | undefined) {
+export function getStatusBarString(activeDataPath: string | undefined, activeTemplatePath: string | undefined, 
+	extensionTitle: string, dataTitle: string, templateTitle: string) {
 	let dataName = 'none';
 	let templateName = 'none';
 	if (activeDataPath) {
@@ -22,7 +22,7 @@ export function getStatusBarString(activeDataPath: string | undefined, activeTem
 	if (activeTemplatePath) {
 		templateName = path.basename(activeTemplatePath);
 	}
-	const str = `${localize('microsoft.health.fhir.converter.configuration.title')}: ${localize('common.data')} - ${dataName}, ${localize('common.template')} - ${templateName}`;
+	const str = `${extensionTitle}: ${dataTitle} - ${dataName}, ${templateTitle} - ${templateName}`;
 	return str;
 }
 

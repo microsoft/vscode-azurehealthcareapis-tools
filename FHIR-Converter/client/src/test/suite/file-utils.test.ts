@@ -20,6 +20,23 @@ suite('File Utils Test Suite', () => {
 	};
 
 	const resultFolder = path.join(testPath, 'result');
+	test('Function checkFolderWritePrettyJson - should write the pretty string to a file given a filename', () => {
+		const targetFolder = path.join(resultFolder, 'frist/second');
+		const filePath = path.join(targetFolder, 'test.json');
+		if (fs.existsSync(filePath)) {
+			fs.unlinkSync(filePath);
+		}
+		if (fs.existsSync(targetFolder)) {
+			fs.rmdirSync(targetFolder);
+		}
+		assert.strictEqual(false, fs.existsSync(filePath));
+		const exists = fileUtils.checkFolderWritePrettyJson(filePath, msgOk);
+		assert.strictEqual(false, exists);
+		assert.strictEqual(true, fs.existsSync(filePath));
+		const obj = JSON.parse(fs.readFileSync(filePath).toString());
+		assert.strictEqual('OK', obj.Status);
+	});
+	
 
 	test('Function writePrettyJson - should write the pretty string from a json object to a file', () => {
 		const filePath = path.join(resultFolder, 'test.json');
@@ -33,13 +50,24 @@ suite('File Utils Test Suite', () => {
 		assert.strictEqual('OK', obj.Status);
 	});
 
-	test('Function createFolders - should can create recursive folders', () => {
-		const targetFolders = path.join(resultFolder, 'frist/second');
-		if (fs.existsSync(targetFolders)) {
-			fs.rmdirSync(targetFolders);
+	test('Function createFolders - should create recursive folders when the folder do not exist', () => {
+		const targetFolder = path.join(resultFolder, 'first/second');
+		if (fs.existsSync(targetFolder)) {
+			fs.rmdirSync(targetFolder);
 		}
-		fileUtils.checkCreateFolders(targetFolders);
-		assert.strictEqual(true, fs.existsSync(targetFolders));
+		const exists = fileUtils.checkCreateFolders(targetFolder);
+		assert.strictEqual(false, exists);
+		assert.strictEqual(true, fs.existsSync(targetFolder));
 	});
+
+	test('Function createFolders - should not create new folders when the folder exists', () => {
+		const targetFolder = path.join(resultFolder, 'first/second');
+		if (!fs.existsSync(targetFolder)) {
+			fs.mkdirSync(resultFolder, { recursive: true });
+		}
+		const exists = fileUtils.checkCreateFolders(targetFolder);
+		assert.strictEqual(true, exists);
+	});
+
 
 });

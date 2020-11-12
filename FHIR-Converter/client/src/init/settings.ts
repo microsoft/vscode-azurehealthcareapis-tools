@@ -19,7 +19,7 @@ export class SettingManager {
 	}
 
 	generateWorkspaceConfig(templateFolder?: string, dataFolder?: string) {
-		const folderName = utils.generatePrettyFolderName(templateFolder);
+		const folderName = utils.generatePrettyFolderName(templateFolder, localize('common.templateFolder.suffix'));
 		const folders: any[] = [];
 		const settings = {
 			'workbench.editor.enablePreview': false,
@@ -74,7 +74,7 @@ export class SettingManager {
 		const templateFolder: string = this.getConfiguration(constants.ConfigurationTemplateFolderKey);
 		if (templateFolder) {
 			const folders = vscode.workspace.workspaceFolders;
-			const folderName = utils.generatePrettyFolderName(templateFolder);
+			const folderName = utils.generatePrettyFolderName(templateFolder, localize('common.templateFolder.suffix'));
 			if (!folders) {
 				vscode.workspace.updateWorkspaceFolders(0, null, {uri: vscode.Uri.file(templateFolder), name: folderName});
 			} else {
@@ -100,6 +100,11 @@ export class SettingManager {
 		return DataType.hl7v2;
 	}
 
+	setStatusBar() {
+		vscode.window.setStatusBarMessage(utils.getStatusBarString(this.activeDataPath, this.activeTemplatePath,
+			localize('microsoft.health.fhir.converter.configuration.title'), localize('common.data'), localize('common.template')));
+	}
+
 	updateActiveFile(file: string, type: FileType) {
 		if (type === FileType.data) {
 			this.activeDataPath = file;
@@ -108,7 +113,7 @@ export class SettingManager {
 			this.activeTemplatePath = file;
 			this.context.workspaceState.update(constants.WorkspaceStateTemplateKey, this.activeTemplatePath);
 		}
-		vscode.window.setStatusBarMessage(utils.getStatusBarString(this.activeDataPath, this.activeTemplatePath));
+		this.setStatusBar();
 		
 	}
 
@@ -116,7 +121,7 @@ export class SettingManager {
 		if (this.converterWorkspaceExists()) {
 			this.activeTemplatePath = this.context.workspaceState.get(constants.WorkspaceStateTemplateKey);
 			this.activeDataPath = this.context.workspaceState.get(constants.WorkspaceStateDataKey);
-			vscode.window.setStatusBarMessage(utils.getStatusBarString(this.activeDataPath, this.activeTemplatePath));
+			this.setStatusBar();
 			let resultFolder: string = this.getConfiguration(constants.ConfigurationResultFolderKey);
 			if (!resultFolder) {
 				resultFolder = this.context.storagePath;

@@ -8,7 +8,7 @@ import {
 	TransportKind
 } from 'vscode-languageclient';
 
-export function generateLanguageClient(context: vscode.ExtensionContext) {
+export function createLanguageClient(context: vscode.ExtensionContext) {
 		
 	// The server is implemented in node
 	const serverModule = context.asAbsolutePath(

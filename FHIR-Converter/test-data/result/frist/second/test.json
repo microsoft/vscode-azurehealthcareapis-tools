@@ -1,0 +1,15 @@
+{
+    "Status": "OK",
+    "FhirResource": {
+        "resourceType": "Bundle",
+        "type": "transaction",
+        "entry": [
+            {
+                "fullUrl": "uuid-sample",
+                "resource": {
+                    "resourceType": "Patient"
+                }
+            }
+        ]
+    }
+}

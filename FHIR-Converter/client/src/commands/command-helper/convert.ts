@@ -7,6 +7,7 @@ import localize from '../../localize';
 import { globals } from '../../init/globals';
 import { ConversionError } from '../../common/errors/conversion-error';
 import { ReminderError } from '../../common/errors/reminder-error';
+import { ConfigurationError } from '../../common/errors/configuration-error';
 import { TemplateFileExt } from '../../common/constants';
 import * as constants from '../../common/constants';
 import * as engineUtils from '../../common/utils/engine-utils';
@@ -41,7 +42,11 @@ export async function convert() {
 	await openShowFile(globals.settingManager.activeDataPath, globals.settingManager.activeTemplatePath);
 
 	// Obtain the engine
-	const engine = globals.converterEngineFactory.getEngine(globals.settingManager.getWorkspaceType());
+	const dataType = globals.settingManager.getWorkspaceType();
+	const engine = globals.converterEngineFactory.getEngine(dataType);
+	if (!engine){
+		throw new ConfigurationError(localize('message.converterEngineNotSupported', dataType));
+	}
 
 	// Obtain the converter engine option
 	const converterEngineOption: ConverterEngineOption = {

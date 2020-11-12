@@ -1,24 +1,23 @@
 import { IDataEngine } from '../interface/data-engine';
 import { Hl7v2ConverterEngine } from './hl7v2-converter-engine';
 import { DataType } from '../enum/data-type';
-import { ConfigurationError } from '../../common/errors/configuration-error';
-import localize from '../../localize';
 
 export class ConverterEngineFactory {
-	private converterEngine: IDataEngine;
+	private _converterEngine: IDataEngine;
 
-	createEngine(dataType): IDataEngine {
+	private _createEngine(dataType: DataType): IDataEngine {
 		if (dataType === DataType.hl7v2) {
-			return new Hl7v2ConverterEngine(DataType.hl7v2);
+			this._converterEngine = new Hl7v2ConverterEngine(DataType.hl7v2)
+			return this._converterEngine;
 		}
-		throw new ConfigurationError(localize('message.converterEngineNotSupported', dataType));
+		return undefined;
 	}
 
-	getEngine(dataType): IDataEngine {
-		if (this.converterEngine && this.converterEngine.type === dataType) {
-			return this.converterEngine;
+	getEngine(dataType: DataType): IDataEngine {
+		if (this._converterEngine && this._converterEngine.type === dataType) {
+			return this._converterEngine;
 		} else {
-			return this.createEngine(dataType);
+			return this._createEngine(dataType);
 		}
 	}
 }
