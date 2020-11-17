@@ -4,26 +4,43 @@
  * ------------------------------------------------------------------------------------------ */
 
 import { LanguageClient } from 'vscode-languageclient';
-import { createLanguageClient } from './init/language-client';
-import { globals } from './init/globals';
+import { createLanguageClient } from './core/language-client/language-client';
+import { globals } from './core/globals';
+import localize from './i18n/localize';
+import * as path from 'path';
+import * as stringUtils from './core/common/utils/string-utils';
+import * as configurationConstants from './core/common/constants/workspace-configuration';
 import * as vscode from 'vscode';
-import { createConverterWorkspaceCommand } from './commands/create-converter-workspace';
-import { convertAndDiffCommand } from  './commands/convert-and-diff';
-import { updateTemplateFolderCommand } from  './commands/update-template-folder';
-import { selectTemplateCommand } from  './commands/select-template';
-import { selectDataCommand } from  './commands/select-data';
-import { registerCommand } from './commands/command-helper/register-command';
-import { SettingManager } from './init/settings';
-import { ConverterEngineFactory } from './core/converter-engine/converter-engine-factory';
-import * as constants from './common/constants';
+import { createConverterWorkspaceCommand } from './view/user-commands/create-converter-workspace';
+import { convertAndDiffCommand } from  './view/user-commands/convert';
+import { updateTemplateFolderCommand } from  './view/user-commands/update-template-folder';
+import { selectTemplateCommand } from  './view/user-commands/select-template';
+import { selectDataCommand } from  './view/user-commands/select-data';
+import { registerCommand } from './view/common/register-command';
+import { SettingManager } from './core/settings/settings-manager';
+import { setStatusBar } from './view/user-commands/share/set-status-bar';
+import { ConfigurationError } from './core/common/errors/configuration-error';
+import { converterWorkspaceExists } from './view/user-commands/share/converter-workspace-exists';
 
 let client: LanguageClient;
 
 export async function activate(context: vscode.ExtensionContext) {
+	// Init setting manager
+	globals.settingManager = new SettingManager(context, configurationConstants.ConfigurationSection);
+
 	// Init workspace
-	globals.settingManager = new SettingManager(context, constants.ConfigurationSection);
-	await globals.settingManager.initWorkspace();
-	globals.converterEngineFactory = new ConverterEngineFactory();
+	if (converterWorkspaceExists(configurationConstants.WorkspaceFileExtension)) {
+		setStatusBar();
+		let resultFolder: string = globals.settingManager.getWorkspaceConfiguration(configurationConstants.ResultFolderKey);
+		if (!resultFolder) {
+			resultFolder = path.join(globals.settingManager.context.storagePath, configurationConstants.DefaultResultFolderName);
+			await globals.settingManager.updateWorkspaceConfiguration(configurationConstants.ResultFolderKey, resultFolder);
+		}
+		updateTemplateFolder();
+		vscode.workspace.onDidChangeConfiguration(async () => {
+			updateTemplateFolder();
+		});
+	}
 
 	// Register commands
 	registerCommand(context, 'microsoft.health.fhir.converter.createConverterWorkspace', createConverterWorkspaceCommand);
@@ -47,4 +64,19 @@ export function deactivate(context: vscode.ExtensionContext): Thenable<void> | u
 		return undefined;
 	}
 	return client.stop();
+}
+
+function updateTemplateFolder() {
+	const templateFolder: string = globals.settingManager.getWorkspaceConfiguration(configurationConstants.TemplateFolderKey);
+	if (templateFolder) {
+		const folders = vscode.workspace.workspaceFolders;
+		const folderName = stringUtils.generatePrettyFolderName(templateFolder, localize('common.templateFolder.suffix'));
+		if (!folders) {
+			vscode.workspace.updateWorkspaceFolders(0, null, {uri: vscode.Uri.file(templateFolder), name: folderName});
+		} else {
+			vscode.workspace.updateWorkspaceFolders(0, 1, {uri: vscode.Uri.file(templateFolder), name: folderName});
+		}
+	} else {
+		throw new ConfigurationError(localize('message.noTemplateFolderProvided'));
+	}
 }

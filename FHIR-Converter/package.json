@@ -11,7 +11,7 @@
 		"url": "https://github.com/yankunhuang-pku/images"
 	},
 	"license": "SEE LICENSE IN LICENSE",
-	"version": "0.3.35",
+	"version": "0.3.36",
 	"enableProposedApi": true,
 	"engines": {
 		"vscode": "^1.44.0"
@@ -32,7 +32,8 @@
 		"onCommand:microsoft.health.fhir.converter.updateTemplateFolder",
 		"onCommand:microsoft.health.fhir.converter.selectTemplate",
 		"onCommand:microsoft.health.fhir.converter.selectData",
-		"onCommand:microsoft.health.fhir.converter.createConverterWorkspace"
+		"onCommand:microsoft.health.fhir.converter.createConverterWorkspace",
+		"workspaceContains: **/*.liquid"
 	],
 	"main": "./client/out/extension.js",
 	"contributes": {
@@ -114,12 +115,17 @@
 			"type": "object",
 			"title": "%microsoft.health.fhir.converter.configuration.title%",
 			"properties": {
-				"fhirConverter.templateFolder": {
+				"microsoft.health.fhir.converter.converterType": {
+					"type": "string",
+					"default": "",
+					"description": "%microsoft.health.fhir.converter.configuration.converterType.description%"
+				},
+				"microsoft.health.fhir.converter.templateFolder": {
 					"type": "string",
 					"default": "",
 					"description": "%microsoft.health.fhir.converter.configuration.templateFolder.description%"
 				},
-				"fhirConverter.resultFolder": {
+				"microsoft.health.fhir.converter.resultFolder": {
 					"type": "string",
 					"default": "",
 					"description": "%microsoft.health.fhir.converter.configuration.resultFolder.description%"

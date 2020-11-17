@@ -1,0 +1,7 @@
+{
+  "Status": "OK",
+  "FhirResource": {
+  "resourceType": "Bundle",
+  "type": "transaction"
+}
+}

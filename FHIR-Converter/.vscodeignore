@@ -21,8 +21,10 @@ client/test/**
 test-data
 node_modules/**
 scripts/**
-server/src/**
+server/.nyc_output/**
+server/coverage/**
 server/out/test/**
+server/src/**
 server/test/**
 src/**
 test/**

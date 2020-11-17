@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import * as engineUtils from '../../../common/utils/engine-utils';
+import * as engineUtils from '../../../core/common/utils/engine-utils';
 
 suite('Engine Utils Test Suite', () => {
 	const msgOk = {
@@ -23,10 +23,10 @@ suite('Engine Utils Test Suite', () => {
 	};
 
 	test('Function checkEngineStatus - should return true when the status of response from engine is OK', () => {
-		assert.strictEqual(true, engineUtils.checkEngineStatus(msgOk));
+		assert.strictEqual(engineUtils.checkEngineStatus(msgOk), true);
 	});
 
 	test('Function checkEngineStatus - should return false when the status of response from engine is Fail', () => {
-		assert.strictEqual(false, engineUtils.checkEngineStatus(msgFail));
+		assert.strictEqual(engineUtils.checkEngineStatus(msgFail), false);
 	});
 });

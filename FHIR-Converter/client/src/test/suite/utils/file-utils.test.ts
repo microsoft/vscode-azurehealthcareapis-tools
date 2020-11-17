@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as fileUtils from '../../../common/utils/file-utils';
+import * as fileUtils from '../../../core/common/utils/file-utils';
 
 suite('File Utils Test Suite', () => {
 	const testPath = path.join(__dirname, '../../../../../test-data');
@@ -29,12 +29,12 @@ suite('File Utils Test Suite', () => {
 		if (fs.existsSync(multiLayerFolder)) {
 			fs.rmdirSync(multiLayerFolder);
 		}
-		assert.strictEqual(false, fs.existsSync(filePath));
+		assert.strictEqual(fs.existsSync(filePath), false);
 		const exists = fileUtils.checkFolderWritePrettyJson(filePath, msgOk);
-		assert.strictEqual(false, exists);
-		assert.strictEqual(true, fs.existsSync(filePath));
+		assert.strictEqual(exists, false);
+		assert.strictEqual(fs.existsSync(filePath), true);
 		const obj = JSON.parse(fs.readFileSync(filePath).toString());
-		assert.strictEqual('OK', obj.Status);
+		assert.strictEqual(obj.Status, 'OK');
 	});
 	
 
@@ -43,11 +43,11 @@ suite('File Utils Test Suite', () => {
 		if (fs.existsSync(filePath)) {
 			fs.unlinkSync(filePath);
 		}
-		assert.strictEqual(false, fs.existsSync(filePath));
+		assert.strictEqual(fs.existsSync(filePath), false);
 		fileUtils.writePrettyJson(filePath, msgOk);
-		assert.strictEqual(true, fs.existsSync(filePath));
+		assert.strictEqual(fs.existsSync(filePath), true);
 		const obj = JSON.parse(fs.readFileSync(filePath).toString());
-		assert.strictEqual('OK', obj.Status);
+		assert.strictEqual(obj.Status, 'OK');
 	});
 
 	test('Function createFolders - should create recursive folders when the folder do not exist', () => {
@@ -55,8 +55,8 @@ suite('File Utils Test Suite', () => {
 			fs.rmdirSync(multiLayerFolder, { recursive: true });
 		}
 		const exists = fileUtils.checkCreateFolders(multiLayerFolder);
-		assert.strictEqual(false, exists);
-		assert.strictEqual(true, fs.existsSync(multiLayerFolder));
+		assert.strictEqual(exists, false);
+		assert.strictEqual(fs.existsSync(multiLayerFolder), true);
 	});
 
 	test('Function createFolders - should not create new folders when the folder exists', () => {
@@ -64,8 +64,13 @@ suite('File Utils Test Suite', () => {
 			fs.mkdirSync(multiLayerFolder, { recursive: true });
 		}
 		const exists = fileUtils.checkCreateFolders(multiLayerFolder);
-		assert.strictEqual(true, exists);
+		assert.strictEqual(exists, true);
 	});
 
-
+	test('Function getAllPaths - should return all file paths according to the pattern', () => {
+		const templateFolder = path.join(testPath, './templates/Hl7v2');
+		const files = fileUtils.getAllPaths(templateFolder, '/**/O*.liquid');
+		assert.strictEqual(files.length, 2);
+	});
 });
+
