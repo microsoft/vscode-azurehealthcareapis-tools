@@ -1,6 +1,6 @@
 /*!
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * Licensed under the MIT License. See License.txt in the project root for license information.
+ * Licensed under the MIT License. See License in the project root for license information.
  */
 
 import * as stringUtils from '../common/utils/string-utils';
@@ -35,13 +35,13 @@ export class Converter {
 	}
 
 	convert(dataFile: string) {
-		return this._engine.process(dataFile);;
+		return this._engine.process(dataFile);
 	}
 
 	getHistory(filePath: string) {
 		const resultName = stringUtils.getFileNameWithoutTwoExt(filePath);
 		const files: string[] = fileUtils.getAllPaths(this._resultFolder, `/**/${resultName}.*.json`);
-		const sorted_files = stringUtils.getDescendingSortString(files);
-		return sorted_files;
+		const sortedFiles = stringUtils.getDescendingSortString(files);
+		return sortedFiles;
 	}
 }
