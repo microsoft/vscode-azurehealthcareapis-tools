@@ -1,3 +1,8 @@
+/*!
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
 import localize from '../../i18n/localize';
 import * as configurationConstants from '../common/constants/workspace-configuration';
 import * as stateConstants from '../common/constants/workspace-state';

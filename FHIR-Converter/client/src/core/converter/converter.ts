@@ -1,6 +1,13 @@
+/*!
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
 import * as stringUtils from '../common/utils/string-utils';
+import localize from '../../i18n/localize';
 import * as fileUtils from '../common/utils/file-utils';
 import { IConverterEngine } from './engine/converter-engine';
+import { ConversionError } from '../../core/common/errors/conversion-error';
 
 export class Converter {
 	private _engine: IConverterEngine;
@@ -28,7 +35,7 @@ export class Converter {
 	}
 
 	convert(dataFile: string) {
-		return this._engine.process(dataFile);
+		return this._engine.process(dataFile);;
 	}
 
 	getHistory(filePath: string) {

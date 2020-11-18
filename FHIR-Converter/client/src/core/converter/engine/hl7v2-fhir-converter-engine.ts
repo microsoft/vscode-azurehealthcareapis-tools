@@ -1,3 +1,8 @@
+/*!
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
 import * as fs from 'fs';
 import * as cp from 'child_process';
 import * as path from 'path';
@@ -10,15 +15,16 @@ import * as engineUtils from '../../common/utils/engine-utils';
 import * as fileUtils from '../../common/utils/file-utils';
 
 export class Hl7v2FhirConverterEngine implements IConverterEngine {
-	private _exePath: string = engineConstants.DefaultHl7v2ExePath;
+	private _exePath: string;
 	private _templateFolder: string;
 	private _entryTemplate: string;
 	private _resultFolder: string;
 
-	constructor(templateFolder: string, entryTemplate: string, resultFolder: string) {
+	constructor(templateFolder: string, entryTemplate: string, resultFolder: string, exePath: string = engineConstants.DefaultHl7v2ExePath) {
 		this._templateFolder = templateFolder;
 		this._entryTemplate = entryTemplate;
 		this._resultFolder = resultFolder;
+		this._exePath = exePath;
 	}
 
 	public get exePath() {
@@ -54,14 +60,22 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 	}
 
 	process(dataFile: string) {
+		// Check that data file is available 
+		if (!dataFile) {
+			throw new ConversionError(localize('message.needSelectData'));
+		}
+
 		const timestamp = new Date().getTime().toString();
 		const resultFile = path.join(this._resultFolder, stringUtils.getResultFileName(dataFile, this._entryTemplate, timestamp));
 		const tempFile = path.join(this._resultFolder, engineConstants.DefaultResultFile);
 		const entryTemplate = stringUtils.getFileNameWithoutExt(path.basename(this.entryTemplate));
+		
+		// Check if data is empty 
 		const data = fs.readFileSync(dataFile).toString().replace(/^\uFEFF/, '');
 		if (data.length === 0) {
 			throw new ConversionError(localize('message.dataIsEmpty'));
 		}
+
 		cp.execFileSync(this._exePath, ['-d', this._templateFolder, '-n',  entryTemplate, '-c', data, '-f', tempFile]);
 		if (fs.existsSync(tempFile)) {
 			const resultMsg = JSON.parse(fs.readFileSync(tempFile).toString());
@@ -71,7 +85,9 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 			fileUtils.checkFolderWritePrettyJson(resultFile, resultMsg.FhirResource);
 			return resultFile;
 		} else {
-			return undefined;
+			if (!resultFile) {
+				throw new ConversionError(localize('message.noResponseFromEngine'));
+			}
 		}
 	}
 }

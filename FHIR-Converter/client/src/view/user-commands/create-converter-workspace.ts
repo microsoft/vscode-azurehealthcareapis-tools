@@ -1,10 +1,14 @@
+/*!
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * Licensed under the MIT License. See License.txt in the project root for license information.
+ */
+
 import localize from '../../i18n/localize';
 import * as vscode from 'vscode';
 import * as interaction from '../common/file-dialog/file-dialog-interaction';
 import * as fileUtils from '../../core/common/utils/file-utils';
 import * as stringUtils from '../../core/common/utils/string-utils';
 import * as configurationConstants from '../../core/common/constants/workspace-configuration';
-import { ReminderError } from '../../core/common/errors/reminder-error';
 import { ConverterType } from '../../core/common/enum/converter-type';
 
 export async function createConverterWorkspaceCommand() {
@@ -15,13 +19,13 @@ export async function createConverterWorkspaceCommand() {
 	// Select root template folder
 	templateFolder = await interaction.openDialogSelectFolder(localize('message.selectRootTemplateFolder'));
 	if (!templateFolder) {
-		throw new ReminderError(localize('message.noTemplateFolderProvided'));
+		return undefined;
 	}
 
 	// Select data folder
 	dataFolder = await interaction.openDialogSelectFolder(localize('message.selectDataFolder'));
 	if (!dataFolder) {
-		throw new ReminderError(localize('message.noDataFolderProvided'));
+		return undefined;
 	}
 
 	// Select workspace path
@@ -29,7 +33,7 @@ export async function createConverterWorkspaceCommand() {
 		localize('message.saveWorkspaceFileAs'), 
 		configurationConstants.WorkspaceFileExtension);
 	if (!workspacePath) {
-		throw new ReminderError(localize('message.noWorkspacePathProvided'));
+		return undefined;
 	}
 
 	// Init workspace configuration

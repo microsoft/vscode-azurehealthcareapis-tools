@@ -9,7 +9,16 @@
                 "check-separator",
                 "check-type"
         ],
-        "quotemark": [true, "single", "avoid-escape", "avoid-template"],
+        "file-header": [
+            true,
+            {
+              "match": ".*Copyright.*",
+              "allow-single-line-comments": false,
+              "default": "Copyright (c) Microsoft Corporation. All rights reserved.\n Licensed under the MIT License. See License.txt in the project root for license information.",
+              "enforce-trailing-newline": false
+            }
+        ],
+        "quotemark": [ true, "single", "avoid-escape", "avoid-template"],
         "no-var-keyword": true,
         "space-before-function-paren": [true, {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
         "prefer-const": [true, {"destructuring": "all"}],

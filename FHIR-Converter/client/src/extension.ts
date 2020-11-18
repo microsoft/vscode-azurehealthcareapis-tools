@@ -1,7 +1,7 @@
-/* --------------------------------------------------------------------------------------------
+/*!
  * Copyright (c) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
- * ------------------------------------------------------------------------------------------ */
+ */
 
 import { LanguageClient } from 'vscode-languageclient';
 import { createLanguageClient } from './core/language-client/language-client';
@@ -12,7 +12,7 @@ import * as stringUtils from './core/common/utils/string-utils';
 import * as configurationConstants from './core/common/constants/workspace-configuration';
 import * as vscode from 'vscode';
 import { createConverterWorkspaceCommand } from './view/user-commands/create-converter-workspace';
-import { convertAndDiffCommand } from  './view/user-commands/convert';
+import { convertCommand } from  './view/user-commands/convert';
 import { updateTemplateFolderCommand } from  './view/user-commands/update-template-folder';
 import { selectTemplateCommand } from  './view/user-commands/select-template';
 import { selectDataCommand } from  './view/user-commands/select-data';
@@ -36,16 +36,16 @@ export async function activate(context: vscode.ExtensionContext) {
 			resultFolder = path.join(globals.settingManager.context.storagePath, configurationConstants.DefaultResultFolderName);
 			await globals.settingManager.updateWorkspaceConfiguration(configurationConstants.ResultFolderKey, resultFolder);
 		}
-		updateTemplateFolder();
+		updateTemplateToWorkspaceFolder();
 		vscode.workspace.onDidChangeConfiguration(async () => {
-			updateTemplateFolder();
+			updateTemplateToWorkspaceFolder();
 		});
 	}
 
 	// Register commands
 	registerCommand(context, 'microsoft.health.fhir.converter.createConverterWorkspace', createConverterWorkspaceCommand);
 
-	registerCommand(context, 'microsoft.health.fhir.converter.convertAndDiff', convertAndDiffCommand);
+	registerCommand(context, 'microsoft.health.fhir.converter.convert', convertCommand);
 
 	registerCommand(context, 'microsoft.health.fhir.converter.selectData', selectDataCommand);
 
@@ -66,7 +66,7 @@ export function deactivate(context: vscode.ExtensionContext): Thenable<void> | u
 	return client.stop();
 }
 
-function updateTemplateFolder() {
+function updateTemplateToWorkspaceFolder() {
 	const templateFolder: string = globals.settingManager.getWorkspaceConfiguration(configurationConstants.TemplateFolderKey);
 	if (templateFolder) {
 		const folders = vscode.workspace.workspaceFolders;

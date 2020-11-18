@@ -11,7 +11,7 @@
 		"url": "https://github.com/yankunhuang-pku/images"
 	},
 	"license": "SEE LICENSE IN LICENSE",
-	"version": "0.3.37",
+	"version": "0.3.38",
 	"enableProposedApi": true,
 	"engines": {
 		"vscode": "^1.44.0"
@@ -28,7 +28,7 @@
 		"Liquid"
 	],
 	"activationEvents": [
-		"onCommand:microsoft.health.fhir.converter.convertAndDiff",
+		"onCommand:microsoft.health.fhir.converter.convert",
 		"onCommand:microsoft.health.fhir.converter.updateTemplateFolder",
 		"onCommand:microsoft.health.fhir.converter.selectTemplate",
 		"onCommand:microsoft.health.fhir.converter.selectData",
@@ -39,8 +39,8 @@
 	"contributes": {
 		"commands": [
 			{
-				"command": "microsoft.health.fhir.converter.convertAndDiff",
-				"title": "%microsoft.health.fhir.converter.command.convertAndDiff.title%"
+				"command": "microsoft.health.fhir.converter.convert",
+				"title": "%microsoft.health.fhir.converter.command.convert.title%"
 			},
 			{
 				"command": "microsoft.health.fhir.converter.updateTemplateFolder",
@@ -84,7 +84,7 @@
 			],
 			"editor/context": [
 				{
-					"command": "microsoft.health.fhir.converter.convertAndDiff",
+					"command": "microsoft.health.fhir.converter.convert",
 					"group": "1_converter"
 				},
 				{
@@ -107,7 +107,7 @@
 				"key": "Ctrl+W"
 			},
 			{
-				"command": "microsoft.health.fhir.converter.convertAndDiff",
+				"command": "microsoft.health.fhir.converter.convert",
 				"key": "Ctrl+R"
 			}
 		],
@@ -119,6 +119,11 @@
 					"type": "string",
 					"default": "",
 					"description": "%microsoft.health.fhir.converter.configuration.converterType.description%"
+				},
+				"microsoft.health.fhir.converter.enableDiffView": {
+					"type": "boolean",
+					"default": "true",
+					"description": "%microsoft.health.fhir.converter.configuration.enableDiffView.description%"
 				},
 				"microsoft.health.fhir.converter.templateFolder": {
 					"type": "string",

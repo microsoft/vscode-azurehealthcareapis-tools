@@ -1,11 +1,12 @@
 {
-	"microsoft.health.fhir.converter.command.convertAndDiff.title":  "FHIR Converter: Refresh Preview",
+	"microsoft.health.fhir.converter.command.convert.title":  "FHIR Converter: Convert data",
 	"microsoft.health.fhir.converter.command.updateTemplateFolder.title":  "FHIR Converter: Update template folder",
 	"microsoft.health.fhir.converter.command.selectTemplate.title":  "FHIR Converter: Select as template",
 	"microsoft.health.fhir.converter.command.selectData.title":  "FHIR Converter: Select as data file",
 	"microsoft.health.fhir.converter.command.createConverterWorkspace.title":  "FHIR Converter: Create a converter workspace",
 	"microsoft.health.fhir.converter.configuration.title": "FHIR Converter",
 	"microsoft.health.fhir.converter.configuration.converterType.description": "The type of converter. (Supports 'hl7v2ToFhir' now)",
+	"microsoft.health.fhir.converter.configuration.enableDiffView.description": "Whether to display the differential view after converting data",
 	"microsoft.health.fhir.converter.configuration.templateFolder.description": "The Path to the folder the conversion templates are saved in.",
 	"microsoft.health.fhir.converter.configuration.resultFolder.description": "The Path to the folder the results are saved in.",
 	"error.configuration": "Configuration Error - {0}",
