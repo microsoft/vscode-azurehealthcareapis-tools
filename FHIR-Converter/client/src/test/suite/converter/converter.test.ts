@@ -61,13 +61,13 @@ suite('Converter Test Suite', () => {
 
 	test('Function clearHistory - should clear historical files correctly', async () => {
 	
-		const createFiles = ['test.1.json', 'test.2.json', 'test.3.json', 'test.4.json', 'test.5.json', 'test.6.json'];
+		const createFiles = ['test.1.json', 'test.2.json', 'test.3.json'];
 		for ( const fileId in createFiles) {
 			fs.writeFileSync(path.join(historyFolder, createFiles[fileId]), 'test');
 		}
-		assert.strictEqual(converter.getHistory('test').length, 6);
-		converter.clearHistory('test', 5, 2);
-		assert.strictEqual(converter.getHistory('test').length, 2);
+		assert.strictEqual(converter.getHistory('test').length, 3);
+		converter.clearHistory('test', 2, 1);
+		assert.strictEqual(converter.getHistory('test').length, 1);
 });
 	
 });

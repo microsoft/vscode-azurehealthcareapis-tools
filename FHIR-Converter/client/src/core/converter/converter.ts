@@ -51,7 +51,6 @@ export class Converter {
 		const files = this.getHistory(filePath);
 		if (files.length > maxNum) {
 			const deleteFiles = files.slice(remainNum, files.length);
-			console.log(deleteFiles);
 			for (const fileId in deleteFiles) {
 				fs.unlink(deleteFiles[fileId], (err) => {
 					if (err) { 
