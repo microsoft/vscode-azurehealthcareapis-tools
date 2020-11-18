@@ -16,11 +16,11 @@ import { convertAndDiffCommand } from  './view/user-commands/convert';
 import { updateTemplateFolderCommand } from  './view/user-commands/update-template-folder';
 import { selectTemplateCommand } from  './view/user-commands/select-template';
 import { selectDataCommand } from  './view/user-commands/select-data';
-import { registerCommand } from './view/common/register-command';
+import { registerCommand } from './view/common/commands/register-command';
 import { SettingManager } from './core/settings/settings-manager';
-import { setStatusBar } from './view/user-commands/share/set-status-bar';
+import { setStatusBar } from './view/common/status-bar/set-status-bar';
 import { ConfigurationError } from './core/common/errors/configuration-error';
-import { converterWorkspaceExists } from './view/user-commands/share/converter-workspace-exists';
+import { converterWorkspaceExists } from './view/common/workspace/converter-workspace-exists';
 
 let client: LanguageClient;
 

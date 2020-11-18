@@ -1,10 +1,10 @@
 import localize from '../../i18n/localize';
 import * as vscode from 'vscode';
-import * as interaction from '../common/file-dialog-interaction';
+import * as interaction from '../common/file-dialog/file-dialog-interaction';
 import * as configurationConstants from '../../core/common/constants/workspace-configuration';
 import { globals } from '../../core/globals';
 import { ReminderError } from '../../core/common/errors/reminder-error';
-import { converterWorkspaceExists } from './share/converter-workspace-exists';
+import { converterWorkspaceExists } from '../common/workspace/converter-workspace-exists';
 
 export async function updateTemplateFolderCommand() {
 	// Check if the workspace exists

@@ -1,15 +1,15 @@
 import localize from '../../i18n/localize';
 import * as vscode from 'vscode';
 import * as configurationConstants from '../../core/common/constants/workspace-configuration';
-import * as interaction from '../common/file-dialog-interaction';
+import * as interaction from '../common/file-dialog/file-dialog-interaction';
 import * as engineConstants from '../../core/common/constants/engine';
 import * as stateConstants from '../../core/common/constants/workspace-state';
 import { globals } from '../../core/globals';
-import { showDifferentialView } from './share/show-differential-view';
-import { converterWorkspaceExists } from './share/converter-workspace-exists';
+import { showDifferentialView } from '../common/editor/show-differential-view';
+import { converterWorkspaceExists } from '../common/workspace/converter-workspace-exists';
 import { ReminderError } from '../../core/common/errors/reminder-error';
 import { ConversionError } from '../../core/common/errors/conversion-error';
-import { showResultEditor } from './share/show-result-editor';
+import { showResultEditor } from '../common/editor/show-result-editor';
 import { ConverterEngineFactory } from '../../core/converter/converter-factory';
 
 export async function convertAndDiffCommand() {

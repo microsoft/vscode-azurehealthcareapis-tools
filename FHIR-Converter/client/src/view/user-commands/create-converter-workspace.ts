@@ -1,6 +1,6 @@
 import localize from '../../i18n/localize';
 import * as vscode from 'vscode';
-import * as interaction from '../common/file-dialog-interaction';
+import * as interaction from '../common/file-dialog/file-dialog-interaction';
 import * as fileUtils from '../../core/common/utils/file-utils';
 import * as stringUtils from '../../core/common/utils/string-utils';
 import * as configurationConstants from '../../core/common/constants/workspace-configuration';
