@@ -11,15 +11,9 @@ import { globals } from '../../../core/globals';
 
 export function setStatusBar() {
 	// Get the active files
-	let activeDataPath = globals.settingManager.getWorkspaceState(stateConstants.DataKey);
-	let activeTemplatePath = globals.settingManager.getWorkspaceState(stateConstants.TemplateKey);
-	if (!activeDataPath) {
-		activeDataPath = 'None';
-	}
-	if (!activeTemplatePath) {
-		activeTemplatePath = 'None';
-	}
-
+	const activeDataPath = globals.settingManager.getWorkspaceState(stateConstants.DataKey);
+	const activeTemplatePath = globals.settingManager.getWorkspaceState(stateConstants.TemplateKey);
+	
 	// Set the status bar according to the active files
 	vscode.window.setStatusBarMessage(stringUtils.getStatusBarString(activeDataPath, activeTemplatePath,
 		localize('microsoft.health.fhir.converter.configuration.title'), localize('common.data'), localize('common.template')));

@@ -3,11 +3,11 @@
  * Licensed under the MIT License. See License in the project root for license information.
  */
 
+import * as fs from 'fs';
 import * as stringUtils from '../common/utils/string-utils';
-import localize from '../../i18n/localize';
 import * as fileUtils from '../common/utils/file-utils';
+import * as engineConstants from '../common/constants/engine';
 import { IConverterEngine } from './engine/converter-engine';
-import { ConversionError } from '../../core/common/errors/conversion-error';
 
 export class Converter {
 	private _engine: IConverterEngine;
@@ -35,7 +35,9 @@ export class Converter {
 	}
 
 	convert(dataFile: string) {
-		return this._engine.process(dataFile);
+		const resultFile = this._engine.process(dataFile);
+		this.clearHistory(resultFile);
+		return resultFile;
 	}
 
 	getHistory(filePath: string) {
@@ -43,5 +45,20 @@ export class Converter {
 		const files: string[] = fileUtils.getAllPaths(this._resultFolder, `/**/${resultName}.*.json`);
 		const sortedFiles = stringUtils.getDescendingSortString(files);
 		return sortedFiles;
+	}
+
+	clearHistory(filePath: string, maxNum = engineConstants.MaxHistoryFilesNum, remainNum = engineConstants.RemainHistoryFilesNum) {
+		const files = this.getHistory(filePath);
+		if (files.length > maxNum) {
+			const deleteFiles = files.slice(remainNum, files.length);
+			console.log(deleteFiles);
+			for (const fileId in deleteFiles) {
+				fs.unlink(deleteFiles[fileId], (err) => {
+					if (err) { 
+						throw err; 
+					}
+				  });
+			}
+		}
 	}
 }

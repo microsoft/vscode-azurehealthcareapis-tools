@@ -68,7 +68,7 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 		const timestamp = new Date().getTime().toString();
 		const resultFile = path.join(this._resultFolder, stringUtils.getResultFileName(dataFile, this._entryTemplate, timestamp));
 		const tempFile = path.join(this._resultFolder, engineConstants.DefaultResultFile);
-		const entryTemplate = stringUtils.getFileNameWithoutExt(path.basename(this.entryTemplate));
+		const entryTemplate = stringUtils.getFileNameWithoutExt(this.entryTemplate);
 		
 		// Check if data is empty 
 		const data = fs.readFileSync(dataFile).toString().replace(/^\uFEFF/, '');
