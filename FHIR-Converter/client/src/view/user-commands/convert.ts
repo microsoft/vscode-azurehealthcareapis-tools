@@ -41,7 +41,6 @@ export async function convertCommand() {
 		viewColumn: vscode.ViewColumn.Two,
 	});
 	
-	
 	// Obtain the enableDiffView option from the settings.
 	const enableDiff = globals.settingManager.getWorkspaceConfiguration(configurationConstants.enableDiffViewKey);
 	if (!enableDiff) {

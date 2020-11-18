@@ -10,7 +10,6 @@ import * as configurationConstants from '../../core/common/constants/workspace-c
 import { globals } from '../../core/globals';
 
 export async function updateTemplateFolderCommand() {
-
 	// Select a root template folder
 	const templateFolder: vscode.Uri = await interaction.openDialogSelectFolder(localize('message.selectRootTemplateFolder'));
 	if (!templateFolder) {

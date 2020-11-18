@@ -6,7 +6,7 @@
 import * as path from 'path';
 
 export const DefaultResultFile = 'temp.json';
-export const DefaultHl7v2ExePath = path.join(__dirname, '../../../../engine/Microsoft.Health.Fhir.Converter.Tool.exe');
+export const DefaultHl7v2ExePath = path.join(__dirname, '../../../../engine/Microsoft.Health.Fhir.Liquid.Converter.Tool.exe');
 export const TemplateFileExt = '.liquid';
 export const MaxHistoryFilesNum = 20;
 export const RemainHistoryFilesNum = 2;

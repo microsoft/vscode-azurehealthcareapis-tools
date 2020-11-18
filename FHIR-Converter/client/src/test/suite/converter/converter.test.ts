@@ -11,12 +11,13 @@ import { Hl7v2FhirConverterEngine } from '../../../core/converter/engine/hl7v2-f
 
 suite('Converter Test Suite', () => {
 	const testPath = path.join(__dirname, '../../../../../test-data');
-	const resultFolder = path.join(testPath, 'result/history');
+	const resultFolder = path.join(testPath, 'result');
+	const historyFolder = path.join(testPath, 'history');
 	const activeDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23.hl7');
 	const templateFolder = path.join(testPath, 'templates/Hl7v2');
 	const entryTemplate = 'ADT_A01';
 	const hl7v2Engine = new Hl7v2FhirConverterEngine(templateFolder, entryTemplate, resultFolder);
-	const converter = new Converter(hl7v2Engine, resultFolder);
+	const converter = new Converter(hl7v2Engine, historyFolder);
 
 	test('Function constructor - should return a converter given a engine and a result folder', async () => {
 		const newConverter = new Converter(hl7v2Engine, resultFolder);
@@ -50,9 +51,9 @@ suite('Converter Test Suite', () => {
 	
 			const filename = 'D:/ADT04-28 - ADT_A01.1605683976874.json';
 			const expectedList = [
-				path.join(resultFolder, 'ADT04-28 - ADT_A01.1605684048847.json').replace(/\\/g, '/'),
-				path.join(resultFolder, 'ADT04-28 - ADT_A01.1605683993535.json').replace(/\\/g, '/'),
-				path.join(resultFolder, 'ADT04-28 - ADT_A01.1605683976874.json').replace(/\\/g, '/'),
+				path.join(historyFolder, 'ADT04-28 - ADT_A01.1605684048847.json').replace(/\\/g, '/'),
+				path.join(historyFolder, 'ADT04-28 - ADT_A01.1605683993535.json').replace(/\\/g, '/'),
+				path.join(historyFolder, 'ADT04-28 - ADT_A01.1605683976874.json').replace(/\\/g, '/'),
 			];
 			const list = converter.getHistory(filename);
 			assert.deepStrictEqual(list, expectedList);
@@ -62,7 +63,7 @@ suite('Converter Test Suite', () => {
 	
 		const createFiles = ['test.1.json', 'test.2.json', 'test.3.json', 'test.4.json', 'test.5.json', 'test.6.json'];
 		for ( const fileId in createFiles) {
-			fs.writeFileSync(path.join(resultFolder, createFiles[fileId]), 'test');
+			fs.writeFileSync(path.join(historyFolder, createFiles[fileId]), 'test');
 		}
 		assert.strictEqual(converter.getHistory('test').length, 6);
 		converter.clearHistory('test', 5, 2);

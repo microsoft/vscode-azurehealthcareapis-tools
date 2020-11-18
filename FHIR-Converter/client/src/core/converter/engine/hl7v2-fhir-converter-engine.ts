@@ -76,7 +76,7 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 			throw new ConversionError(localize('message.dataIsEmpty'));
 		}
 
-		cp.execFileSync(this._exePath, ['-d', this._templateFolder, '-n',  entryTemplate, '-c', data, '-f', tempFile]);
+		cp.execFileSync(this._exePath, ['-d', this._templateFolder, '-r',  entryTemplate, '-c', data, '-f', tempFile]);
 		if (fs.existsSync(tempFile)) {
 			const resultMsg = JSON.parse(fs.readFileSync(tempFile).toString());
 			if (!engineUtils.checkEngineStatus(resultMsg)) {
