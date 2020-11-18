@@ -94,9 +94,4 @@ suite('String Utils Test Suite', () => {
 		const actualList = stringUtils.getDescendingSortString(list);
 		assert.deepStrictEqual(actualList, expectedList);
 	});
-
-	
-
-
-	
 });

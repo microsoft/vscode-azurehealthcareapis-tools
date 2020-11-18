@@ -61,13 +61,10 @@ export function getResultFileName(dataPath: string, templatePath: string, timest
 }
 
 export function getDiffResultFileName(resultFilePath1: string, resultFilePath2: string) {
-	// If want to show the timestamp, we can do as follow:
 	const timestamp1 = getTimestampFromFilename(resultFilePath1);
 	const timestamp2 = getTimestampFromFilename(resultFilePath2);
 	const fileName = getFileNameWithoutTwoExt(resultFilePath1);
 	return `${fileName} (cmp:${timestamp1}/${timestamp2}).json`;
-	// const fileName = getFileNameWithoutTwoExt(resultFilePath1);
-	// return `${fileName}.json`;
 }
 
 export function getDescendingSortString(list: string[]) {

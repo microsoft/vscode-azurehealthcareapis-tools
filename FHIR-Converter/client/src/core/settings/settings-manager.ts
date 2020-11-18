@@ -73,6 +73,5 @@ export class SettingManager {
 				resolve();
 			});
 		});
-			
 	}
 }

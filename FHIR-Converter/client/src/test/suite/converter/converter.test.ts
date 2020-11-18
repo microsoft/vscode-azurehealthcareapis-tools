@@ -68,6 +68,5 @@ suite('Converter Test Suite', () => {
 		assert.strictEqual(converter.getHistory('test').length, 3);
 		converter.clearHistory('test', 2, 1);
 		assert.strictEqual(converter.getHistory('test').length, 1);
-});
-	
+	});
 });
