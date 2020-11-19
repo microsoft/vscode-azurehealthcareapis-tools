@@ -91,7 +91,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
 					start: textDocument.positionAt(m.index + m[1].length),
 					end: textDocument.positionAt(m.index + m[0].length)
 				},
-				message: `${partialTemplate} ` + localize('message.invalidTemplate') + ` (${templateFolder.replace(/\\/g, '/')})`,
+				message: localize('message.invalidTemplate', partialTemplate, templateFolder.replace(/\\/g, '/')),
 				source: 'ex'
 			};
 
