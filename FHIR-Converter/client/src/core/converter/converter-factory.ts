@@ -42,13 +42,13 @@ export class ConverterEngineFactory {
 			}
 
 			// Check that the entry template is available
-			const entryTemplate = globals.settingManager.getWorkspaceState(stateConstants.TemplateKey);
-			if (!entryTemplate) {
+			const rootTemplate = globals.settingManager.getWorkspaceState(stateConstants.TemplateKey);
+			if (!rootTemplate) {
 				throw new ConversionError(localize('message.needSelectTemplate'));
 			}
 
 			// create the engine
-			engine = new Hl7v2FhirConverterEngine(templateFolder, entryTemplate, resultFolder);
+			engine = new Hl7v2FhirConverterEngine(templateFolder, rootTemplate, resultFolder);
 		} else {
 			throw new ConversionError(localize('message.converterEngineNotSupported', converterType));
 		}

@@ -58,9 +58,3 @@ export async function convertCommand() {
 	}
 	await vscode.commands.executeCommand('workbench.action.closeOtherEditors');
 }
-
-
-
-
-
-

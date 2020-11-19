@@ -7,7 +7,6 @@ import * as assert from 'assert';
 import * as fs from 'fs';
 import * as path from 'path';
 import { Hl7v2FhirConverterEngine } from '../../../../core/converter/engine/hl7v2-fhir-converter-engine';
-import { DefaultHl7v2ExePath } from '../../../../core/common/constants/engine';
 import { beforeEach } from 'mocha';
 
 suite('Hl7v2 Converter Engine Test Suite', () => {
@@ -19,9 +18,9 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 	const templateFolder = path.join(testPath, 'templates/Hl7v2');
 	const invalidTemplateFolder = path.join(testPath, 'templates');
 	const resultFile = path.join(resultFolder, 'temp.json');
-	const entryTemplate = 'ADT_A01.liquid';
-	const invalidEntryTemplate = 'Invalid_template';
-	const hl7v2Engine = new Hl7v2FhirConverterEngine(templateFolder, entryTemplate, resultFolder);
+	const rootTemplate = 'ADT_A01.liquid';
+	const invalidrootTemplate = 'Invalid_template';
+	const hl7v2Engine = new Hl7v2FhirConverterEngine(templateFolder, rootTemplate, resultFolder);
 
 	beforeEach(() => {
 		if (fs.existsSync(resultFile)) {
@@ -29,37 +28,9 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 		}
 	});
 
-	test('Function constructor - should return a engine with the default exe path without the parameter exePath', async () => {
-		const engine = new Hl7v2FhirConverterEngine(templateFolder, entryTemplate, resultFolder);
-		assert.strictEqual(DefaultHl7v2ExePath, engine.exePath);
-	});
-
-	test('Function get/set exePath - should get/set the parameter exePath correctly', async () => {
-		const engine = new Hl7v2FhirConverterEngine(templateFolder, entryTemplate, resultFolder);
-		const exePath = 'D:/test.exe';
-		engine.exePath = exePath;
-		assert.strictEqual(engine.exePath, exePath);
-	});
-
-	test('Function get/set templateFolder - should get/set the parameter templateFolder correctly', async () => {
-		const engine = new Hl7v2FhirConverterEngine(templateFolder, entryTemplate, resultFolder);
-		const testFolder = 'D:/test';
-		engine.templateFolder = testFolder;
-		assert.strictEqual(engine.templateFolder, testFolder);
-	});
-
-	test('Function get/set resultFolder - should get/set the parameter resultFolder correctly', async () => {
-		const engine = new Hl7v2FhirConverterEngine(templateFolder, entryTemplate, resultFolder);
-		const testFolder = 'D:/test';
-		engine.resultFolder = testFolder;
-		assert.strictEqual(engine.resultFolder, testFolder);
-	});
-
-	test('Function get/set entryTemplate - should get/set the parameter entryTemplate correctly', async () => {
-		const engine = new Hl7v2FhirConverterEngine(templateFolder, entryTemplate, resultFolder);
-		const file = 'test.liquid';
-		engine.entryTemplate = file;
-		assert.strictEqual(engine.entryTemplate, file);
+	test('Function constructor - should return a engine', async () => {
+		const engine = new Hl7v2FhirConverterEngine(templateFolder, rootTemplate, resultFolder);
+		assert.strictEqual(engine instanceof Hl7v2FhirConverterEngine, true);
 	});
 
 	test('Function process - should return a json object with OK status given data, template and template folder', async () => {
@@ -82,8 +53,8 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 	
 	test('Function process - should throw a error given invalid entry template', async () => {
 		try {
-			const hl7v2EngineInvalidEntryTemplate = new Hl7v2FhirConverterEngine(templateFolder, invalidEntryTemplate, resultFolder);
-			hl7v2EngineInvalidEntryTemplate.process(activeDataPath);
+			const hl7v2EngineInvalidrootTemplate = new Hl7v2FhirConverterEngine(templateFolder, invalidrootTemplate, resultFolder);
+			hl7v2EngineInvalidrootTemplate.process(activeDataPath);
 			assert.strictEqual(true, false);
 		} catch (error) {
 			assert.strictEqual(true, true);
@@ -92,7 +63,7 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 
 	test('Function process - should throw a error given invalid template folder', async () => {
 		try {
-			const hl7v2EngineInvalidTemplateFolder = new Hl7v2FhirConverterEngine(invalidTemplateFolder, invalidEntryTemplate, resultFolder);
+			const hl7v2EngineInvalidTemplateFolder = new Hl7v2FhirConverterEngine(invalidTemplateFolder, invalidrootTemplate, resultFolder);
 			hl7v2EngineInvalidTemplateFolder.process(activeDataPath);
 			assert.strictEqual(true, false);
 		} catch (error) {

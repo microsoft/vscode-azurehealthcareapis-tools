@@ -26,11 +26,11 @@ export async function showDialogSaveWorkspace(label: string, filter: string) {
 
 export async function askSaveFiles(unsavedFiles: vscode.TextDocument[], infoMessage: string, acceptButtonLabel: string, rejectButtonLabel: string) {
 	return await vscode.window.showWarningMessage(infoMessage, acceptButtonLabel, rejectButtonLabel)
-		.then(async function (select) {
-			if (select === acceptButtonLabel) {
-				await saveAllFiles(unsavedFiles);
-			}
-		});
+	.then(async function (select) {
+		if (select === acceptButtonLabel) {
+			await saveAllFiles(unsavedFiles);
+		}
+	});
 }
 
 export function getUnsavedFiles(type: string) {

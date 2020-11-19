@@ -13,4 +13,3 @@ export function converterWorkspaceExists(ext: string) {
 		return false;
 	}
 }
-

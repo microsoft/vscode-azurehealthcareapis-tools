@@ -17,46 +17,14 @@ import * as fileUtils from '../../common/utils/file-utils';
 export class Hl7v2FhirConverterEngine implements IConverterEngine {
 	private _exePath: string;
 	private _templateFolder: string;
-	private _entryTemplate: string;
+	private _rootTemplate: string;
 	private _resultFolder: string;
 
-	constructor(templateFolder: string, entryTemplate: string, resultFolder: string, exePath: string = engineConstants.DefaultHl7v2ExePath) {
+	constructor(templateFolder: string, rootTemplate: string, resultFolder: string, exePath: string = engineConstants.DefaultHl7v2ExePath) {
 		this._templateFolder = templateFolder;
-		this._entryTemplate = entryTemplate;
+		this._rootTemplate = rootTemplate;
 		this._resultFolder = resultFolder;
 		this._exePath = exePath;
-	}
-
-	public get exePath() {
-		return this._exePath;
-	}
-
-	public set exePath(exePath: string) {
-		this._exePath = exePath;
-	}
-
-	public get templateFolder() {
-		return this._templateFolder;
-	}
-
-	public set templateFolder(_templateFolder: string) {
-		this._templateFolder = _templateFolder;
-	}
-
-	public get entryTemplate() {
-		return this._entryTemplate;
-	}
-
-	public set entryTemplate(entryTemplate: string) {
-		this._entryTemplate = entryTemplate;
-	}
-
-	public get resultFolder() {
-		return this._resultFolder;
-	}
-
-	public set resultFolder(resultFolder: string) {
-		this._resultFolder = resultFolder;
 	}
 
 	process(dataFile: string) {
@@ -66,9 +34,9 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 		}
 
 		const timestamp = new Date().getTime().toString();
-		const resultFile = path.join(this._resultFolder, stringUtils.getResultFileName(dataFile, this._entryTemplate, timestamp));
+		const resultFile = path.join(this._resultFolder, stringUtils.getResultFileName(dataFile, this._rootTemplate, timestamp));
 		const tempFile = path.join(this._resultFolder, engineConstants.DefaultResultFile);
-		const entryTemplate = stringUtils.getFileNameWithoutExt(this.entryTemplate);
+		const rootTemplate = stringUtils.getFileNameWithoutExt(this._rootTemplate);
 		
 		// Check if data is empty 
 		const data = fs.readFileSync(dataFile).toString().replace(/^\uFEFF/, '');
@@ -76,7 +44,7 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 			throw new ConversionError(localize('message.dataIsEmpty'));
 		}
 
-		cp.execFileSync(this._exePath, ['-d', this._templateFolder, '-r',  entryTemplate, '-c', data, '-f', tempFile]);
+		cp.execFileSync(this._exePath, ['-d', this._templateFolder, '-r',  rootTemplate, '-c', data, '-f', tempFile]);
 		if (fs.existsSync(tempFile)) {
 			const resultMsg = JSON.parse(fs.readFileSync(tempFile).toString());
 			if (!engineUtils.checkConversionSuccess(resultMsg)) {

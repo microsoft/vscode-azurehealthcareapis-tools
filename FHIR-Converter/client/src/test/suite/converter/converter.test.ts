@@ -15,27 +15,13 @@ suite('Converter Test Suite', () => {
 	const historyFolder = path.join(testPath, 'history');
 	const activeDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23.hl7');
 	const templateFolder = path.join(testPath, 'templates/Hl7v2');
-	const entryTemplate = 'ADT_A01';
-	const hl7v2Engine = new Hl7v2FhirConverterEngine(templateFolder, entryTemplate, resultFolder);
+	const rootTemplate = 'ADT_A01';
+	const hl7v2Engine = new Hl7v2FhirConverterEngine(templateFolder, rootTemplate, resultFolder);
 	const converter = new Converter(hl7v2Engine, historyFolder);
 
 	test('Function constructor - should return a converter given a engine and a result folder', async () => {
 		const newConverter = new Converter(hl7v2Engine, resultFolder);
 		assert.strictEqual(newConverter instanceof Converter, true);
-	});
-
-	test('Function get/set resultFolder - should get/set the parameter resultFolder correctly', async () => {
-		const newConverter = new Converter(hl7v2Engine, resultFolder);
-		const testFolder = 'D:/test';
-		newConverter.resultFolder = testFolder;
-		assert.strictEqual(newConverter.resultFolder, testFolder);
-	});
-
-	test('Function get/set engine - should get/set the parameter engine correctly', async () => {
-		const newConverter = new Converter(hl7v2Engine, resultFolder);
-		const newHl7v2Engine = new Hl7v2FhirConverterEngine(templateFolder, entryTemplate, resultFolder);
-		newConverter.engine = newHl7v2Engine;
-		assert.strictEqual(newConverter.engine, newHl7v2Engine);
 	});
 
 	test('Function convert - should return result file without errors given valid data', async () => {

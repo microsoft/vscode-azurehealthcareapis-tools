@@ -24,5 +24,3 @@ export async function selectFileFromExplorer(event: any, type: FileType) {
 		throw new ConversionError(localize('message.failSelectFile'));
 	}
 }
-
-

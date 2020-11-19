@@ -16,4 +16,3 @@ export async function showDifferentialView(resultFilePath1: vscode.Uri, resultFi
 		{viewColumn: viewColumn}
 	);
 }
-

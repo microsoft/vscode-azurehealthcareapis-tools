@@ -30,15 +30,20 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	// Init workspace
 	if (converterWorkspaceExists(configurationConstants.WorkspaceFileExtension)) {
+		// Set status bar
 		setStatusBar();
+
+		// Init default result folder
 		let resultFolder: string = globals.settingManager.getWorkspaceConfiguration(configurationConstants.ResultFolderKey);
 		if (!resultFolder) {
 			resultFolder = path.join(globals.settingManager.context.storagePath, configurationConstants.DefaultResultFolderName);
 			await globals.settingManager.updateWorkspaceConfiguration(configurationConstants.ResultFolderKey, resultFolder);
 		}
-		updateTemplateToWorkspaceFolder();
+
+		// update template folder to workspace folder for showing the template folder in the explorer
+		updateTemplateFolderToWorkspaceFolder();
 		vscode.workspace.onDidChangeConfiguration(async () => {
-			updateTemplateToWorkspaceFolder();
+			updateTemplateFolderToWorkspaceFolder();
 		});
 	}
 
@@ -66,7 +71,7 @@ export function deactivate(context: vscode.ExtensionContext): Thenable<void> | u
 	return client.stop();
 }
 
-function updateTemplateToWorkspaceFolder() {
+function updateTemplateFolderToWorkspaceFolder() {
 	const templateFolder: string = globals.settingManager.getWorkspaceConfiguration(configurationConstants.TemplateFolderKey);
 	if (templateFolder) {
 		const folders = vscode.workspace.workspaceFolders;

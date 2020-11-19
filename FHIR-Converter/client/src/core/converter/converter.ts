@@ -18,22 +18,6 @@ export class Converter {
 		this._resultFolder = resultFolder;
 	}
 
-	public get engine() {
-		return this._engine;
-	}
-
-	public set engine(engine: IConverterEngine) {
-		this._engine = engine;
-	}
-
-	public get resultFolder() {
-		return this._resultFolder;
-	}
-
-	public set resultFolder(resultFolder: string) {
-		this._resultFolder = resultFolder;
-	}
-
 	async convert(dataFile: string) {
 		const resultFile = this._engine.process(dataFile);
 		await this.clearHistory(resultFile);
@@ -65,6 +49,5 @@ export class Converter {
 			}
 			await Promise.all(promiseAll);
 		}
-		
 	}
 }
