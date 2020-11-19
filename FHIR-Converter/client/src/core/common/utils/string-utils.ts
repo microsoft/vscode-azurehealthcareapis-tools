@@ -68,12 +68,5 @@ export function getDiffResultFileName(resultFilePath1: string, resultFilePath2: 
 }
 
 export function getDescendingSortString(list: string[]) {
-	return list.sort( (n1, n2) => {
-		if (n1 <= n2) {
-			return 1;
-		}
-		if (n1 > n2) {
-			return -1;
-		}
-	});
+	return list.sort().reverse();
 }
