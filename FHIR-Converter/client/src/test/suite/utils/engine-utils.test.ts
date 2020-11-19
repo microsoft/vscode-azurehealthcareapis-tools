@@ -28,10 +28,10 @@ suite('Engine Utils Test Suite', () => {
 	};
 
 	test('Function checkEngineStatus - should return true when the status of response from engine is OK', () => {
-		assert.strictEqual(engineUtils.checkEngineStatus(msgOk), true);
+		assert.strictEqual(engineUtils.checkConversionSuccess(msgOk), true);
 	});
 
 	test('Function checkEngineStatus - should return false when the status of response from engine is Fail', () => {
-		assert.strictEqual(engineUtils.checkEngineStatus(msgFail), false);
+		assert.strictEqual(engineUtils.checkConversionSuccess(msgFail), false);
 	});
 });

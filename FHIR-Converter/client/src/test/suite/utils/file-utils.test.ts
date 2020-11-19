@@ -35,21 +35,8 @@ suite('File Utils Test Suite', () => {
 			fs.rmdirSync(multiLayerFolder);
 		}
 		assert.strictEqual(fs.existsSync(filePath), false);
-		const exists = fileUtils.checkFolderWritePrettyJson(filePath, msgOk);
+		const exists = fileUtils.writeJsonToFile(filePath, msgOk);
 		assert.strictEqual(exists, false);
-		assert.strictEqual(fs.existsSync(filePath), true);
-		const obj = JSON.parse(fs.readFileSync(filePath).toString());
-		assert.strictEqual(obj.Status, 'OK');
-	});
-	
-
-	test('Function writePrettyJson - should write the pretty string from a json object to a file', () => {
-		const filePath = path.join(multiLayerFolder, 'test.json');
-		if (fs.existsSync(filePath)) {
-			fs.unlinkSync(filePath);
-		}
-		assert.strictEqual(fs.existsSync(filePath), false);
-		fileUtils.writePrettyJson(filePath, msgOk);
 		assert.strictEqual(fs.existsSync(filePath), true);
 		const obj = JSON.parse(fs.readFileSync(filePath).toString());
 		assert.strictEqual(obj.Status, 'OK');

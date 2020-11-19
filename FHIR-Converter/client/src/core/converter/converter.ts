@@ -34,9 +34,9 @@ export class Converter {
 		this._resultFolder = resultFolder;
 	}
 
-	convert(dataFile: string) {
+	async convert(dataFile: string) {
 		const resultFile = this._engine.process(dataFile);
-		this.clearHistory(resultFile);
+		await this.clearHistory(resultFile);
 		return resultFile;
 	}
 
@@ -47,17 +47,24 @@ export class Converter {
 		return sortedFiles;
 	}
 
-	clearHistory(filePath: string, maxNum = engineConstants.MaxHistoryFilesNum, remainNum = engineConstants.RemainHistoryFilesNum) {
+	async clearHistory(filePath: string, maxNum = engineConstants.MaxHistoryFilesNum, remainNum = engineConstants.RemainHistoryFilesNum) {
 		const files = this.getHistory(filePath);
 		if (files.length > maxNum) {
 			const deleteFiles = files.slice(remainNum, files.length);
-			for (const fileId in deleteFiles) {
-				fs.unlink(deleteFiles[fileId], (err) => {
-					if (err) { 
-						throw err; 
-					}
-				  });
+			const promiseAll = [];
+			for (const file of deleteFiles) {
+				promiseAll.push(new Promise((resolve) => {
+					fs.unlink(file, (err) => {
+						if (err) { 
+							throw err; 
+						} else {
+							resolve();
+						}
+					});
+				}));
 			}
+			await Promise.all(promiseAll);
 		}
+		
 	}
 }

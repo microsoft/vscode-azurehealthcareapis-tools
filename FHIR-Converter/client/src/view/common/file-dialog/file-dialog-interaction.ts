@@ -24,16 +24,13 @@ export async function showDialogSaveWorkspace(label: string, filter: string) {
 	}
 }
 
-export function askSaveFiles(unsavedFiles: vscode.TextDocument[], infoMessage: string, acceptButtonLabel: string, rejectButtonLabel: string) {
-	return new Promise(resolve => {
-		vscode.window.showWarningMessage(infoMessage, acceptButtonLabel, rejectButtonLabel)
+export async function askSaveFiles(unsavedFiles: vscode.TextDocument[], infoMessage: string, acceptButtonLabel: string, rejectButtonLabel: string) {
+	return await vscode.window.showWarningMessage(infoMessage, acceptButtonLabel, rejectButtonLabel)
 		.then(async function (select) {
 			if (select === acceptButtonLabel) {
 				await saveAllFiles(unsavedFiles);
 			}
-			resolve();
 		});
-	});
 }
 
 export function getUnsavedFiles(type: string) {

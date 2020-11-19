@@ -79,10 +79,10 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 		cp.execFileSync(this._exePath, ['-d', this._templateFolder, '-r',  entryTemplate, '-c', data, '-f', tempFile]);
 		if (fs.existsSync(tempFile)) {
 			const resultMsg = JSON.parse(fs.readFileSync(tempFile).toString());
-			if (!engineUtils.checkEngineStatus(resultMsg)) {
+			if (!engineUtils.checkConversionSuccess(resultMsg)) {
 				throw new ConversionError(resultMsg.ErrorMessage);
 			}
-			fileUtils.checkFolderWritePrettyJson(resultFile, resultMsg.FhirResource);
+			fileUtils.writeJsonToFile(resultFile, resultMsg.FhirResource);
 			return resultFile;
 		} else {
 			if (!resultFile) {

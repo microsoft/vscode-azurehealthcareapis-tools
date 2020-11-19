@@ -10,6 +10,7 @@ import { Hl7v2FhirConverterEngine } from './engine/hl7v2-fhir-converter-engine';
 import { ConverterType } from '../common/enum/converter-type';
 import { Converter } from './converter';
 import { ConversionError} from '../common/errors/conversion-error';
+import { ConfigurationError } from '../common/errors/configuration-error';
 import { globals } from '../globals';
 
 export class ConverterEngineFactory {
@@ -24,16 +25,20 @@ export class ConverterEngineFactory {
 		// Check that the result folder is available
 		const resultFolder = globals.settingManager.getWorkspaceConfiguration(configurationConstants.ResultFolderKey);
 		if (!resultFolder) {
-			throw new ConversionError(localize('message.noResultFolderProvided'));
+			throw new ConfigurationError(localize('message.noResultFolderProvided'));
 		}
 
 		let engine;
 		const converterType = globals.settingManager.getWorkspaceConfiguration(configurationConstants.ConverterTypeKey);
+		if (!converterType) {
+			throw new ConfigurationError(localize('message.noConverterTypeProvided'));
+		}
+
 		if (converterType === ConverterType.hl7v2ToFhir) {
 			// Check that the template folder is available
 			const templateFolder: string = globals.settingManager.getWorkspaceConfiguration(configurationConstants.TemplateFolderKey);
 			if (!templateFolder) {
-				throw new ConversionError(localize('message.noTemplateFolderProvided'));
+				throw new ConfigurationError(localize('message.noTemplateFolderProvided'));
 			}
 
 			// Check that the entry template is available

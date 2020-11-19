@@ -28,7 +28,7 @@ export async function convertCommand() {
 	const converter = ConverterEngineFactory.getInstance().createConverter();
 
 	// Execute the conversion process
-	const resultFile = converter.convert(dataFile);
+	const resultFile = await converter.convert(dataFile);
 
 	// Open the data in the editor
 	await vscode.window.showTextDocument(vscode.Uri.file(dataFile), {
@@ -56,6 +56,7 @@ export async function convertCommand() {
 			await showDifferentialView(vscode.Uri.file(history[1]), vscode.Uri.file(history[0]));
 		}
 	}
+	await vscode.commands.executeCommand('workbench.action.closeOtherEditors');
 }
 
 

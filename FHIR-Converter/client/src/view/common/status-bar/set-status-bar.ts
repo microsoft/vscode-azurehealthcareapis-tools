@@ -15,6 +15,6 @@ export function setStatusBar() {
 	const activeTemplatePath = globals.settingManager.getWorkspaceState(stateConstants.TemplateKey);
 	
 	// Set the status bar according to the active files
-	vscode.window.setStatusBarMessage(stringUtils.getStatusBarString(activeDataPath, activeTemplatePath,
+	return vscode.window.setStatusBarMessage(stringUtils.getStatusBarString(activeDataPath, activeTemplatePath,
 		localize('microsoft.health.fhir.converter.configuration.title'), localize('common.data'), localize('common.template')));
 }

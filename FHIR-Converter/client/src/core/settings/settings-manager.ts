@@ -36,7 +36,7 @@ export class SettingManager {
 			'folders': [],
 			'settings': {}
 		};
-		fileUtils.writePrettyJson(workspacePath, workspaceConfig);
+		fileUtils.writeJsonToFile(workspacePath, workspaceConfig);
 		return workspaceConfig;
 	}
 

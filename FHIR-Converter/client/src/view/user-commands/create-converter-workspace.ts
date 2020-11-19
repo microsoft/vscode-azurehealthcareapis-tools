@@ -40,7 +40,7 @@ export async function createConverterWorkspaceCommand() {
 	const workspaceConfig = getDefaultConverterWorkspaceConfig(ConverterType.hl7v2ToFhir, templateFolder.fsPath, dataFolder.fsPath);
 
 	// Save the workpace configuration
-	fileUtils.writePrettyJson(workspacePath.fsPath, workspaceConfig);
+	fileUtils.writeJsonToFile(workspacePath.fsPath, workspaceConfig);
 
 	// Open the workspace
 	await vscode.commands.executeCommand('vscode.openFolder', workspacePath, false);
