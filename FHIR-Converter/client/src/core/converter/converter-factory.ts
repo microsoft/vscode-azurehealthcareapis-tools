@@ -14,11 +14,11 @@ import { ConfigurationError } from '../common/errors/configuration-error';
 import { globals } from '../globals';
 
 export class ConverterEngineFactory {
-	private static instance = new ConverterEngineFactory();
+	private static _instance = new ConverterEngineFactory();
 	private constructor () {}
 
 	static getInstance (): ConverterEngineFactory {
-		return ConverterEngineFactory.instance;
+		return ConverterEngineFactory._instance;
 	}
 
 	createConverter() {

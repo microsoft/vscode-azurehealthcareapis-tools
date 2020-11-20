@@ -35,7 +35,7 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 
 		const timestamp = new Date().getTime().toString();
 		const resultFile = path.join(this._resultFolder, stringUtils.getResultFileName(dataFile, this._rootTemplate, timestamp));
-		const tempFile = path.join(this._resultFolder, engineConstants.DefaultResultFile);
+		const defaultResultFile = path.join(this._resultFolder, engineConstants.DefaultResultFile);
 		const rootTemplate = stringUtils.getFileNameWithoutExt(this._rootTemplate);
 		
 		// Check if data is empty 
@@ -44,18 +44,16 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 			throw new ConversionError(localize('message.dataIsEmpty'));
 		}
 
-		cp.execFileSync(this._exePath, ['-d', this._templateFolder, '-r',  rootTemplate, '-c', data, '-f', tempFile]);
-		if (fs.existsSync(tempFile)) {
-			const resultMsg = JSON.parse(fs.readFileSync(tempFile).toString());
+		cp.execFileSync(this._exePath, ['-d', this._templateFolder, '-r',  rootTemplate, '-c', data, '-f', defaultResultFile]);
+		if (fs.existsSync(defaultResultFile)) {
+			const resultMsg = JSON.parse(fs.readFileSync(defaultResultFile).toString());
 			if (!engineUtils.checkConversionSuccess(resultMsg)) {
 				throw new ConversionError(resultMsg.ErrorMessage);
 			}
 			fileUtils.writeJsonToFile(resultFile, resultMsg.FhirResource);
 			return resultFile;
 		} else {
-			if (!resultFile) {
-				throw new ConversionError(localize('message.noResponseFromEngine'));
-			}
+			throw new ConversionError(localize('message.noResponseFromEngine'));
 		}
 	}
 }
