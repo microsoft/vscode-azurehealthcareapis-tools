@@ -23,26 +23,3 @@ jobs:
 
   steps:
   - template: ./fhir-converter-pipeline.yml
-  
-  - task: CredScan@2
-    inputs:
-      toolMajorVersion: 'V1'
-  - task: ComponentGovernanceComponentDetection@0
-    inputs:
-      scanType: 'Register'
-      verbosity: 'Verbose'
-      alertWarningLevel: 'High'
-  - task: TSLint@1
-    inputs:
-      RuleLibrary: 'tslint'
-      Ruleset: 'tsrecommended'
-      FileSelectionType: 'fileGlob'
-      Files: '**\*.ts'
-      OutputFormat: 'json'
-      ToolVersion: 'latest'
-      TypeScriptVersion: 'latest'
-  - task: BinSkim@3
-    inputs:
-      InputType: 'CommandLine'
-      arguments: 'analyze Microsoft.Health.*.dll Microsoft.Health.*.exe --recurse'
-
