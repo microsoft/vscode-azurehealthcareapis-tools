@@ -8,7 +8,6 @@ import * as stringUtils from '../common/utils/string-utils';
 import * as fileUtils from '../common/utils/file-utils';
 import * as engineConstants from '../common/constants/engine';
 import { IConverterEngine } from './engine/converter-engine';
-
 export class Converter {
 	private _engine: IConverterEngine;
 	private _resultFolder: string;
@@ -37,10 +36,10 @@ export class Converter {
 			const deleteFiles = files.slice(remainNum, files.length);
 			const promiseAll = [];
 			for (const file of deleteFiles) {
-				promiseAll.push(new Promise((resolve) => {
+				promiseAll.push(new Promise((resolve, reject) => {
 					fs.unlink(file, (err) => {
 						if (err) { 
-							throw err; 
+							reject(err); 
 						} else {
 							resolve();
 						}
