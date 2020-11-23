@@ -1,0 +1,175 @@
+{
+	"name": "vscode-health-fhir-converter",
+	"publisher": "Microsoft",
+	"author": {
+		"name": "Microsoft Corporation"
+	},
+	"displayName": "FHIR Converter",
+	"description": "FHIR Converter extension enables the conversion of legacy formatted health data to FHIR, expanding the use cases for health data and enabling interoperability.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/yankunhuang-pku/images"
+	},
+	"license": "SEE LICENSE IN LICENSE",
+	"version": "0.4.8",
+	"enableProposedApi": true,
+	"engines": {
+		"vscode": "^1.44.0"
+	},
+	"categories": [
+		"Data Science",
+		"Other"
+	],
+	"keywords": [
+		"Healthcare",
+		"FHIR",
+		"Converter",
+		"HL7v2",
+		"Liquid"
+	],
+	"activationEvents": [
+		"onCommand:microsoft.health.fhir.converter.convert",
+		"onCommand:microsoft.health.fhir.converter.updateTemplateFolder",
+		"onCommand:microsoft.health.fhir.converter.selectTemplate",
+		"onCommand:microsoft.health.fhir.converter.selectData",
+		"onCommand:microsoft.health.fhir.converter.createConverterWorkspace",
+		"workspaceContains: **/*.liquid"
+	],
+	"main": "./client/out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "microsoft.health.fhir.converter.convert",
+				"title": "%microsoft.health.fhir.converter.command.convert.title%"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.updateTemplateFolder",
+				"title": "%microsoft.health.fhir.converter.command.updateTemplateFolder.title%"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.selectTemplate",
+				"title": "%microsoft.health.fhir.converter.command.selectTemplate.title%"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.selectData",
+				"title": "%microsoft.health.fhir.converter.command.selectData.title%"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.createConverterWorkspace",
+				"title": "%microsoft.health.fhir.converter.command.createConverterWorkspace.title%"
+			}
+		],
+		"menus": {
+			"commandPalette": [
+				{
+					"command": "microsoft.health.fhir.converter.selectTemplate",
+					"when": "false"
+				},
+				{
+					"command": "microsoft.health.fhir.converter.selectData",
+					"when": "false"
+				}
+			],
+			"explorer/context": [
+				{
+					"command": "microsoft.health.fhir.converter.convert",
+					"group": "1_converter"
+				},
+				{
+					"command": "microsoft.health.fhir.converter.selectTemplate",
+					"group": "1_converter",
+					"when": "resourceExtname == .liquid"
+				},
+				{
+					"command": "microsoft.health.fhir.converter.selectData",
+					"group": "1_converter",
+					"when": "resourceExtname == .hl7"
+				},
+				{
+					"command": "microsoft.health.fhir.converter.updateTemplateFolder",
+					"group": "1_converter"
+				}
+			],
+			"editor/context": [
+				{
+					"command": "microsoft.health.fhir.converter.convert",
+					"group": "1_converter"
+				},
+				{
+					"command": "microsoft.health.fhir.converter.updateTemplateFolder",
+					"group": "1_converter"
+				},
+				{
+					"command": "microsoft.health.fhir.converter.createConverterWorkspace",
+					"group": "1_converter"
+				}
+			]
+		},
+		"keybindings": [
+			{
+				"command": "microsoft.health.fhir.converter.updateTemplateFolder",
+				"key": "Ctrl+U"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.createConverterWorkspace",
+				"key": "Ctrl+W"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.convert",
+				"key": "Ctrl+R"
+			}
+		],
+		"configuration": {
+			"type": "object",
+			"title": "%microsoft.health.fhir.converter.configuration.title%",
+			"properties": {
+				"microsoft.health.fhir.converter.converterType": {
+					"type": "string",
+					"default": "",
+					"description": "%microsoft.health.fhir.converter.configuration.converterType.description%"
+				},
+				"microsoft.health.fhir.converter.enableDiffView": {
+					"type": "boolean",
+					"default": "true",
+					"description": "%microsoft.health.fhir.converter.configuration.enableDiffView.description%"
+				},
+				"microsoft.health.fhir.converter.templateFolder": {
+					"type": "string",
+					"default": "",
+					"description": "%microsoft.health.fhir.converter.configuration.templateFolder.description%"
+				},
+				"microsoft.health.fhir.converter.resultFolder": {
+					"type": "string",
+					"default": "",
+					"description": "%microsoft.health.fhir.converter.configuration.resultFolder.description%"
+				}
+			}
+		}
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w",
+		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+		"test": "npm run compile && node ./client/out/test/runTest.js && node ./server/out/test/runTest.js",
+		"package": "vsce package",
+		"lint": "tslint --fix client/src/**/*.ts  server/src/**/*.ts"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^12.12.0",
+		"@types/vscode": "^1.44.0",
+		"chai": "^4.2.0",
+		"chai-as-promised": "^7.1.1",
+		"chai-subset": "^1.6.0",
+		"glob": "^7.1.4",
+		"mocha": "^6.1.4",
+		"mocha-multi-reporters": "^1.5.1",
+		"nyc": "^15.1.0",
+		"reflect-metadata": "^0.1.13",
+		"tslint": "^5.19.0",
+		"typescript": "^3.8.3",
+		"vscode-test": "^1.2.0"
+	}
+}
