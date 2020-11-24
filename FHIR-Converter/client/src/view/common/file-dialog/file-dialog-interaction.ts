@@ -46,3 +46,14 @@ export function getUnsavedFiles(type: string) {
 export async function saveAllFiles(unsavedFiles: vscode.TextDocument[]) {
 	await Promise.all(unsavedFiles.map(doc => doc.save()));
 }
+
+export function isDirtyFile(filePath: string) {
+	if (filePath) {
+		for (const doc of vscode.workspace.textDocuments) {
+			if (doc && doc.isDirty && doc.fileName === filePath) {
+				return doc;
+			}
+		}
+	}
+	return undefined;
+}

@@ -18,11 +18,17 @@ export async function convertCommand() {
 	// Check whether there is any template not saved and ask if users want to save it
 	const unsavedTemplates: vscode.TextDocument[] = interaction.getUnsavedFiles(engineConstants.TemplateFileExt);
 	if (unsavedTemplates.length > 0) {
-		await interaction.askSaveFiles(unsavedTemplates, localize('message.saveBeforeRefresh'), localize('message.save'), localize('message.ignore'));
+		await interaction.askSaveFiles(unsavedTemplates, localize('message.saveTemplatesBeforeRefresh'), localize('message.save'), localize('message.ignore'));
 	}
 
-	// Get the data file and template file
+	// Get the data file
 	const dataFile = globals.settingManager.getWorkspaceState(stateConstants.DataKey);
+
+	// Check whether data file is dirty and not saved and ask if users want to save it
+	const doc = interaction.isDirtyFile(dataFile);
+	if (doc) {
+		await interaction.askSaveFiles([doc], localize('message.saveDataBeforeRefresh'), localize('message.save'), localize('message.ignore'));
+	}
 	
 	// create the converter
 	const converter = ConverterEngineFactory.getInstance().createConverter();
