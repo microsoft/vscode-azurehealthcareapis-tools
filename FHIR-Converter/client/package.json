@@ -5,10 +5,6 @@
 	"license": "MIT",
 	"version": "1.0.0",
 	"publisher": "Microsoft",
-	"repository": {
-		"type": "git",
-		"url": ""
-	},
 	"engines": {
 		"vscode": "^1.44.0"
 	},

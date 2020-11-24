@@ -7,10 +7,6 @@
 	"engines": {
 		"node": "*"
 	},
-	"repository": {
-		"type": "git",
-		"url": ""
-	},
 	"dependencies": {
 		"vscode-languageserver": "^6.1.1",
 		"vscode-languageserver-textdocument": "^1.0.1",

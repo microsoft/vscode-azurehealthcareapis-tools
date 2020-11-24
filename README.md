@@ -2,8 +2,8 @@
 
 This project will include various tools for Azure Healthcare Apis. 
 
-Currently, we supports:
-- [FHIR Converter](./FHIR-Converter/README.md)
+Currently, we support:
+- [FHIR Converter](./FHIR-Converter)
 
 ## Contributing
 
