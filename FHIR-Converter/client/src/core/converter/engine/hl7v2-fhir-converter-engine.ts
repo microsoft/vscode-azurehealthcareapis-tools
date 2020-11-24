@@ -38,6 +38,11 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 		const defaultResultFile = path.join(this._resultFolder, engineConstants.DefaultResultFile);
 		const rootTemplate = stringUtils.getFileNameWithoutExt(this._rootTemplate);
 		
+		// Check if data file exists
+		if (!fs.existsSync(dataFile)) {
+			throw new ConversionError(localize('message.dataFileNotExits', dataFile));
+		}
+
 		// Check if data is empty 
 		const data = fs.readFileSync(dataFile).toString().replace(/^\uFEFF/, '');
 		if (data.length === 0) {
