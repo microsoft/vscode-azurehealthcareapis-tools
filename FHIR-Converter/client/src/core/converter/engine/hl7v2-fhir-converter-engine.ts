@@ -33,11 +33,6 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 			throw new ConversionError(localize('message.needSelectData'));
 		}
 
-		const timestamp = new Date().getTime().toString();
-		const resultFile = path.join(this._resultFolder, stringUtils.getResultFileName(dataFile, this._rootTemplate, timestamp));
-		const defaultResultFile = path.join(this._resultFolder, engineConstants.DefaultResultFile);
-		const rootTemplate = stringUtils.getFileNameWithoutExt(this._rootTemplate);
-		
 		// Check if data file exists
 		if (!fs.existsSync(dataFile)) {
 			throw new ConversionError(localize('message.dataFileNotExits', dataFile));
@@ -49,6 +44,11 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 			throw new ConversionError(localize('message.dataIsEmpty'));
 		}
 
+		// Call the engine
+		const timestamp = new Date().getTime().toString();
+		const resultFile = path.join(this._resultFolder, stringUtils.getResultFileName(dataFile, this._rootTemplate, timestamp));
+		const defaultResultFile = path.join(this._resultFolder, engineConstants.DefaultResultFile);
+		const rootTemplate = stringUtils.getFileNameWithoutExt(this._rootTemplate);
 		cp.execFileSync(this._exePath, ['-d', this._templateFolder, '-r',  rootTemplate, '-c', data, '-f', defaultResultFile]);
 		if (fs.existsSync(defaultResultFile)) {
 			const resultMsg = JSON.parse(fs.readFileSync(defaultResultFile).toString());
