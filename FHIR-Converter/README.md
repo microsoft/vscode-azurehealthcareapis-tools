@@ -62,13 +62,13 @@ In a converter workspace, template files and data files are shown in the explore
 
 To select a dotliquid file having extension `.liquid` as the root template file, right click on the file in the explorer view and select the menu item `FHIR Converter: Select as template (*.liquid)`. Similarly, to select a data file, right click on the data file having extension `.hl7` and select the menu item `FHIR Converter: Select as data file (*.hl7)`.
 
-Both templates and data are necessary, and you can view the selected files in the status bar before converting Data. If one of them is missing, you will be prompted to select the missing one. If both template and data file are selected, you can convert data by selecting the context menu item `FHIR Converter: convert data` or using the keyboard shortcut (`Ctrl + R`)., and the result will be shown in results pane.
+Both templates and data are necessary, and you can view the selected files in the status bar before converting Data. If one of them is missing, you will be prompted to select the missing one. If both template and data file are selected, you can convert data by selecting the context menu item `FHIR Converter: Convert data` or using the keyboard shortcut (`Ctrl + R`)., and the result will be shown in results pane.
 
 ![conversion](assets/conversion.gif)
 
 ### 4. Modify the selected data and templates
 
-After modifying the templates or the data, you can convert data by selecting the context menu item `FHIR Converter: convert data` or using the keyboard shortcut (`Ctrl + R`) in the same way. A differential view for the conversion result will be shown in the result tab highlighting the differences from the last run. You can jump to the previous or the next changes using the icons in the upper right corner. Differential view is turned on by default, and if you don't need this feature, you can deselect the option called `Enable Diff View` in `Preferences > Settings > Workspace > Extensions > FHIR Converter` or add a setting `"microsoft.health.fhir.converter.enableDiffView": false` in the workspace settings;
+After modifying the templates or the data, you can convert data by selecting the context menu item `FHIR Converter: Convert data` or using the keyboard shortcut (`Ctrl + R`) in the same way. A differential view for the conversion result will be shown in the result tab highlighting the differences from the last run. You can jump to the previous or the next changes using the icons in the upper right corner. Differential view is turned on by default, and if you don't need this feature, you can deselect the option called `Enable Diff View` in `Preferences > Settings > Workspace > Extensions > FHIR Converter` or add a setting `"microsoft.health.fhir.converter.enableDiffView": false` in the workspace settings;
 
 After modifying the templates or data, remember to save the template files and data because the templates and data on the file system are used during the conversion process. If there are some unsaved templates or data, the user will be prompted to save these unsaved templates or data.
 
