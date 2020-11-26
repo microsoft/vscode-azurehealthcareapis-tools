@@ -1,0 +1,16 @@
+{
+	"name": "vscode-health-fhir-converter-client",
+	"description": "Language client for FHIR Converter",
+	"author": "Microsoft Corporation",
+	"license": "MIT",
+	"version": "1.0.0",
+	"publisher": "Microsoft",
+	"engines": {
+		"vscode": "^1.44.0"
+	},
+	"dependencies": {
+		"vscode-languageclient": "^6.1.1",
+		"glob": "^7.1.4",
+		"@types/glob": "^7.1.1"
+	}
+}
