@@ -8,10 +8,10 @@
 	"description": "FHIR Converter extension enables the conversion of legacy formatted health data to FHIR, expanding the use cases for health data and enabling interoperability.",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/yankunhuang-pku/images"
+		"url": "https://github.com/microsoft/vscode-azurehealthcareapis-tools"
 	},
 	"license": "SEE LICENSE IN LICENSE",
-	"version": "0.5.0",
+	"version": "1.0.0",
 	"enableProposedApi": true,
 	"engines": {
 		"vscode": "^1.44.0"
