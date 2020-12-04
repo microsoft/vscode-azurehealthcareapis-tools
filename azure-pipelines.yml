@@ -2,6 +2,7 @@ trigger:
   branches:
     include:
     - personal/yankhuan/converter-vsc-extension
+    - main
   tags:
     include:
     - v*
