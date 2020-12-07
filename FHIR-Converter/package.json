@@ -21,14 +21,15 @@
 	},
 	"categories": [
 		"Azure",
-		"Data Science",
 		"Other"
 	],
 	"keywords": [
 		"Azure",
-		"Healthcare",
-		"FHIR",
+		"Azure API for FHIR",
 		"Converter",
+		"FHIR",
+		"FHIR Server for Azure",
+		"Healthcare",
 		"HL7v2",
 		"Liquid"
 	],
