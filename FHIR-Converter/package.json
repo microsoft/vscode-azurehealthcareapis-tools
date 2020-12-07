@@ -1,29 +1,35 @@
 {
 	"name": "vscode-health-fhir-converter",
-	"publisher": "Microsoft",
-	"author": {
-		"name": "Microsoft Corporation"
-	},
+	"publisher": "ms-azuretools",
 	"displayName": "FHIR Converter",
 	"description": "FHIR Converter extension enables the conversion of legacy formatted health data to FHIR, expanding the use cases for health data and enabling interoperability.",
+	"version": "1.0.0",
+	"license": "MIT",
+	"preview": true,
+	"homepage": "https://github.com/microsoft/vscode-azurehealthcareapis-tools/blob/main/FHIR-Converter/README.md",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/microsoft/vscode-azurehealthcareapis-tools"
 	},
-	"license": "SEE LICENSE IN LICENSE",
-	"version": "1.0.0",
+	"galleryBanner": {
+		"color": "#0072c6",
+		"theme": "dark"
+	},
 	"enableProposedApi": true,
 	"engines": {
 		"vscode": "^1.44.0"
 	},
 	"categories": [
-		"Data Science",
+		"Azure",
 		"Other"
 	],
 	"keywords": [
-		"Healthcare",
-		"FHIR",
+		"Azure",
+		"Azure API for FHIR",
 		"Converter",
+		"FHIR",
+		"FHIR Server for Azure",
+		"Healthcare",
 		"HL7v2",
 		"Liquid"
 	],
@@ -152,7 +158,7 @@
 		"watch": "tsc -b -w",
 		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
 		"test": "npm run compile && node ./client/out/test/runTest.js && node ./server/out/test/runTest.js",
-		"package": "vsce package",
+		"package": "vsce package --githubBranch main",
 		"lint": "tslint --fix client/src/**/*.ts  server/src/**/*.ts"
 	},
 	"devDependencies": {

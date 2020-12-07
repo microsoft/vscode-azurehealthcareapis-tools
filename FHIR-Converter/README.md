@@ -46,7 +46,7 @@ After that, the configuration file of the converter workspace will be saved in t
 
 The first folder in the workspace is default to template folder and you can add multiple data folders after template folder in a converter workspace.
   
-![workspace](assets/workspace.gif)
+![workspace](FHIR-Converter/assets/workspace.gif)
 
 ### 2. Open/Switch a converter workspace
 
@@ -54,7 +54,7 @@ If there is already a converter workspace in the file system, we can start it in
 
 If a converter workspace is already opened and you want to switch to another converter workspace, you can do so by triggering the commands `Workspaces: Open Workspace` and `File: Open Recent`. It will close the current workspace and open the new workspace.
 
-![open-switch-workspace](assets/open-switch-workspace.gif)
+![open-switch-workspace](FHIR-Converter/assets/open-switch-workspace.gif)
 
 ### 3. Convert the HL7v2 messages into FHIR bundles
 
@@ -64,7 +64,7 @@ To select a dotliquid file having extension `.liquid` as the root template file,
 
 Both templates and data are necessary, and you can view the selected files in the status bar before converting Data. If one of them is missing, you will be prompted to select the missing one. If both template and data file are selected, you can convert data by selecting the context menu item `FHIR Converter: Convert data` or using the keyboard shortcut (`Ctrl + R`), and the result will be shown in results pane.
 
-![conversion](assets/conversion.gif)
+![conversion](FHIR-Converter/assets/conversion.gif)
 
 ### 4. Modify the selected data and templates
 
@@ -73,7 +73,7 @@ After modifying the templates or the data, you can convert data by selecting the
 After modifying the templates or data, remember to save the template files or data because the templates and data on the file system are used during the conversion process. If there are some unsaved templates or data, the user will be prompted to save these unsaved templates or data.
 
 
-![editing](assets/editing.gif)
+![editing](FHIR-Converter/assets/editing.gif)
 
 If you want to jump into the snippet templates to make some modification, you can select the context menu item `Go to Definition (F12)`  or using the keyborad shortcut `Ctrl + Click` when hovering over the snippet templates. If you just hover over the snippet templates and press `Ctrl`, a quick content preview of snippet templates will be shown for you.
 
@@ -84,12 +84,12 @@ Currently, the following features for snippet templates editing are supported:
 - Checking if snippet templates exist
 - Auto completion of snippet templates
 
-![snippet-templates-editing](assets/snippet-templates-editing.gif)
+![snippet-templates-editing](FHIR-Converter/assets/snippet-templates-editing.gif)
 
 ### 5. Update the template folder
 
 You can use the command `FHIR Converter: Update template folder (Ctrl + U)` to update the template folder. In addition, you can also set it through the setting panel of VS Code.
-![update-template-folder](assets/update-template-folder.gif)
+![update-template-folder](FHIR-Converter/assets/update-template-folder.gif)
 
 ## Other useful extensions
 
@@ -100,16 +100,18 @@ You may want to install other extensions from the marketplace to obtain some lan
 
 ## Contributing
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us the rights to use your contribution. For details, visit [the CLA site](https://cla.opensource.microsoft.com).
+### Legal
 
-When you submit a pull request, a CLA bot will automatically determine whether you need to provide a CLA and decorate the PR appropriately (e.g., status check, comment). Simply follow the instructions provided by the bot. You will only need to do this once across all repos using our CLA.
+Before we can accept your pull request you will need to sign a **Contribution License Agreement**. All you need to do is to submit a pull request, then the PR will get appropriately labelled (e.g. `cla-required`, `cla-norequired`, `cla-signed`, `cla-already-signed`). If you already signed the agreement we will continue with reviewing the PR, otherwise system will tell you how you can sign the CLA. Once you sign the CLA all future PR's will be labeled as `cla-signed`.
+
+### Code of Conduct
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ## Telemetry
 
-VS Code collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://go.microsoft.com/fwlink/?LinkId=521839) to learn more. If you don’t wish to send usage data to Microsoft, you can set the `telemetry.enableTelemetry` setting to `false`. Learn more in VS Studio Code [FAQ](https://go.microsoft.com/fwlink/?linkid=870136).
+VS Code collects usage data and sends it to Microsoft to help improve our products and services. Read our [privacy statement](https://go.microsoft.com/fwlink/?LinkID=528096&clcid=0x409) to learn more. If you don't wish to send usage data to Microsoft, you can set the `telemetry.enableTelemetry` setting to `false`. Learn more in our [FAQ](https://code.visualstudio.com/docs/supporting/faq#_how-to-disable-telemetry-reporting).
 
 ## License
 
-[MIT](LICENSE)
+[MIT](FHIR-Converter/LICENSE)
