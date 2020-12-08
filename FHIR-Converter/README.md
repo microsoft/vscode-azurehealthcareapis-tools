@@ -114,4 +114,4 @@ VS Code collects usage data and sends it to Microsoft to help improve our produc
 
 ## License
 
-[MIT](FHIR-Converter/LICENSE)
+[MIT](LICENSE)
