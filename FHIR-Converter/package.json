@@ -158,7 +158,7 @@
 		"watch": "tsc -b -w",
 		"postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
 		"test": "npm run compile && node ./client/out/test/runTest.js && node ./server/out/test/runTest.js",
-		"package": "vsce package --githubBranch main",
+		"package": "vsce package --githubBranch main --baseContentUrl https://github.com/microsoft/vscode-azurehealthcareapis-tools/tree/main/FHIR-Converter --baseImagesUrl https://raw.githubusercontent.com/microsoft/vscode-azurehealthcareapis-tools/main/FHIR-Converter",
 		"lint": "tslint --fix client/src/**/*.ts  server/src/**/*.ts"
 	},
 	"devDependencies": {
