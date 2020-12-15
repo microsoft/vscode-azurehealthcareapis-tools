@@ -13,6 +13,7 @@
 	"error.conversion": "Conversion Error - {0}",
 	"error.unexpected": "Unexpected Error - {0}",
 	"message.converterEngineNotSupported": "Converter engine for {0} is not supported now.",
+	"message.osNotSupported": "FHIR Converter is not supported in this operating system now.",
 	"message.failedUpdateConfiguration": "Failed to update the configuration.",
 	"message.selectRootTemplateFolder": "Select root template folder",
 	"message.selectDataFolder": "Select a data folder",
@@ -34,6 +35,8 @@
 	"message.invalidTemplate": "{0} is not a valid snippet template in the template folder ({1}).",
 	"message.dataIsEmpty": "Data is empty.",
 	"message.dataFileNotExits": "The data file does not exist ({0}).",
+	"message.resultFolderNotExits": "The result folder does not exist ({0}).",
+	"message.templateFolderNotExits": "The template folder does not exist ({0}).",
 	"common.templateFolder.suffix": "(Templates)",
 	"common.template": "template",
 	"common.data": "data"

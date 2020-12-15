@@ -21,10 +21,15 @@ import { SettingManager } from './core/settings/settings-manager';
 import { setStatusBar } from './view/common/status-bar/set-status-bar';
 import { ConfigurationError } from './core/common/errors/configuration-error';
 import { converterWorkspaceExists } from './view/common/workspace/converter-workspace-exists';
+import { Reporter } from './telemetry/telemetry';
+import { checkCreateFolders } from './core/common/utils/file-utils';
 
 let client: LanguageClient;
 
 export async function activate(context: vscode.ExtensionContext) {
+	// Create telemetry report
+	context.subscriptions.push(new Reporter(context));
+
 	// Init setting manager
 	globals.settingManager = new SettingManager(context, configurationConstants.ConfigurationSection);
 
@@ -37,6 +42,7 @@ export async function activate(context: vscode.ExtensionContext) {
 		let resultFolder: string = globals.settingManager.getWorkspaceConfiguration(configurationConstants.ResultFolderKey);
 		if (!resultFolder) {
 			resultFolder = path.join(globals.settingManager.context.storagePath, configurationConstants.DefaultResultFolderName);
+			checkCreateFolders(resultFolder);
 			await globals.settingManager.updateWorkspaceConfiguration(configurationConstants.ResultFolderKey, resultFolder);
 		}
 

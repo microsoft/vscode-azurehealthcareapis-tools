@@ -1,11 +1,15 @@
 {
 	"name": "vscode-health-fhir-converter-server",
+	"publisher": "ms-azuretools",
 	"description": "Language server for FHIR Converter",
-	"version": "1.0.0",
-	"author": "Microsoft Corporation",
+	"version": "1.0.1",
 	"license": "MIT",
 	"engines": {
 		"node": "*"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/microsoft/vscode-azurehealthcareapis-tools"
 	},
 	"dependencies": {
 		"vscode-languageserver": "^6.1.1",
