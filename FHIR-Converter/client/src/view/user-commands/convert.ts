@@ -69,8 +69,6 @@ export async function convertCommand() {
 			}
 		}
 		await vscode.commands.executeCommand('workbench.action.closeOtherEditors');
-	} catch (err) {
-		throw err;
 	} finally {
 		// hide the conversion bar
 		conversionBar.hide();
