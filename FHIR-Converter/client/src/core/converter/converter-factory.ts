@@ -12,6 +12,7 @@ import { Converter } from './converter';
 import { ConversionError} from '../common/errors/conversion-error';
 import { ConfigurationError } from '../common/errors/configuration-error';
 import { globals } from '../globals';
+import * as fs from 'fs';
 
 export class ConverterEngineFactory {
 	private static _instance = new ConverterEngineFactory();
@@ -28,6 +29,11 @@ export class ConverterEngineFactory {
 			throw new ConfigurationError(localize('message.noResultFolderProvided'));
 		}
 
+		// Check if result folder exists
+		if (!fs.existsSync(resultFolder)) {
+			throw new ConversionError(localize('message.resultFolderNotExits', resultFolder));
+		}
+
 		let engine;
 		const converterType = globals.settingManager.getWorkspaceConfiguration(configurationConstants.ConverterTypeKey);
 		if (!converterType) {
@@ -39,6 +45,11 @@ export class ConverterEngineFactory {
 			const templateFolder: string = globals.settingManager.getWorkspaceConfiguration(configurationConstants.TemplateFolderKey);
 			if (!templateFolder) {
 				throw new ConfigurationError(localize('message.noTemplateFolderProvided'));
+			}
+
+			// Check if template folder exists
+			if (!fs.existsSync(templateFolder)) {
+				throw new ConversionError(localize('message.templateFolderNotExits', templateFolder));
 			}
 
 			// Check that the entry template is available

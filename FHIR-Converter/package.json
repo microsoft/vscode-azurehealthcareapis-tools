@@ -2,8 +2,8 @@
 	"name": "vscode-health-fhir-converter",
 	"publisher": "ms-azuretools",
 	"displayName": "FHIR Converter",
-	"description": "FHIR Converter extension enables the conversion of legacy formatted health data to FHIR, expanding the use cases for health data and enabling interoperability.",
-	"version": "1.0.0",
+	"description": "Enables the conversion of legacy formatted health data to FHIR, expanding the use cases for health data and enabling interoperability.",
+	"version": "1.0.1",
 	"license": "MIT",
 	"preview": true,
 	"homepage": "https://github.com/microsoft/vscode-azurehealthcareapis-tools/blob/main/FHIR-Converter/README.md",
@@ -11,6 +11,7 @@
 		"type": "git",
 		"url": "https://github.com/microsoft/vscode-azurehealthcareapis-tools"
 	},
+	"icon": "assets/icon.png",
 	"galleryBanner": {
 		"color": "#0072c6",
 		"theme": "dark"
@@ -33,6 +34,7 @@
 		"HL7v2",
 		"Liquid"
 	],
+	"aiKey": "AIF-d9b70cd4-b9f9-4d70-929b-a071c400b217",
 	"activationEvents": [
 		"onCommand:microsoft.health.fhir.converter.convert",
 		"onCommand:microsoft.health.fhir.converter.updateTemplateFolder",
@@ -46,23 +48,23 @@
 		"commands": [
 			{
 				"command": "microsoft.health.fhir.converter.convert",
-				"title": "%microsoft.health.fhir.converter.command.convert.title%"
+				"title": "FHIR Converter: Convert data"
 			},
 			{
 				"command": "microsoft.health.fhir.converter.updateTemplateFolder",
-				"title": "%microsoft.health.fhir.converter.command.updateTemplateFolder.title%"
+				"title": "FHIR Converter: Update template folder"
 			},
 			{
 				"command": "microsoft.health.fhir.converter.selectTemplate",
-				"title": "%microsoft.health.fhir.converter.command.selectTemplate.title%"
+				"title": "FHIR Converter: Select as template (*.liquid)"
 			},
 			{
 				"command": "microsoft.health.fhir.converter.selectData",
-				"title": "%microsoft.health.fhir.converter.command.selectData.title%"
+				"title": "FHIR Converter: Select as data (*.hl7)"
 			},
 			{
 				"command": "microsoft.health.fhir.converter.createConverterWorkspace",
-				"title": "%microsoft.health.fhir.converter.command.createConverterWorkspace.title%"
+				"title": "FHIR Converter: Create a converter workspace"
 			}
 		],
 		"menus": {
@@ -127,27 +129,27 @@
 		],
 		"configuration": {
 			"type": "object",
-			"title": "%microsoft.health.fhir.converter.configuration.title%",
+			"title": "FHIR Converter",
 			"properties": {
 				"microsoft.health.fhir.converter.converterType": {
 					"type": "string",
 					"default": "",
-					"description": "%microsoft.health.fhir.converter.configuration.converterType.description%"
+					"description": "The type of converter (support 'hl7v2ToFhir' now)."
 				},
 				"microsoft.health.fhir.converter.enableDiffView": {
 					"type": "boolean",
 					"default": "true",
-					"description": "%microsoft.health.fhir.converter.configuration.enableDiffView.description%"
+					"description": "Enable showing the differential view after converting data."
 				},
 				"microsoft.health.fhir.converter.templateFolder": {
 					"type": "string",
 					"default": "",
-					"description": "%microsoft.health.fhir.converter.configuration.templateFolder.description%"
+					"description": "The path to the folder the templates are saved in."
 				},
 				"microsoft.health.fhir.converter.resultFolder": {
 					"type": "string",
 					"default": "",
-					"description": "%microsoft.health.fhir.converter.configuration.resultFolder.description%"
+					"description": "The path to the folder the results are saved in."
 				}
 			}
 		}

@@ -9,9 +9,11 @@ import { ConfigurationError } from '../errors/configuration-error';
 import { ConversionError } from '../errors/conversion-error';
 
 export function handle(error: Error): void {
+	let errorType = '';
 	if (error instanceof ConfigurationError || error instanceof ConversionError) {
-		vscode.window.showErrorMessage(localize(error.name, error.message));
+		errorType = error.name;
 	} else {
-		vscode.window.showErrorMessage(localize('error.unexpected', error.message));
+		errorType = 'error.unexpected';
 	}
+	vscode.window.showErrorMessage(localize(errorType, error.message));
 }
