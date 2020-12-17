@@ -14,20 +14,26 @@ import * as osUtils from '../../../core/common/utils/os-utils';
 
 export async function commandHandler(event) {
 	try {
-		// Telemetry for commands
-		reporter.sendTelemetryEvent('command', { command: this.name });
 		// Check if the operating system is supported.
 		if (!osUtils.isWindows()) {
 			throw new ConversionError(localize('message.osNotSupported'));
 		}
+
 		// Check if converter workspace exists
 		if (this.name !== 'createConverterWorkspaceCommand' && !converterWorkspaceExists(configurationConstants.WorkspaceFileExtension)) {
 			throw new ConfigurationError(localize('message.needCreateWorkspace'));
 		}
+
 		// Execute the command
+		const startTime = new Date().getTime()
 		await this(event);
+		const costTime = (new Date().getTime() - startTime)
+		
+		// Telemetry for commands
+		reporter.sendTelemetryEvent('command', { command: this.name }, { costTime: costTime } );
+
 	} catch (error) {
 		// Handle the error
-		errorHandler.handle(error, this);
+		errorHandler.handle(error);
 	}
 }

@@ -7,9 +7,8 @@ import * as vscode from 'vscode';
 import localize from '../../../i18n/localize';
 import { ConfigurationError } from '../errors/configuration-error';
 import { ConversionError } from '../errors/conversion-error';
-import { reporter } from '../../../telemetry/telemetry';
 
-export function handle(error: Error, commandFunc: any): void {
+export function handle(error: Error): void {
 	let errorType = '';
 	if (error instanceof ConfigurationError || error instanceof ConversionError) {
 		errorType = error.name;
@@ -17,5 +16,4 @@ export function handle(error: Error, commandFunc: any): void {
 		errorType = 'error.unexpected';
 	}
 	vscode.window.showErrorMessage(localize(errorType, error.message));
-	reporter.sendTelemetryErrorEvent('error', { type: errorType, command: commandFunc.name, message: error.message, errorstack: error.stack }, {}, []);
 }
