@@ -49,11 +49,15 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 		const resultFile = path.join(this._resultFolder, stringUtils.getResultFileName(dataFile, this._rootTemplate, timestamp));
 		const defaultResultFile = path.join(this._resultFolder, engineConstants.DefaultResultFile);
 		const rootTemplate = stringUtils.getFileNameWithoutExt(this._rootTemplate);
-		cp.execFileSync(this._exePath, ['-d', this._templateFolder, '-r',  rootTemplate, '-c', data, '-f', defaultResultFile]);
+		try {
+			cp.execFileSync(this._exePath, ['convert', '-d', this._templateFolder, '-r',  rootTemplate, '-c', data, '-f', defaultResultFile, '-t']);
+		} catch (err) {
+			throw new ConversionError(err.stderr.toString());
+		}
 		if (fs.existsSync(defaultResultFile)) {
 			const resultMsg = JSON.parse(fs.readFileSync(defaultResultFile).toString());
 			if (!engineUtils.checkConversionSuccess(resultMsg)) {
-				throw new ConversionError(resultMsg.ErrorMessage);
+				throw new ConversionError(localize('message.noResponseFromEngine'));
 			}
 			fileUtils.writeJsonToFile(resultFile, resultMsg.FhirResource);
 			return resultFile;

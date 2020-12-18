@@ -26,3 +26,9 @@ export function getAllPaths(directory: string, pattern: string): string[] {
 	const files: string[] = glob.sync(searchPattern, {}).map(uri => uri.replace(/\\/g, '/'));
 	return files;
 }
+
+export function isEmptyDir(dirname) {
+	return fs.promises.readdir(dirname).then(files => {
+		return files.length === 0;
+	});
+}

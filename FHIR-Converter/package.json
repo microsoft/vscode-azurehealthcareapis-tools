@@ -3,7 +3,7 @@
 	"publisher": "ms-azuretools",
 	"displayName": "FHIR Converter",
 	"description": "Enables the conversion of legacy formatted health data to FHIR, expanding the use cases for health data and enabling interoperability.",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"license": "MIT",
 	"preview": true,
 	"homepage": "https://github.com/microsoft/vscode-azurehealthcareapis-tools/blob/main/FHIR-Converter/README.md",
@@ -41,6 +41,11 @@
 		"onCommand:microsoft.health.fhir.converter.selectTemplate",
 		"onCommand:microsoft.health.fhir.converter.selectData",
 		"onCommand:microsoft.health.fhir.converter.createConverterWorkspace",
+		"onCommand:microsoft.health.fhir.converter.pullTemplates",
+		"onCommand:microsoft.health.fhir.converter.pullOfficialTemplates",
+		"onCommand:microsoft.health.fhir.converter.pushTemplates",
+		"onCommand:microsoft.health.fhir.converter.loginRegistry",
+		"onCommand:microsoft.health.fhir.converter.logoutRegistry",
 		"workspaceContains: **/*.liquid"
 	],
 	"main": "./client/out/extension.js",
@@ -65,6 +70,26 @@
 			{
 				"command": "microsoft.health.fhir.converter.createConverterWorkspace",
 				"title": "FHIR Converter: Create a converter workspace"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.pullTemplates",
+				"title": "FHIR Converter: Pull templates"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.pullOfficialTemplates",
+				"title": "FHIR Converter: Pull official templates"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.pushTemplates",
+				"title": "FHIR Converter: Push templates"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.loginRegistry",
+				"title": "FHIR Converter: Login registry"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.logoutRegistry",
+				"title": "FHIR Converter: Logout registry"
 			}
 		],
 		"menus": {
@@ -110,6 +135,14 @@
 				{
 					"command": "microsoft.health.fhir.converter.createConverterWorkspace",
 					"group": "1_converter"
+				},
+				{
+					"command": "microsoft.health.fhir.converter.pullTemplates",
+					"group": "1_converter"
+				},
+				{
+					"command": "microsoft.health.fhir.converter.pushTemplates",
+					"group": "1_converter"
 				}
 			]
 		},
@@ -125,6 +158,26 @@
 			{
 				"command": "microsoft.health.fhir.converter.convert",
 				"key": "Ctrl+R"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.pullTemplates",
+				"key": "Ctrl+L"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.pushTemplates",
+				"key": "Ctrl+H"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.pullOfficialTemplates",
+				"key": "Ctrl+D"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.loginRegistry",
+				"key": "Ctrl+I"
+			},
+			{
+				"command": "microsoft.health.fhir.converter.logoutRegistry",
+				"key": "Ctrl+O"
 			}
 		],
 		"configuration": {

@@ -25,13 +25,12 @@ export async function commandHandler(event) {
 		}
 
 		// Execute the command
-		const startTime = new Date().getTime()
+		const startTime = new Date().getTime();
 		await this(event);
-		const costTime = (new Date().getTime() - startTime)
+		const costTime = (new Date().getTime() - startTime);
 		
 		// Telemetry for commands
 		reporter.sendTelemetryEvent('command', { command: this.name }, { costTime: costTime } );
-
 	} catch (error) {
 		// Handle the error
 		errorHandler.handle(error);

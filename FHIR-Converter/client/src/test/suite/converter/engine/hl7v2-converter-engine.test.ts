@@ -42,7 +42,7 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 	}).timeout(20000);
 	
 	
-	test('Function process - should return a json object with Fail status given invalid data', async () => {
+	test('Function process - should throw a error given invalid data', async () => {
 		try {
 			hl7v2Engine.process(invalidActiveDataPath);
 			assert.strictEqual(true, false);
@@ -63,7 +63,7 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 
 	test('Function process - should throw a error given invalid template folder', async () => {
 		try {
-			const hl7v2EngineInvalidTemplateFolder = new Hl7v2FhirConverterEngine(invalidTemplateFolder, invalidrootTemplate, resultFolder);
+			const hl7v2EngineInvalidTemplateFolder = new Hl7v2FhirConverterEngine(invalidTemplateFolder, rootTemplate, resultFolder);
 			hl7v2EngineInvalidTemplateFolder.process(activeDataPath);
 			assert.strictEqual(true, false);
 		} catch (error) {
