@@ -3,11 +3,10 @@
 [![Build Status](https://microsofthealth.visualstudio.com/Health/_apis/build/status/Resolute/Converter/microsoft.vscode-azurehealthcareapis-tools?branchName=personal%2Fyankhuan%2Fconverter-vsc-extension)](https://microsofthealth.visualstudio.com/Health/_build/latest?definitionId=531&branchName=personal%2Fyankhuan%2Fconverter-vsc-extension)
 
 FHIR Converter VS Code Extension accompanies the following Microsoft products:
-1. [Azure API for FHIR](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/):  A managed, standards-based, compliant API for clinical health data that enables solutions for actionable analytics and machine learning. 
 1. [FHIR Server for Azure](https://github.com/microsoft/fhir-server): An open-source implementation of the [HL7 FHIR](https://www.hl7.org/fhir/) specification designed for the Microsoft cloud.
 1. [FHIR Converter OSS](https://github.com/microsoft/FHIR-Converter): An open-source project that enables  conversion of health data from legacy format to FHIR. 
  
-The three products have the capability to convert HL7v2 data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 to FHIR conversion.
+These ree products have the capability to convert HL7v2 data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 to FHIR conversion.
 
 This extension provides an interactive editing and verification experience to create new templates and customize the default templates to meet specific needs.
 
@@ -25,7 +24,8 @@ After you have installed the extension, follow these steps to edit the templates
 
 See relevant service documentation for using the templates in data conversion process: 
 
-1. [FHIR Converter with Liquid Engine](https://github.com/microsoft/FHIR-Converter/tree/dotliquid)
+1. [FHIR Converter command line tool](https://github.com/microsoft/FHIR-Converter#command-line-tool) in FHIR Converter OSS project.
+1. [$convert-data](https://github.com/microsoft/fhir-server/blob/master/docs/ConvertDataOperation.md) operation in FHIR Server for Azure.
 
 
 ## How to guide
