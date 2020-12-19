@@ -6,7 +6,7 @@ FHIR Converter VS Code Extension accompanies the following Microsoft products:
 1. [FHIR Server for Azure](https://github.com/microsoft/fhir-server): An open-source implementation of the [HL7 FHIR](https://www.hl7.org/fhir/) specification designed for the Microsoft cloud.
 1. [FHIR Converter OSS](https://github.com/microsoft/FHIR-Converter): An open-source project that enables  conversion of health data from legacy format to FHIR. 
  
-These ree products have the capability to convert HL7v2 data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 to FHIR conversion.
+These products have the capability to convert HL7v2 data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 to FHIR conversion.
 
 This extension provides an interactive editing and verification experience to create new templates and customize the default templates to meet specific needs.
 
