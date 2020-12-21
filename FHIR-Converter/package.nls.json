@@ -43,6 +43,8 @@
 	"message.noEmptyFolderForcePushOrNot": "No empty folder! Do you want to force push?",
 	"message.force": "Force",
 	"message.cancel": "Cancel",
+	"message.inputYourRegistry": "'Input your registry'",
+	"message.inputYourImageReference": "Input your image reference",
 	"common.templateFolder.suffix": "(Templates)",
 	"common.template": "template",
 	"common.data": "data"

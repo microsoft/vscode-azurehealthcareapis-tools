@@ -6,8 +6,11 @@
 import * as vscode from 'vscode';
 import * as workspaceStateConstants from '../../core/common/constants/workspace-state';
 import * as workspaceConfigurationConstants from '../../core/common/constants/workspace-configuration';
+import * as interaction from '../common/file-dialog/file-dialog-interaction';
 import { globals } from '../../core/globals';
 import { TemplateManagerFactory } from '../../core/template-manager/template-manager-factory';
+import { showInputBox } from '../common/input-box/input-box';
+import localize from '../../i18n/localize';
 
 export async function pushTemplatesCommand() {
 	// Add push bar
@@ -17,26 +20,17 @@ export async function pushTemplatesCommand() {
 
 	try {
 		// Get the image reference
-		let inputBoxOption = { placeHolder: 'Input your image reference' };
-		let imageReference = globals.settingManager.getWorkspaceState(workspaceStateConstants.ImageReferenceKey);
-		if (imageReference) {
-			inputBoxOption['value'] = imageReference;
-		}
-		imageReference = await vscode.window.showInputBox(inputBoxOption);
-		if (imageReference) {
-			await globals.settingManager.updateWorkspaceState(workspaceStateConstants.ImageReferenceKey, imageReference);
-		} else {
+		const imageReference = await showInputBox(localize('message.inputYourImageReference'), workspaceStateConstants.ImageReferenceKey);
+		if (!imageReference) {
 			return undefined;
 		}
 
-		// Confirm the template folder
-		inputBoxOption = { placeHolder: 'Input a folder to be pushed' };
+		// Get the template folder
 		const templateFolder = globals.settingManager.getWorkspaceConfiguration(workspaceConfigurationConstants.TemplateFolderKey);
-		if (templateFolder) {
-			inputBoxOption['value'] = templateFolder;
-		}
-		const inputFolder = await vscode.window.showInputBox(inputBoxOption);
-		if (!inputFolder) {
+
+		// Confirm the template folder
+		const selectedTemplateFolder = await interaction.openDialogSelectFolder(localize('message.selectRootTemplateFolder'), templateFolder);
+		if (!selectedTemplateFolder) {
 			return undefined;
 		}
 
@@ -44,7 +38,7 @@ export async function pushTemplatesCommand() {
 		const templateManager = TemplateManagerFactory.getInstance().createTemplateManager();
 
 		// Execute the push process
-		const output = templateManager.pushTemplates(imageReference, inputFolder);
+		const output = templateManager.pushTemplates(imageReference, selectedTemplateFolder.fsPath);
 		
 		// Show ouput message
 		vscode.window.showInformationMessage(output.replace(/\n/g, '; '));

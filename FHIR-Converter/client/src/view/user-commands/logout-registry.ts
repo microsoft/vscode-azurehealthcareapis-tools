@@ -4,12 +4,14 @@
  */
 
 import * as vscode from 'vscode';
+import * as workspaceStateConstants from '../../core/common/constants/workspace-state';
 import { TemplateManagerFactory } from '../../core/template-manager/template-manager-factory';
+import localize from '../../i18n/localize';
+import { showInputBox } from '../common/input-box/input-box';
 
 export async function logoutRegistryCommand() {
-	// Get the registry name
-	const inputBoxOption = { placeHolder: 'Input your registry' };
-	const registryName = await vscode.window.showInputBox(inputBoxOption);
+	// Get the registry reference
+	const registryName = await showInputBox(localize('message.inputYourRegistry'), workspaceStateConstants.RegistryKey);
 	if (!registryName) {
 		return undefined;
 	}
