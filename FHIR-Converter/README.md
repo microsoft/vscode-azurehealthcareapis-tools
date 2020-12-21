@@ -95,7 +95,7 @@ You can use the command `FHIR Converter: Update template folder (Ctrl + U)` to u
 If you don’t have templates yet, you can use the command `FHIR Converter: Pull official templates (Ctrl + D)` to pull the official templates publicly released by Microsoft.
 
 If you want to use the private registry, we also provide the following commands for you to use:
-- `FHIR Converter: Login registry (Ctrl + I)`: Login registry, which is used to log in the private registry. First, you need to enter your private registry, and then the login command will run in the terminal using oras tool. We will store any information about your username and password, which will be asked by oras tool interactively.
+- `FHIR Converter: Login registry (Ctrl + I)`: Login registry, which is used to log in the private registry. First, you need to enter your private registry, and then the login command will run in the terminal using oras tool. We will not store any information about your username and password, which will be asked by oras tool interactively.
 
 - `FHIR Converter: Logout registry (Ctrl + O)`: Logout registry, which is used to log out the private registry. In this command, you only need to enter your private registry.
 

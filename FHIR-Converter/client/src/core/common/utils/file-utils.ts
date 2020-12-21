@@ -27,8 +27,11 @@ export function getAllPaths(directory: string, pattern: string): string[] {
 	return files;
 }
 
-export function isEmptyDir(dirname) {
-	return fs.promises.readdir(dirname).then(files => {
-		return files.length === 0;
-	});
+export async function isEmptyDir(dirname) {
+	const dirIter = await fs.promises.opendir(dirname);
+	const result = await dirIter[Symbol.asyncIterator]().next();
+	if (!result.done) {
+		await dirIter.close()
+	}
+	return result.done;
 }
