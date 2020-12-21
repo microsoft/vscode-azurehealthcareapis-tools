@@ -26,7 +26,7 @@ export async function pullImage(imageReference) {
 		let force = false;
 		if (! await fileUtils.isEmptyDir(outputFolder.fsPath)) {
 			const select = await vscode.window.showWarningMessage(
-				localize('message.noEmptyFolderForcePushOrNot'), 
+				localize('message.nonEmptyFolderForcePushOrNot'), 
 				localize('message.force'), 
 				localize('message.cancel'));
 			if (select ===  localize('message.force')) {

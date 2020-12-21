@@ -2,7 +2,7 @@
 	"name": "vscode-health-fhir-converter-server",
 	"publisher": "ms-azuretools",
 	"description": "Language server for FHIR Converter",
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"license": "MIT",
 	"engines": {
 		"node": "*"

@@ -32,8 +32,8 @@ export class AcrTemplateManager implements ITemplateManager {
 	}
 
 	pullTemplates(imageReference: string, outputFolder: string, force: boolean) {
- 		try {
-			 const paramList = ['pull', imageReference, outputFolder];
+		try {
+			const paramList = ['pull', imageReference, outputFolder];
 			if (force) {
 				paramList.push('-f');
 			}
