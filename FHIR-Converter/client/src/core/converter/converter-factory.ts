@@ -16,9 +16,9 @@ import * as fs from 'fs';
 
 export class ConverterEngineFactory {
 	private static _instance = new ConverterEngineFactory();
-	private constructor () {}
+	private constructor() {}
 
-	static getInstance (): ConverterEngineFactory {
+	static getInstance(): ConverterEngineFactory {
 		return ConverterEngineFactory._instance;
 	}
 
