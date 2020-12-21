@@ -12,15 +12,17 @@ import * as configurationConstants from '../../../core/common/constants/workspac
 import { reporter } from '../../../telemetry/telemetry';
 import * as osUtils from '../../../core/common/utils/os-utils';
 
+const commandsNeedWorkspace = ['selectDataCommand', 'selectTemplateCommand', 'convertCommand', 'updateTemplateFolderCommand'];
+
 export async function commandHandler(event) {
 	try {
 		// Check if the operating system is supported.
 		if (!osUtils.isWindows()) {
 			throw new ConversionError(localize('message.osNotSupported'));
 		}
-
+		
 		// Check if converter workspace exists
-		if (this.name !== 'createConverterWorkspaceCommand' && !converterWorkspaceExists(configurationConstants.WorkspaceFileExtension)) {
+		if (commandsNeedWorkspace.includes(this.name) && !converterWorkspaceExists(configurationConstants.WorkspaceFileExtension)) {
 			throw new ConfigurationError(localize('message.needCreateWorkspace'));
 		}
 
