@@ -19,12 +19,12 @@ export class AcrTemplateManager implements ITemplateManager {
 
 	login(registryName: string) {
 		// Return cmd string to use terminal
-		return `${this._orasExePath} login ${registryName}`;
+		return `${this._orasExePath} login "${registryName}"`;
 	}
 
 	logout(registryName: string) {
 		try {
-			cp.execFileSync(this._orasExePath, ['logout', registryName]);
+			cp.execFileSync(this._orasExePath, ['logout', `"${registryName}"`]);
 			return 'Logout succeeded.';
 		} catch (err) {
 			throw new TemplateManagementError(err.stderr.toString());
@@ -33,7 +33,7 @@ export class AcrTemplateManager implements ITemplateManager {
 
 	pullTemplates(imageReference: string, outputFolder: string, force: boolean) {
 		try {
-			const paramList = ['pull', imageReference, outputFolder];
+			const paramList = ['pull', `"${imageReference}"`, `"${outputFolder}"`];
 			if (force) {
 				paramList.push('-f');
 			}
@@ -46,7 +46,7 @@ export class AcrTemplateManager implements ITemplateManager {
 
 	pushTemplates(imageReference: string, inputFolder: string) {
 		try {
-			const output = cp.execFileSync(this._templateManagementExePath, ['push', imageReference, inputFolder]);
+			const output = cp.execFileSync(this._templateManagementExePath, ['push', `"${imageReference}"`, `"${inputFolder}"`]);
 			return output.toString();
 		} catch (err) {
 			throw new TemplateManagementError(err.stderr.toString());

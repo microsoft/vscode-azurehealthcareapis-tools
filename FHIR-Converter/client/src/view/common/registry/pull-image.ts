@@ -9,7 +9,7 @@ import * as interaction from '../../common/file-dialog/file-dialog-interaction';
 import { TemplateManagerFactory } from '../../../core/template-manager/template-manager-factory';
 import * as fileUtils from '../../../core/common/utils/file-utils'; 
 
-export async function pullImage(imageReference, text, refineOutput= false) {
+export async function pullImage(imageReference, text, refineOutput = false) {
 	// Add pull bar
 	const pullBar: vscode.StatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 0);
 	pullBar.text = `$(sync~spin) ${text}...`;
