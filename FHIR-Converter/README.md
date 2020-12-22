@@ -99,7 +99,7 @@ If you want to use the private registry, we also provide the following commands 
 
 - `FHIR Converter: Logout registry (Ctrl + O)`: Logout registry, which is used to log out the private registry. In this command, you only need to enter your private registry.
 
-- `FHIR Converter: Pull templates (Ctrl + L)`: Pull templates, which is used to pull the private registry images, First, you need to enter your image reference, and then select the output folder to store the templates. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten.
+- `FHIR Converter: Pull templates (Ctrl + L)`: Pull templates, which is used to pull the private registry images. First, you need to enter your image reference, and then select the output folder to store the templates. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten.
 
 - `FHIR Converter: Push templates (Ctrl + H)`: Push templates, which is used to push templates to the private registry. First, you need to enter your image reference. Then, the location of the template folder will be opened by default. Of course, you need to make sure to select a folder to be pushed to the registry.
 

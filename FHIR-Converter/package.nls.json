@@ -43,8 +43,8 @@
 	"message.nonEmptyFolderForcePushOrNot": "Non-empty folder! Do you want to force pull? If force, the files with the same name will be overwritten.",
 	"message.force": "Force",
 	"message.cancel": "Cancel",
-	"message.inputYourRegistry": "Input your registry",
-	"message.inputYourImageReference": "Input your image reference",
+	"message.inputYourRegistry": "Input registry name (sample: name.azurecr.io)",
+	"message.inputYourImageReference": "Input image reference <name:tag | name@digest>",
 	"common.templateFolder.suffix": "(Templates)",
 	"common.template": "template",
 	"common.data": "data"

@@ -42,7 +42,7 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 	}).timeout(20000);
 	
 	
-	test('Function process - should throw a error given invalid data', async () => {
+	test('Function process - should throw an error given invalid data', async () => {
 		try {
 			hl7v2Engine.process(invalidActiveDataPath);
 			assert.strictEqual(true, false);
@@ -51,7 +51,7 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 		}
 	});
 	
-	test('Function process - should throw a error given invalid entry template', async () => {
+	test('Function process - should throw an error given invalid entry template', async () => {
 		try {
 			const hl7v2EngineInvalidrootTemplate = new Hl7v2FhirConverterEngine(templateFolder, invalidrootTemplate, resultFolder);
 			hl7v2EngineInvalidrootTemplate.process(activeDataPath);
@@ -61,7 +61,7 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 		}
 	});
 
-	test('Function process - should throw a error given invalid template folder', async () => {
+	test('Function process - should throw an error given invalid template folder', async () => {
 		try {
 			const hl7v2EngineInvalidTemplateFolder = new Hl7v2FhirConverterEngine(invalidTemplateFolder, rootTemplate, resultFolder);
 			hl7v2EngineInvalidTemplateFolder.process(activeDataPath);
@@ -71,7 +71,7 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 		}
 	});
 
-	test('Function process - should throw a error given undefined data path', async () => {
+	test('Function process - should throw an error given undefined data path', async () => {
 		try {
 			hl7v2Engine.process(undefined);
 			assert.strictEqual(true, false);
@@ -80,7 +80,7 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 		}
 	});
 
-	test('Function process - should throw a error given empty data', async () => {
+	test('Function process - should throw an error given empty data', async () => {
 		try {
 			hl7v2Engine.process(emptyDataPath);
 			assert.strictEqual(true, false);

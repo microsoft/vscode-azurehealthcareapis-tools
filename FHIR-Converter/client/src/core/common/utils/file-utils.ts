@@ -31,7 +31,7 @@ export async function isEmptyDir(dirname) {
 	const dirIter = await fs.promises.opendir(dirname);
 	const result = await dirIter[Symbol.asyncIterator]().next();
 	if (!result.done) {
-		await dirIter.close()
+		await dirIter.close();
 	}
 	return result.done;
 }

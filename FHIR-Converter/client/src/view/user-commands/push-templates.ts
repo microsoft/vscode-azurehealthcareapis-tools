@@ -41,7 +41,7 @@ export async function pushTemplatesCommand() {
 		const output = templateManager.pushTemplates(imageReference, selectedTemplateFolder.fsPath);
 		
 		// Show ouput message
-		vscode.window.showInformationMessage(output.replace(/\n/g, '; '));
+		vscode.window.showInformationMessage(output.replace(/\n/g, '; ').replace(/Uploading/g, 'Uploaded'));
 	} finally {
 		// Hide the push bar
 		pushBar.hide();
