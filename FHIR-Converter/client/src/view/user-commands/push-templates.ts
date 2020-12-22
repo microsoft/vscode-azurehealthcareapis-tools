@@ -20,7 +20,7 @@ export async function pushTemplatesCommand() {
 
 	try {
 		// Get the image reference
-		const imageReference = await showInputBox(localize('message.inputYourImageReference'), workspaceStateConstants.ImageReferenceKey);
+		const imageReference = await showInputBox(localize('message.inputPushImageReference'), workspaceStateConstants.ImageReferenceKey);
 		if (!imageReference) {
 			return undefined;
 		}

@@ -10,7 +10,7 @@ import { pullImage } from '../common/registry/pull-image';
 
 export async function pullTemplatesCommand() {
 	// Get the image reference
-	const imageReference = await showInputBox(localize('message.inputYourImageReference'), workspaceStateConstants.ImageReferenceKey);
+	const imageReference = await showInputBox(localize('message.inputPullImageReference'), workspaceStateConstants.ImageReferenceKey);
 	if (!imageReference) {
 		return undefined;
 	}

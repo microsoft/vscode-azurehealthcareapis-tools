@@ -91,20 +91,6 @@ Currently, the following features for snippet templates editing are supported:
 You can use the command `FHIR Converter: Update template folder (Ctrl + U)` to update the template folder. In addition, you can also set it through the setting panel of VS Code.
 ![update-template-folder](assets/update-template-folder.gif)
 
-### 6. Template management
-If you don’t have templates yet, you can use the command `FHIR Converter: Pull official templates (Ctrl + D)` to pull the official templates publicly released by Microsoft.
-
-If you want to use the private registry, we also provide the following commands for you to use:
-- `FHIR Converter: Login registry (Ctrl + I)`: Login registry, which is used to log in the private registry. First, you need to enter your private registry, and then the login command will run in the terminal using oras tool. We will not store any information about your username and password, which will be asked by oras tool interactively.
-
-- `FHIR Converter: Logout registry (Ctrl + O)`: Logout registry, which is used to log out the private registry. In this command, you only need to enter your private registry.
-
-- `FHIR Converter: Pull templates (Ctrl + L)`: Pull templates, which is used to pull the private registry images. First, you need to enter your image reference, and then select the output folder to store the templates. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten.
-
-- `FHIR Converter: Push templates (Ctrl + H)`: Push templates, which is used to push templates to the private registry. First, you need to enter your image reference. Then, the location of the template folder will be opened by default. Of course, you need to make sure to select a folder to be pushed to the registry.
-
-![template-management](assets/template-management.gif)
-
 ## Other useful extensions
 
 You may want to install other extensions from the marketplace to obtain some language support, such as syntax highlighting, for `.hl7` and `.liquid` files.
