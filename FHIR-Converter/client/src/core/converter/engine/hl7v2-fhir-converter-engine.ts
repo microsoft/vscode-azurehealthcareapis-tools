@@ -50,7 +50,7 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 		const defaultResultFile = path.join(this._resultFolder, engineConstants.DefaultResultFile);
 		const rootTemplate = stringUtils.getFileNameWithoutExt(this._rootTemplate);
 		try {
-			cp.execFileSync(this._exePath, ['convert', '-d', `"${this._templateFolder}"`, '-r',  `"${rootTemplate}"`, '-c', `"${data}"`, '-f', `"${defaultResultFile}"`, '-t']);
+			cp.execFileSync(this._exePath, ['convert', '-d', this._templateFolder, '-r',  rootTemplate, '-c', data, '-f', defaultResultFile, '-t']);
 		} catch (err) {
 			throw new ConversionError(err.stderr.toString());
 		}
