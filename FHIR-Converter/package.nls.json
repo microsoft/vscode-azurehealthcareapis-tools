@@ -46,6 +46,8 @@
 	"message.inputYourRegistry": "Input registry <registry-name>.azurecr.io",
 	"message.inputPushImageReference": "Input image reference <registry>/<image-name>[:<tag>]",
 	"message.inputPullImageReference": "Input image reference <registry>/<image-name>[:<tag>|@<digest>]",
+	"message.pullingTemplates": "Pulling templates...",
+	"message.pullingSampleData": "Pulling sample data...",
 	"common.templateFolder.suffix": "(Templates)",
 	"common.template": "template",
 	"common.data": "data"

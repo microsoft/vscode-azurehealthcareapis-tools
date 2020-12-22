@@ -5,11 +5,12 @@
 
 import * as templateManagementConstants from '../../core/common/constants/template-management';
 import { pullImage } from '../common/registry/pull-image';
+import localize from '../../i18n/localize';
 
 export async function pullOfficialTemplatesCommand() {
 	// Get the image reference
 	const imageReference = templateManagementConstants.OfficialImageReference;
 
 	// Pull image
-	await pullImage(imageReference);
+	await pullImage(imageReference, localize('message.pullingTemplates'));
 }

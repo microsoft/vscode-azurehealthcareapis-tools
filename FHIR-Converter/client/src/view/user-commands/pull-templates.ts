@@ -16,5 +16,5 @@ export async function pullTemplatesCommand() {
 	}
 	
 	// Pull image
-	await pullImage(imageReference);
+	await pullImage(imageReference, localize('message.pullingTemplates'));
 }

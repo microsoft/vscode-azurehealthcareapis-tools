@@ -9,10 +9,10 @@ import * as interaction from '../../common/file-dialog/file-dialog-interaction';
 import { TemplateManagerFactory } from '../../../core/template-manager/template-manager-factory';
 import * as fileUtils from '../../../core/common/utils/file-utils'; 
 
-export async function pullImage(imageReference, refineOutput= false) {
+export async function pullImage(imageReference, text, refineOutput= false) {
 	// Add pull bar
 	const pullBar: vscode.StatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 0);
-	pullBar.text = '$(sync~spin) Pulling templates...';
+	pullBar.text = `$(sync~spin) ${text}...`;
 	pullBar.show();
 
 	try {
@@ -43,7 +43,7 @@ export async function pullImage(imageReference, refineOutput= false) {
 		
 		if (refineOutput) {
 			// Fix the wrong message from engine temporarily
-			output = output.replace('pulled templates to', 'pushed sample data to');
+			output = output.replace('pulled templates to', 'pulled sample data to');
 		}
 		// Show ouput message
 		vscode.window.showInformationMessage(output.replace(/\n/g, '; '));
