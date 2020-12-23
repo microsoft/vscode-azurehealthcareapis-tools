@@ -10,7 +10,7 @@ import { TemplateManagerFactory } from '../../../core/template-manager/template-
 import * as fileUtils from '../../../core/common/utils/file-utils'; 
 import * as cp from 'child_process';
 
-export async function pullImage(imageReference, text, refineOutput= false) {
+export async function pullImage(imageReference, text) {
 	// Add pull bar
 	const pullBar: vscode.StatusBarItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 0);
 	pullBar.text = `$(sync~spin) ${text}...`;
@@ -42,10 +42,6 @@ export async function pullImage(imageReference, text, refineOutput= false) {
 		// Execute the pull process
 		let output = templateManager.pullTemplates(imageReference, outputFolder.fsPath, force);
 		
-		if (refineOutput) {
-			// Fix the wrong message from engine temporarily
-			output = output.replace('pulled templates to', 'pulled sample data to');
-		}
 		// Show ouput message
 		vscode.window.showInformationMessage(output.replace(/\n/g, '; '), 'Open the folder')
 		.then( () => {

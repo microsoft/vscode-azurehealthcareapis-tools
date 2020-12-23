@@ -12,5 +12,5 @@ export async function pullSampleDataCommand() {
 	const imageReference = templateManagementConstants.SampleDataReference;
 
 	// Pull image
-	await pullImage(imageReference, localize('message.pullingSampleData'), true);
+	await pullImage(imageReference, localize('message.pullingSampleData'));
 }
