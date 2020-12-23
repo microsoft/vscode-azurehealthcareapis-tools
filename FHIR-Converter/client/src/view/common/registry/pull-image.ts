@@ -8,6 +8,7 @@ import * as vscode from 'vscode';
 import * as interaction from '../../common/file-dialog/file-dialog-interaction';
 import { TemplateManagerFactory } from '../../../core/template-manager/template-manager-factory';
 import * as fileUtils from '../../../core/common/utils/file-utils'; 
+import * as cp from 'child_process';
 
 export async function pullImage(imageReference, text, refineOutput= false) {
 	// Add pull bar
@@ -46,7 +47,10 @@ export async function pullImage(imageReference, text, refineOutput= false) {
 			output = output.replace('pulled templates to', 'pulled sample data to');
 		}
 		// Show ouput message
-		vscode.window.showInformationMessage(output.replace(/\n/g, '; '));
+		vscode.window.showInformationMessage(output.replace(/\n/g, '; '), 'Open the folder')
+		.then( () => {
+			cp.exec(`explorer.exe "${outputFolder.fsPath}"`);
+		})
 	} finally {
 		// Hide the pull bar
 		pullBar.hide();
