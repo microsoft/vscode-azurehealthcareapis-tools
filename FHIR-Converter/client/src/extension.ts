@@ -16,6 +16,12 @@ import { convertCommand } from  './view/user-commands/convert';
 import { updateTemplateFolderCommand } from  './view/user-commands/update-template-folder';
 import { selectTemplateCommand } from  './view/user-commands/select-template';
 import { selectDataCommand } from  './view/user-commands/select-data';
+import { pullTemplatesCommand } from  './view/user-commands/pull-templates';
+import { pullSampleDataCommand } from './view/user-commands/pull-sample-data';
+import { pullOfficialTemplatesCommand } from  './view/user-commands/pull-official-templates';
+import { pushTemplatesCommand } from  './view/user-commands/push-templates';
+import { loginRegistryCommand } from  './view/user-commands/login-registry';
+import { logoutRegistryCommand } from  './view/user-commands/logout-registry';
 import { registerCommand } from './view/common/commands/register-command';
 import { SettingManager } from './core/settings/settings-manager';
 import { setStatusBar } from './view/common/status-bar/set-status-bar';
@@ -63,6 +69,18 @@ export async function activate(context: vscode.ExtensionContext) {
 	registerCommand(context, 'microsoft.health.fhir.converter.selectTemplate', selectTemplateCommand);
 
 	registerCommand(context, 'microsoft.health.fhir.converter.updateTemplateFolder', updateTemplateFolderCommand);
+
+	registerCommand(context, 'microsoft.health.fhir.converter.pullOfficialTemplates', pullOfficialTemplatesCommand);
+
+	registerCommand(context, 'microsoft.health.fhir.converter.pullSampleData', pullSampleDataCommand);
+
+	registerCommand(context, 'microsoft.health.fhir.converter.pullTemplates', pullTemplatesCommand);
+
+	registerCommand(context, 'microsoft.health.fhir.converter.pushTemplates', pushTemplatesCommand);
+
+	registerCommand(context, 'microsoft.health.fhir.converter.loginRegistry', loginRegistryCommand);
+
+	registerCommand(context, 'microsoft.health.fhir.converter.logoutRegistry', logoutRegistryCommand);
 
 	// Start the client. This will also launch the server
 	client = createLanguageClient(context);

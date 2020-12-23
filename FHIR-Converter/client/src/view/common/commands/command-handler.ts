@@ -12,26 +12,27 @@ import * as configurationConstants from '../../../core/common/constants/workspac
 import { reporter } from '../../../telemetry/telemetry';
 import * as osUtils from '../../../core/common/utils/os-utils';
 
+const commandsNeedWorkspace = ['selectDataCommand', 'selectTemplateCommand', 'convertCommand', 'updateTemplateFolderCommand'];
+
 export async function commandHandler(event) {
 	try {
 		// Check if the operating system is supported.
 		if (!osUtils.isWindows()) {
 			throw new ConversionError(localize('message.osNotSupported'));
 		}
-
+		
 		// Check if converter workspace exists
-		if (this.name !== 'createConverterWorkspaceCommand' && !converterWorkspaceExists(configurationConstants.WorkspaceFileExtension)) {
+		if (commandsNeedWorkspace.includes(this.name) && !converterWorkspaceExists(configurationConstants.WorkspaceFileExtension)) {
 			throw new ConfigurationError(localize('message.needCreateWorkspace'));
 		}
 
 		// Execute the command
-		const startTime = new Date().getTime()
+		const startTime = new Date().getTime();
 		await this(event);
-		const costTime = (new Date().getTime() - startTime)
+		const costTime = (new Date().getTime() - startTime);
 		
 		// Telemetry for commands
 		reporter.sendTelemetryEvent('command', { command: this.name }, { costTime: costTime } );
-
 	} catch (error) {
 		// Handle the error
 		errorHandler.handle(error);

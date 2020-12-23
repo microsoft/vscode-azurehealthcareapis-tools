@@ -26,3 +26,12 @@ export function getAllPaths(directory: string, pattern: string): string[] {
 	const files: string[] = glob.sync(searchPattern, {}).map(uri => uri.replace(/\\/g, '/'));
 	return files;
 }
+
+export async function isEmptyDir(dirname) {
+	const dirIter = await fs.promises.opendir(dirname);
+	const result = await dirIter[Symbol.asyncIterator]().next();
+	if (!result.done) {
+		await dirIter.close();
+	}
+	return result.done;
+}

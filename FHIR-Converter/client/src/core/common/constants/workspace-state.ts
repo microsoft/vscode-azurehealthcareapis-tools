@@ -5,3 +5,5 @@
 
 export const TemplateKey = 'microsoft.health.fhir.converter.activeTemplatePath';
 export const DataKey = 'microsoft.health.fhir.converter.activeDataPath';
+export const ImageReferenceKey = 'microsoft.health.fhir.converter.imageReference';
+export const RegistryKey = 'microsoft.health.fhir.converter.registryKey';

@@ -6,8 +6,12 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 
-export async function openDialogSelectFolder(label: string) {
-	const selectedFolder = await vscode.window.showOpenDialog({ canSelectMany: false, canSelectFiles: false, canSelectFolders: true, openLabel: label });
+export async function openDialogSelectFolder(label: string, defaultUri: string | undefined = undefined) {
+	const options = { canSelectMany: false, canSelectFiles: false, canSelectFolders: true, openLabel: label };
+	if (defaultUri) {
+		options['defaultUri'] = vscode.Uri.file(defaultUri);
+	}
+	const selectedFolder = await vscode.window.showOpenDialog(options);
 	if (!selectedFolder) {
 		return undefined;
 	} else {

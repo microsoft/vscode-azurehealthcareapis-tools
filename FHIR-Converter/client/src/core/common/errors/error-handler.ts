@@ -7,10 +7,11 @@ import * as vscode from 'vscode';
 import localize from '../../../i18n/localize';
 import { ConfigurationError } from '../errors/configuration-error';
 import { ConversionError } from '../errors/conversion-error';
+import { TemplateManagementError } from '../errors/template-management-error';
 
 export function handle(error: Error): void {
 	let errorType = '';
-	if (error instanceof ConfigurationError || error instanceof ConversionError) {
+	if (error instanceof ConfigurationError || error instanceof ConversionError || error instanceof TemplateManagementError) {
 		errorType = error.name;
 	} else {
 		errorType = 'error.unexpected';
