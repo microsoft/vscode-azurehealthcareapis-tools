@@ -55,13 +55,13 @@ If you want to pull templates from your private registry, you can use the comman
 
 ![pull-templates](assets/pull-templates.gif)
 
-### 2. Pull sample data
+### 3. Pull sample data
 
 If you need, you can use the command `FHIR Converter: Pull sample data (Ctrl + T)` to pull the sample data publicly published by Microsoft. In this command, you only need to select the output folder to store the data. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
 
 ![pull-sample-data](assets/pull-sample-data.gif)
 
-### 3. Create a converter workspace
+### 4. Create a converter workspace
 
 If the converter workspace has not been created, you need to create a new converter workspace by triggering the command `FHIR Converter: Create a converter workspace (Ctrl + W)`.
 
@@ -79,7 +79,7 @@ The first folder in the workspace is template folder by default and you can add 
   
 ![workspace](assets/workspace.gif)
 
-### 4. Open/Switch a converter workspace
+### 5. Open/Switch a converter workspace
 
 If there is already a converter workspace in the file system, you can start it in many ways such as, double-clicking on the workspace configuration file, or open the VS Code to trigger the commands `Workspaces: Open Workspace` or `File: Open Recent`.
 
@@ -87,7 +87,7 @@ If a converter workspace is already opened and you want to switch to another con
 
 ![open-switch-workspace](assets/open-switch-workspace.gif)
 
-### 5. Convert the HL7v2 messages into FHIR bundles
+### 6. Convert the HL7v2 messages into FHIR bundles
 
 In a converter workspace, template files and data files are shown in the explorer view. To start template editing, select a template file and a data file.
 
@@ -97,7 +97,7 @@ Both template file and data file are necessary, and you can view the selected fi
 
 ![conversion](assets/conversion.gif)
 
-### 6. Modify the selected data and templates
+### 7. Modify the selected data and templates
 
 After modifying the template files or the data files, you can convert data by selecting the context menu item `FHIR Converter: Convert data` or pressing the keyboard shortcut (`Ctrl + R`). A differential view for the conversion result will be shown in the result tab highlighting the differences from the last run. You can jump to the previous or the next changes using the icons in the upper right corner. Differential view is turned on by default, and if you don't need this feature, you can deselect the option called `Enable Diff View` in `Preferences > Settings > Workspace > Extensions > FHIR Converter` or add a setting `"microsoft.health.fhir.converter.enableDiffView": false` in the workspace setting file.
 
@@ -116,7 +116,7 @@ Currently, the following features for snippet templates editing are supported:
 
 ![snippet-templates-editing](assets/snippet-templates-editing.gif)
 
-### 7. Push templates
+### 8. Push templates
 
 After modifying the templates, you can save and push the templates to your private ACR. You must be logged in to your ACR in order to push the templates.
 
@@ -124,7 +124,7 @@ You can use the command `FHIR Converter: Push templates (Ctrl + H)` to push temp
 - Enter the image reference `<registry-name>.azurecr.io/<image-name>:<tag>`(image name should be lowcase). 
 - If template folder exists in workspace, the location of template folder will be opened by default. In any case, you need to make sure to select a folder to be pushed to ACR.
 
-### 8. Update the template folder
+### 9. Update the template folder
 
 If you need to switch to another template folder, you can use the command `FHIR Converter: Update template folder (Ctrl + U)` to update the template folder. In addition, you can also set it through the setting panel of VS Code.
 ![update-template-folder](assets/update-template-folder.gif)
