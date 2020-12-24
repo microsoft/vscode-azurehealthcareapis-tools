@@ -71,6 +71,10 @@ export function getDescendingSortString(list: string[]) {
 	return list.sort().reverse();
 }
 
-export function getDigest(str: string){
-	return str.match(/Digest: (.*)\n/)[1];
+export function getDigest(str: string) {
+	const result = str.match(/[A-Za-z][A-Za-z0-9]*([+.-_][A-Za-z][A-Za-z0-9]*)*:[0-9a-fA-F]{32,}/);
+	if (!result) {
+		return undefined;
+	}
+	return result[0];
 }

@@ -50,7 +50,7 @@ You can use the command `FHIR Converter: Pull Microsoft templates (Ctrl + D)` to
 
 If you want to pull templates from your private registry, you can use the command `FHIR Converter: Pull templates (Ctrl + L)` to pull templates:
 - Login to ACR.
-- Enter your image reference `<registry-name>.azurecr.io/<image-name>[:<tag> or @<digest>]` (image name should be lowcase). 
+- Enter your image reference `<registry-name>.azurecr.io/<image-name><:tag|@digest>` (image name should be lowcase). 
 - Select the output folder to store the templates. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
 
 ![pull-templates](assets/pull-templates.gif)

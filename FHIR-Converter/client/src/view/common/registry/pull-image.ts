@@ -20,7 +20,7 @@ export async function pullImage(imageReference, text) {
 	try {
 		// Get the workspace folder to set the default folder in dialog
 		let workspaceFolder = undefined;
-		if (vscode.workspace.workspaceFile){
+		if (vscode.workspace.workspaceFile) {
 			workspaceFolder = path.dirname(vscode.workspace.workspaceFile.fsPath);
 		}
 
@@ -48,13 +48,13 @@ export async function pullImage(imageReference, text) {
 		const templateManager = TemplateManagerFactory.getInstance().createTemplateManager();
 
 		// Execute the pull process
-		let output = templateManager.pullTemplates(imageReference, outputFolder.fsPath, force);
+		const output = templateManager.pullTemplates(imageReference, outputFolder.fsPath, force);
 		
 		// Show ouput message
 		vscode.window.showInformationMessage(output.replace(/\n/g, '; '), 'Open the folder')
 		.then( () => {
 			cp.exec(`explorer.exe "${outputFolder.fsPath}"`);
-		})
+		});
 	} finally {
 		// Hide the pull bar
 		pullBar.hide();

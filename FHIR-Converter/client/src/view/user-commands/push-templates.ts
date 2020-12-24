@@ -40,14 +40,16 @@ export async function pushTemplatesCommand() {
 
 		// Execute the push process
 		const output = templateManager.pushTemplates(imageReference, selectedTemplateFolder.fsPath);
-
-		const digest = strUtils.getDigest(output);
 		
 		// Show ouput message
 		vscode.window.showInformationMessage(output.replace(/\n/g, '; ').replace(/Uploading/g, 'Uploaded'), 'Copy digest to clipboard')
 		.then( () => {
+			const digest = strUtils.getDigest(output);
+			if (!digest) {
+				vscode.window.showWarningMessage(localize('message.digestNotFound'));
+			}
 			vscode.env.clipboard.writeText(digest);
-		})
+		});
 	} finally {
 		// Hide the push bar
 		pushBar.hide();

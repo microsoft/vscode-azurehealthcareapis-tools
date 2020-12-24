@@ -45,9 +45,10 @@
 	"message.cancel": "Cancel",
 	"message.inputYourRegistry": "Input registry <registry-name>.azurecr.io",
 	"message.inputPushImageReference": "Input image reference <registry-name>.azurecr.io/<image-name>:<tag>",
-	"message.inputPullImageReference": "Input image reference <registry-name>.azurecr.io/<image-name>[:<tag> or @<digest>]",
+	"message.inputPullImageReference": "Input image reference <registry-name>.azurecr.io/<image-name><:tag|@digest>",
 	"message.pullingTemplates": "Pulling templates...",
 	"message.pullingSampleData": "Pulling sample data...",
+	"message.digestNotFound": "No digest was found. The message was copyed and please confirm if digest is in the message.",
 	"common.templateFolder.suffix": "(Templates)",
 	"common.template": "template",
 	"common.data": "data"
