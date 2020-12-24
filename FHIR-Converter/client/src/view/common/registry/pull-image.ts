@@ -9,6 +9,7 @@ import * as interaction from '../../common/file-dialog/file-dialog-interaction';
 import { TemplateManagerFactory } from '../../../core/template-manager/template-manager-factory';
 import * as fileUtils from '../../../core/common/utils/file-utils'; 
 import * as cp from 'child_process';
+import * as path from 'path';
 
 export async function pullImage(imageReference, text) {
 	// Add pull bar
@@ -17,8 +18,14 @@ export async function pullImage(imageReference, text) {
 	pullBar.show();
 
 	try {
+		// Get the workspace folder to set the default folder in dialog
+		let workspaceFolder = undefined;
+		if (vscode.workspace.workspaceFile) {
+			workspaceFolder = path.dirname(vscode.workspace.workspaceFile.fsPath);
+		}
+
 		// Select the output folder
-		const outputFolder = await interaction.openDialogSelectFolder(localize('message.selectOutputFolder'));
+		const outputFolder = await interaction.openDialogSelectFolder(localize('message.selectOutputFolder'), workspaceFolder);
 		if (!outputFolder) {
 			return undefined;
 		}
@@ -36,17 +43,18 @@ export async function pullImage(imageReference, text) {
 				return undefined;
 			}
 		}
+		
 		// Create the template manager
 		const templateManager = TemplateManagerFactory.getInstance().createTemplateManager();
 
 		// Execute the pull process
-		let output = templateManager.pullTemplates(imageReference, outputFolder.fsPath, force);
+		const output = templateManager.pullTemplates(imageReference, outputFolder.fsPath, force);
 		
 		// Show ouput message
 		vscode.window.showInformationMessage(output.replace(/\n/g, '; '), 'Open the folder')
 		.then( () => {
 			cp.exec(`explorer.exe "${outputFolder.fsPath}"`);
-		})
+		});
 	} finally {
 		// Hide the pull bar
 		pullBar.hide();

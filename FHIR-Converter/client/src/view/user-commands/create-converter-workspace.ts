@@ -9,6 +9,7 @@ import * as interaction from '../common/file-dialog/file-dialog-interaction';
 import * as fileUtils from '../../core/common/utils/file-utils';
 import * as stringUtils from '../../core/common/utils/string-utils';
 import * as configurationConstants from '../../core/common/constants/workspace-configuration';
+import * as path from 'path';
 import { ConverterType } from '../../core/common/enum/converter-type';
 
 export async function createConverterWorkspaceCommand() {
@@ -22,8 +23,11 @@ export async function createConverterWorkspaceCommand() {
 		return undefined;
 	}
 
+	// Get the parent folder of templateFolder to set the default folder in dialog
+	const parentFolder = path.dirname(templateFolder.fsPath);
+
 	// Select data folder
-	dataFolder = await interaction.openDialogSelectFolder(localize('message.selectDataFolder'));
+	dataFolder = await interaction.openDialogSelectFolder(localize('message.selectDataFolder'), parentFolder);
 	if (!dataFolder) {
 		return undefined;
 	}
@@ -31,7 +35,8 @@ export async function createConverterWorkspaceCommand() {
 	// Select workspace path
 	workspacePath = await interaction.showDialogSaveWorkspace(
 		localize('message.saveWorkspaceFileAs'), 
-		configurationConstants.WorkspaceFileExtension);
+		configurationConstants.WorkspaceFileExtension,
+		parentFolder);
 	if (!workspacePath) {
 		return undefined;
 	}

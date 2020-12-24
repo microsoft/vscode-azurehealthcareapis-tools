@@ -11,6 +11,7 @@ import { globals } from '../../core/globals';
 import { TemplateManagerFactory } from '../../core/template-manager/template-manager-factory';
 import { showInputBox } from '../common/input-box/input-box';
 import localize from '../../i18n/localize';
+import * as strUtils from '../../core/common/utils/string-utils';
 
 export async function pushTemplatesCommand() {
 	// Add push bar
@@ -41,7 +42,17 @@ export async function pushTemplatesCommand() {
 		const output = templateManager.pushTemplates(imageReference, selectedTemplateFolder.fsPath);
 		
 		// Show ouput message
-		vscode.window.showInformationMessage(output.replace(/\n/g, '; ').replace(/Uploading/g, 'Uploaded'));
+		const refinedOutput = output.replace(/\n/g, '; ').replace(/Uploading/g, 'Uploaded');
+		vscode.window.showInformationMessage(refinedOutput, 'Copy digest to clipboard')
+		.then( () => {
+			const digest = strUtils.getDigest(output);
+			if (!digest) {
+				vscode.window.showWarningMessage(localize('message.digestNotFound'));
+				vscode.env.clipboard.writeText(refinedOutput);
+			} else {
+				vscode.env.clipboard.writeText(digest);
+			}
+		});
 	} finally {
 		// Hide the push bar
 		pushBar.hide();

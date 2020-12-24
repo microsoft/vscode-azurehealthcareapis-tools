@@ -37,7 +37,7 @@ export class Converter {
 			const deleteFiles = files.slice(remainNum, files.length);
 			const promiseAll = [];
 			for (const file of deleteFiles) {
-				promiseAll.push(new Promise((resolve, reject) => {
+				promiseAll.push(new Promise<void>((resolve, reject) => {
 					fs.unlink(file, (err) => {
 						if (err) { 
 							reject(err); 

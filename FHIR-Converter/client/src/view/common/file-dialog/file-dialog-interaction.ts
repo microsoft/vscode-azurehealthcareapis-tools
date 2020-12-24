@@ -19,8 +19,12 @@ export async function openDialogSelectFolder(label: string, defaultUri: string |
 	}
 }
 
-export async function showDialogSaveWorkspace(label: string, filter: string) {
-	const workspacePath = await vscode.window.showSaveDialog({saveLabel: label, filters: {'workspace': [filter]}});
+export async function showDialogSaveWorkspace(label: string, filter: string, defaultUri: string | undefined = undefined) {
+	const options = { saveLabel: label, filters: {'workspace': [filter]} };
+	if (defaultUri) {
+		options['defaultUri'] = vscode.Uri.file(defaultUri);
+	}
+	const workspacePath = await vscode.window.showSaveDialog(options);
 	if (!workspacePath) {
 		return undefined;
 	} else {
