@@ -13,13 +13,14 @@ This extension provides an interactive editing and verification experience to cr
 ## Getting started
 
 After you have installed the extension, follow these steps to edit the templates:
-1. Prepare your own templates or pull templates published by Microsoft and store them in a folder;
-2. Prepare your own data or pull sample data and store them in another folder;
-3. Create a new converter workspace by pressing CTRL+W. Select the root template folder and the data folder during the process;
-4. Select template file and test data file by commands in the context menu; 
-5. Convert data by pressing CTRL+R or by the command in the context menu. After converting, the extension should open a 3-pane view including data, template and converted FHIR bundle in the panes;
-6. Edit template and/or data files and save them. Press CTRL+R to refresh the output. The output pane should get refreshed and highlight the changes in the output;
-7. Save and push the changed templates to your private Azure Container Registry.
+1. Login to you ACR if you need to pull templates from there.
+2. Get starting templates and put those in a folder. See below for instructions to get the templates published by Microsoft.
+3. Get sample data for testing. You can also get Microsoft provided sample data by following the instructions below.
+4. Create a new converter workspace by pressing CTRL+W. Select the root template folder and the data folder during the process.
+5. Select template file and test data file using the context menu. 
+6. Convert data by pressing CTRL+R or by the command in the context menu. After converting, the extension should open a 3-pane view including data, template and converted FHIR bundle in the panes.
+7. Edit template and/or data files and save them. Press CTRL+R to refresh the output. The output pane should get refreshed and highlight the changes in the output.
+8. Save and push the changed templates to your Azure Container Registry in order to use it in $convert-data API in the FHIR Server.
 
 See relevant service documentation for using the templates in data conversion process: 
 
@@ -31,46 +32,46 @@ See relevant service documentation for using the templates in data conversion pr
 
 ### 1. Login to ACR (Azure Container Registry) 
 
-Before pulling and pushing templates using private ACR, you need to confirm whether you have logged in to your ACR. In the template management tool, it provides several ways to log in. Currently, we provide the [oras tool](https://github.com/deislabs/oras) to help your log in quickly without installing other tools. 
+Before pulling and pushing templates using private ACR, you need to log in to your ACR.
 
-You can use the command `FHIR Converter: Login to Azure Container Registry (Ctrl + I)`:
-- First, you need to enter the private ACR `<registry-name>.azurecr.io`, and then the login command will run in the terminal using oras tool;
-- Second, you need to input the username and password interactively. We will not store any information about your username and password.
+Use the command `FHIR Converter: Login to Azure Container Registry (Ctrl + I)`:
+- Type in the name of your ACR `<registry-name>.azurecr.io`, and press enter. It will open the terminal and run the oras tool.
+- Input the username and password interactively. Your username and password are not stored.
 
 If you have installed Azure CLI or Docker, you can refer to this [documentation](https://github.com/microsoft/FHIR-Converter/blob/main/docs/TemplateManagementCLI.md#authentication) to log in by its ways. 
 
-After that, you can run the command `FHIR Converter: Logout registry (Ctrl + O)` to logout from ACR. In this command, you only need to enter the private registry.
+After you are done editing and pushing templates, you can logout from the registry by running the command `FHIR Converter: Logout registry (Ctrl + O)`. You will need to enter the name of you registry.
 
 ![login-logout](assets/login-logout.gif)
 
 ### 2. Pull templates
 
-If you don’t have templates yet, you can use the command `FHIR Converter: Pull Microsoft templates (Ctrl + D)` to pull the default templates publicly published by Microsoft.
+You can use the command `FHIR Converter: Pull Microsoft templates (Ctrl + D)` to pull the default templates publicly published by Microsoft.
 
-If you want to use the private registry, you can use the command `FHIR Converter: Pull templates (Ctrl + L)` to pull templates:
-- Firstly, login to ACR;
-- Secondly, enter your image reference `<registry>/<image-name>:<tag>` (image name should be lowcase); 
-- Thirdly, select the output folder to store the templates. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
+If you want to pull templates from your private registry, you can use the command `FHIR Converter: Pull templates (Ctrl + L)` to pull templates:
+- Login to ACR.
+- Enter your image reference `<registry-name>.azurecr.io/<image-name>[:<tag> or @<digest>]` (image name should be lowcase). 
+- Select the output folder to store the templates. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
 
 ![pull-templates](assets/pull-templates.gif)
 
 ### 2. Pull sample data
 
-If you don’t have data yet, you can use the command `FHIR Converter: Pull sample data (Ctrl + T)` to pull the sample data publicly published by Microsoft. In this command, you only need to select the output folder to store the data. As with the pull command, if the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
+If you need, you can use the command `FHIR Converter: Pull sample data (Ctrl + T)` to pull the sample data publicly published by Microsoft. In this command, you only need to select the output folder to store the data. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
 
 ![pull-sample-data](assets/pull-sample-data.gif)
 
 ### 3. Create a converter workspace
 
-If the converter workspace has not been created, you need to create a new converter workspace by triggering the command `FHIR Converter: Create a converter workspace (Ctrl + W)` .
+If the converter workspace has not been created, you need to create a new converter workspace by triggering the command `FHIR Converter: Create a converter workspace (Ctrl + W)`.
 
-After the command is triggered, some actions need to be completed for creating a converter workspace as follows:
+After the command is triggered, following actions will be needed to create a workspace:
 
-- Firstly, select a root template folder;
+- Select a root template folder. You can point to the folder containing Microsoft templates if you have fetched those.
 
-- Secondly, select a data folder;
+- Select a data folder.
   
-- Thirdly, select a workspace folder to store the workspace configuration file, and then input the file name for the workspace (*.fhir-converter.code-workspace).
+- Select a workspace file name. The file name extension fhir-converter.code-workspace will be added automatically.
 
 After that, the configuration file of the converter workspace will be saved in the workspace path, and the converter workspace will be opened in the window, which will contain the template folder and the data folder. 
 
@@ -117,11 +118,11 @@ Currently, the following features for snippet templates editing are supported:
 
 ### 7. Push templates
 
-After modifying the templates, you can save and push the templates to the private ACR. You also need to confirm whether you have logged in to ACR.
+After modifying the templates, you can save and push the templates to your private ACR. You must be logged in to your ACR in order to push the templates.
 
 You can use the command `FHIR Converter: Push templates (Ctrl + H)` to push templates:
-- Firstly, you need to enter the image reference `<registry>/<image-name>:<tag> or <registry>/<image-name>@<digest>`(image name should be lowcase); 
-- Secondly, if template folder exists in workspace, the location of template folder will be opened by default. In any case, you need to make sure to select a folder to be pushed to ACR.
+- Enter the image reference `<registry-name>.azurecr.io/<image-name>:<tag>`(image name should be lowcase). 
+- If template folder exists in workspace, the location of template folder will be opened by default. In any case, you need to make sure to select a folder to be pushed to ACR.
 
 ### 8. Update the template folder
 

@@ -1,9 +1,9 @@
 ## 1.1.0 (2020-12-24)
 ### Added
-* Support for template management using Azure Container Registry (login, logout, pull and push).
-* Add commands for pulling templates and sample data published by Microsoft.
-* Add icon.
-* Add telemetry.
+* Support for template management using Azure Container Registry (login, logout, pull, and push).
+* Commands for pulling templates and sample data published by Microsoft.
+* Extension icon.
+* Telemetry.
 
 ## 1.0.0 (2020-12-07)
 ### Added
