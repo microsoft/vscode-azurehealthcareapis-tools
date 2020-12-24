@@ -70,3 +70,7 @@ export function getDiffResultFileName(resultFilePath1: string, resultFilePath2: 
 export function getDescendingSortString(list: string[]) {
 	return list.sort().reverse();
 }
+
+export function getDigest(str: string){
+	return str.match(/Digest: (.*)\n/)[1];
+}

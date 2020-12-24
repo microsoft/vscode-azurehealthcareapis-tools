@@ -111,7 +111,8 @@
 			"explorer/context": [
 				{
 					"command": "microsoft.health.fhir.converter.convert",
-					"group": "1_converter"
+					"group": "1_converter",
+					"when": "resourceScheme != file"
 				},
 				{
 					"command": "microsoft.health.fhir.converter.selectTemplate",
@@ -125,7 +126,8 @@
 				},
 				{
 					"command": "microsoft.health.fhir.converter.updateTemplateFolder",
-					"group": "1_converter"
+					"group": "1_converter",
+					"when": "resourceScheme != file"
 				}
 			],
 			"editor/context": [
