@@ -49,6 +49,8 @@
 	"message.pullingTemplates": "Pulling templates...",
 	"message.pullingSampleData": "Pulling sample data...",
 	"message.digestNotFound": "No digest was found. The message was copyed and please confirm if digest is in the message.",
+	"message.openFolder": "Open the folder",
+	"message.copyDigestToClipboard": "Copy digest to clipboard",
 	"common.templateFolder.suffix": "(Templates)",
 	"common.template": "template",
 	"common.data": "data"
