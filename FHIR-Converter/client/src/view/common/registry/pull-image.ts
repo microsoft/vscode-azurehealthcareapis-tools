@@ -51,9 +51,12 @@ export async function pullImage(imageReference, text) {
 		const output = templateManager.pullTemplates(imageReference, outputFolder.fsPath, force);
 		
 		// Show ouput message
-		vscode.window.showInformationMessage(output.replace(/\n/g, '; '), 'Open the folder')
-		.then( () => {
-			cp.exec(`explorer.exe "${outputFolder.fsPath}"`);
+		const buttonLabel = localize('message.openFolder');
+		vscode.window.showInformationMessage(output.replace(/\n/g, '; '), buttonLabel)
+		.then( (selected) => {
+			if (selected === buttonLabel) {
+				cp.exec(`explorer.exe "${outputFolder.fsPath}"`);
+			}
 		});
 	} finally {
 		// Hide the pull bar

@@ -43,14 +43,17 @@ export async function pushTemplatesCommand() {
 		
 		// Show ouput message
 		const refinedOutput = output.replace(/\n/g, '; ').replace(/Uploading/g, 'Uploaded');
-		vscode.window.showInformationMessage(refinedOutput, 'Copy digest to clipboard')
-		.then( () => {
-			const digest = strUtils.getDigest(output);
-			if (!digest) {
-				vscode.window.showWarningMessage(localize('message.digestNotFound'));
-				vscode.env.clipboard.writeText(refinedOutput);
-			} else {
-				vscode.env.clipboard.writeText(digest);
+		const buttonLabel = localize('message.copyDigestToClipboard');
+		vscode.window.showInformationMessage(refinedOutput, buttonLabel)
+		.then( (selected) => {
+			if (selected === buttonLabel) {
+				const digest = strUtils.getDigest(output);
+				if (!digest) {
+					vscode.window.showWarningMessage(localize('message.digestNotFound'));
+					vscode.env.clipboard.writeText(refinedOutput);
+				} else {
+					vscode.env.clipboard.writeText(digest);
+				}
 			}
 		});
 	} finally {
