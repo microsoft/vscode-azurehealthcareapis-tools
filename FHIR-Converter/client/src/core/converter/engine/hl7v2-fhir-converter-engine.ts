@@ -60,7 +60,7 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 				throw new ConversionError(localize('message.noResponseFromEngine'));
 			}
 			fileUtils.writeJsonToFile(resultFile, resultMsg.FhirResource);
-			return resultFile;
+			return { resultFile: resultFile, traceInfo: resultMsg.TraceInfo };
 		} else {
 			throw new ConversionError(localize('message.noResponseFromEngine'));
 		}

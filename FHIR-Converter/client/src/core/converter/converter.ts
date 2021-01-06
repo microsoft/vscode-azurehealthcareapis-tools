@@ -19,9 +19,9 @@ export class Converter {
 	}
 
 	async convert(dataFile: string) {
-		const resultFile = this._engine.process(dataFile);
-		await this.clearHistory(resultFile);
-		return resultFile;
+		const result = this._engine.process(dataFile);
+		await this.clearHistory(result.resultFile);
+		return result;
 	}
 
 	getHistory(filePath: string) {

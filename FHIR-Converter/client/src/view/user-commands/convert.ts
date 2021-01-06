@@ -9,6 +9,7 @@ import * as configurationConstants from '../../core/common/constants/workspace-c
 import * as interaction from '../common/file-dialog/file-dialog-interaction';
 import * as engineConstants from '../../core/common/constants/engine';
 import * as stateConstants from '../../core/common/constants/workspace-state';
+import * as unusedSegmentsDiagnostic from '../common/diagnostic/used-segments-diagnostic';
 import { globals } from '../../core/globals';
 import { showDifferentialView } from '../common/editor/show-differential-view';
 import { showResultEditor } from '../common/editor/show-result-editor';
@@ -40,8 +41,17 @@ export async function convertCommand() {
 		const converter = ConverterEngineFactory.getInstance().createConverter();
 
 		// Execute the conversion process
-		const resultFile = await converter.convert(dataFile);
+		const result = await converter.convert(dataFile);
 
+		// Add trace info to the template
+		const enableUnusedSegmentsDiagnostic = globals.settingManager.getWorkspaceConfiguration(configurationConstants.enableUnusedSegmentsDiagnosticKey);
+		if (enableUnusedSegmentsDiagnostic) {
+			const traceInfo = result.traceInfo;
+			unusedSegmentsDiagnostic.updateDiagnostics(vscode.Uri.file(dataFile), traceInfo['UnusedSegments']);
+		} else {
+			unusedSegmentsDiagnostic.clearDiagnostics();
+		}
+		
 		// Open the data in the editor
 		await vscode.window.showTextDocument(vscode.Uri.file(dataFile), {
 			viewColumn: vscode.ViewColumn.One
@@ -56,10 +66,10 @@ export async function convertCommand() {
 		// Obtain the enableDiffView option from the settings.
 		const enableDiff = globals.settingManager.getWorkspaceConfiguration(configurationConstants.enableDiffViewKey);
 		if (!enableDiff) {
-			await showResultEditor(vscode.Uri.file(resultFile));
+			await showResultEditor(vscode.Uri.file(result.resultFile));
 		} else {
 			// Get the history
-			const history = converter.getHistory(resultFile);
+			const history = converter.getHistory(result.resultFile);
 			if (history.length === 1) {
 				// Show result in the editor
 				await showResultEditor(vscode.Uri.file(history[0]));
