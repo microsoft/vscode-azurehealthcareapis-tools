@@ -8,17 +8,22 @@ import localize from '../../../i18n/localize';
 
 export const diagnosticsCollection = vscode.languages.createDiagnosticCollection('vscode-health-fhir-converter.unusedSegments');
 
+interface IDiagnosticComponent {
+	range: vscode.Range;
+	value: string;
+}
+
 export function updateDiagnostics(uri: vscode.Uri, unusedSegments: object[]): void {
 	const diagnostics: vscode.Diagnostic[] = [];
 	const components = getComponentsList(unusedSegments);
-	for (let i = 0; i < components['ranges'].length; i++) {
-		diagnostics.push(createWarningDiagnostic(components['ranges'][i], components['values'][i]));
+	for (let i = 0; i < components.length; i++) {
+		diagnostics.push(createWarningDiagnostic(components[i]));
 	}
 	diagnosticsCollection.set(uri, diagnostics);
 }
 
-export function getComponentsList(unusedSegments: object[]): object {
-	const result = { ranges: [], values: [] };
+export function getComponentsList(unusedSegments: object[]): IDiagnosticComponent[] {
+	const result: IDiagnosticComponent[] = [];
 	if (!unusedSegments) {
 		return result;
 	}
@@ -31,8 +36,8 @@ export function getComponentsList(unusedSegments: object[]): object {
 				const end = components[j]['End'];
 				const value = components[j]['Value'];
 				if (start !== undefined && end !== undefined && value !== undefined) {
-					result['ranges'].push(new vscode.Range(line, start, line, end));
-					result['values'].push(value);
+					const range = new vscode.Range(line, start, line, end);
+					result.push({range, value});
 				}
 			}
 		}
@@ -40,8 +45,8 @@ export function getComponentsList(unusedSegments: object[]): object {
 	return result;
 }
 
-export function createWarningDiagnostic(range: vscode.Range, value: string): vscode.Diagnostic {
-	const diagnostic = new vscode.Diagnostic(range, localize('message.unusedSegment', value),
+export function createWarningDiagnostic(component: IDiagnosticComponent): vscode.Diagnostic {
+	const diagnostic = new vscode.Diagnostic(component.range, localize('message.unusedSegment', component.value),
 		vscode.DiagnosticSeverity.Warning);
 	return diagnostic;
 }

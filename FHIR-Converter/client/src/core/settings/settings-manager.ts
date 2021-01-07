@@ -50,7 +50,7 @@ export class SettingManager {
 	}
 	
 	updateWorkspaceConfiguration(key: string, value: string) {
-		return new Promise(resolve => {
+		return new Promise<void>(resolve => {
 			vscode.workspace.getConfiguration(this.workspaceSection).update(key, value, false)
 			.then(() => {
 				resolve();
@@ -67,7 +67,7 @@ export class SettingManager {
 	}
 
 	updateWorkspaceState(key: string, value: string) {
-		return new Promise(resolve => {
+		return new Promise<void>(resolve => {
 			this.context.workspaceState.update(key, value)
 			.then(() => {
 				resolve();
