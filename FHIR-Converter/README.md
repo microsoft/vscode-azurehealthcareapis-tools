@@ -46,7 +46,11 @@ After you are done editing and pushing templates, you can logout from the regist
 
 ### 2. Pull templates
 
-You can use the command `FHIR Converter: Pull Microsoft templates (Ctrl + D)` to pull the default templates publicly published by Microsoft.
+You can use the command `FHIR Converter: Pull Microsoft templates (Ctrl + D)` to pull the default templates publicly published by Microsoft:
+- Select a specific version.
+- Select the output folder to store the templates.
+
+![pull-default-templates](assets/pull-default-templates.gif)
 
 If you want to pull templates from your private registry, you can use the command `FHIR Converter: Pull templates (Ctrl + L)` to pull templates:
 - Login to ACR.
@@ -94,6 +98,8 @@ In a converter workspace, template files and data files are shown in the explore
 To select a file as the root template file, right click on the file having extension `.liquid` in the explorer view and select the menu item `FHIR Converter: Select as template (*.liquid)`. Similarly, to select a data file, right click on the data file having extension `.hl7` and select the menu item `FHIR Converter: Select as data file (*.hl7)`.
 
 Both template file and data file are necessary, and you can view the selected files in the status bar before converting Data. If one of them is missing, you will be prompted to select the missing one. If both template file and data file are selected, you can convert data by selecting the context menu item `FHIR Converter: Convert data` or using the keyboard shortcut (`Ctrl + R`), and the result will be shown in results pane.
+
+After converting data, the data segments not used in the FHIR results will be underlined in the data pane. If you don't need this feature, you can deselect the option called `Enable Unused Segments Diagnostic` in `Preferences > Settings > Workspace > Extensions > FHIR Converter` or add a setting `"microsoft.health.fhir.converter.enableUnusedSegmentsDiagnostic": false` in the workspace setting file.
 
 ![conversion](assets/conversion.gif)
 
