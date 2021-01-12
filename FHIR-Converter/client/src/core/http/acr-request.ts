@@ -14,6 +14,7 @@ export async function getRequest(url: string, params: object = {}) {
 		throw new TemplateManagementError(error);
 	}
 }
+
 export async function getToken(url: string) {
 	const response = await getRequest(url);
 	return response.data.access_token;
@@ -27,12 +28,8 @@ export async function getAcrTags(url: string, token: string) {
 	};
 	const response = await getRequest(url, params);
 	const tags = response.data.tags;
-	const tagList = [];
 	if (!tags) {
-		return tagList;
+		return [];
 	}
-	for (let i = 0; i < tags.length; i++) {
-		tagList.push(tags[i].name);
-	}
-	return tagList.reverse();
+	return tags.map(tag => tag.name).reverse();
 }
