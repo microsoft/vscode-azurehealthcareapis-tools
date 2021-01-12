@@ -7,7 +7,7 @@ import * as vscode from 'vscode';
 import * as workspaceStateConstants from '../../core/common/constants/workspace-state';
 import { TemplateManagerFactory } from '../../core/template-manager/template-manager-factory';
 import localize from '../../i18n/localize';
-import { showInputBox } from '../common/input-box/input-box';
+import { showInputBox } from '../common/input/input-box';
 
 export async function logoutRegistryCommand() {
 	// Get the registry reference
