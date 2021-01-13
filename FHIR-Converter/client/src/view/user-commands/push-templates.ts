@@ -9,7 +9,7 @@ import * as workspaceConfigurationConstants from '../../core/common/constants/wo
 import * as interaction from '../common/file-dialog/file-dialog-interaction';
 import { globals } from '../../core/globals';
 import { TemplateManagerFactory } from '../../core/template-manager/template-manager-factory';
-import { showInputBox } from '../common/input-box/input-box';
+import { showInputBox } from '../common/input/input-box';
 import localize from '../../i18n/localize';
 import * as strUtils from '../../core/common/utils/string-utils';
 

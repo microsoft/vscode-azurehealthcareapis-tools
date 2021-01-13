@@ -6,7 +6,7 @@
 import * as vscode from 'vscode';
 import { TemplateManagerFactory } from '../../core/template-manager/template-manager-factory';
 import * as workspaceStateConstants from '../../core/common/constants/workspace-state';
-import { showInputBox } from '../common/input-box/input-box';
+import { showInputBox } from '../common/input/input-box';
 import localize from '../../i18n/localize';
 
 export async function loginRegistryCommand() {

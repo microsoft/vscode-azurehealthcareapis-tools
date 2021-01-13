@@ -5,7 +5,7 @@
 
 import * as workspaceStateConstants from '../../core/common/constants/workspace-state';
 import localize from '../../i18n/localize';
-import { showInputBox } from '../common/input-box/input-box';
+import { showInputBox } from '../common/input/input-box';
 import { pullImage } from '../common/registry/pull-image';
 
 export async function pullTemplatesCommand() {

@@ -56,7 +56,7 @@ export function addTimestampToFilename(filePath: string, timestamp: string) {
 export function getResultFileName(dataPath: string, templatePath: string, timestamp: string) {
 	const dataName = getFileNameWithoutExt(dataPath);
 	const templateName = getFileNameWithoutExt(templatePath);
-	const resultName = `${dataName} - ${templateName}.json`;
+	const resultName = `${dataName}+${templateName}.json`;
 	return addTimestampToFilename(resultName, timestamp);
 }
 

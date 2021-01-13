@@ -79,13 +79,13 @@ suite('String Utils Test Suite', () => {
 	test('Function getResultFileName - should return filename with data filename and template filename', () => {
 		const templateFile = 'ADT_A01.liquid';
 		const dataFile = 'ADT01-23.hl7';
-		assert.strictEqual(stringUtils.getResultFileName(dataFile, templateFile, '1605619149025'), 'ADT01-23 - ADT_A01.1605619149025.json');
+		assert.strictEqual(stringUtils.getResultFileName(dataFile, templateFile, '1605619149025'), 'ADT01-23+ADT_A01.1605619149025.json');
 	});
 
 	test('Function getDiffResultFileName - should return a filename with data filename, template filename adn timestamps', () => {
-		const file1 = 'ADT01-23 - ADT_A01.1605619149025.json';
-		const file2 = 'ADT01-23 - ADT_A01.1605619149026.hl7';
-		assert.strictEqual(stringUtils.getDiffResultFileName(file1, file2), 'ADT01-23 - ADT_A01 (cmp:1605619149025/1605619149026).json');
+		const file1 = 'ADT01-23+ADT_A01.1605619149025.json';
+		const file2 = 'ADT01-23+ADT_A01.1605619149026.hl7';
+		assert.strictEqual(stringUtils.getDiffResultFileName(file1, file2), 'ADT01-23+ADT_A01 (cmp:1605619149025/1605619149026).json');
 	});
 
 	test('Function getDescendingSortString - should return a sorted string with descending order', () => {
