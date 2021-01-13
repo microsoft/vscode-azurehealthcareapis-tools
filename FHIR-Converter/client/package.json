@@ -2,7 +2,7 @@
 	"name": "vscode-health-fhir-converter-client",
 	"publisher": "ms-azuretools",
 	"description": "Language client for FHIR Converter",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"license": "MIT",
 	"preview": true,
 	"repository": {
