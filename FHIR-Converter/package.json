@@ -3,7 +3,7 @@
 	"publisher": "ms-azuretools",
 	"displayName": "FHIR Converter",
 	"description": "Enables the conversion of legacy formatted health data to FHIR, expanding the use cases for health data and enabling interoperability.",
-	"version": "1.1.1",
+	"version": "1.2.0",
 	"license": "MIT",
 	"preview": true,
 	"homepage": "https://github.com/microsoft/vscode-azurehealthcareapis-tools/blob/main/FHIR-Converter/README.md",
