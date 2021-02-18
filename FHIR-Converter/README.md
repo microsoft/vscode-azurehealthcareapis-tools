@@ -3,9 +3,10 @@
 [![Build Status](https://microsofthealth.visualstudio.com/Health/_apis/build/status/Resolute/Converter/Dev-CI-SecurityAssessment-VSCode-Tools?branchName=main)](https://microsofthealth.visualstudio.com/Health/_build/latest?definitionId=531&branchName=main)
 
 FHIR Converter VS Code Extension accompanies the following Microsoft products:
-1. [FHIR Server for Azure](https://github.com/microsoft/fhir-server): An open-source implementation of the [HL7 FHIR](https://www.hl7.org/fhir/) specification designed for the Microsoft cloud.
-2. [FHIR Converter OSS](https://github.com/microsoft/FHIR-Converter): An open-source project that enables conversion of health data from legacy format to FHIR. 
- 
+1. [Azure API for FHIR](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/): A managed PaaS offering in Azure that enables rapid exchange of data through Fast Healthcare Interoperability Resources (FHIR®) APIs.
+2. [FHIR Server for Azure](https://github.com/microsoft/fhir-server): An open-source implementation of the [HL7 FHIR](https://www.hl7.org/fhir/) specification designed for the Microsoft cloud.
+3. [FHIR Converter OSS](https://github.com/microsoft/FHIR-Converter): An open-source project that enables conversion of health data from legacy format to FHIR.
+
 These products have the capability to convert HL7v2 data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 to FHIR conversion.
 
 This extension provides an interactive editing and verification experience to create new templates and customize the default templates to meet specific needs.
@@ -13,34 +14,34 @@ This extension provides an interactive editing and verification experience to cr
 ## Getting started
 
 After you have installed the extension, follow these steps to edit the templates:
-1. Login to you ACR if you need to pull templates from there.
-2. Get starting templates and put those in a folder. See below for instructions to get the templates published by Microsoft.
-3. Get sample data for testing. You can also get Microsoft provided sample data by following the instructions below.
-4. Create a new converter workspace by pressing CTRL+W. Select the root template folder and the data folder during the process.
-5. Select template file and test data file using the context menu. 
+1. Login to your ACR if needed.
+2. Get starting templates and put those in a folder. You can also use the templates published by Microsoft by following the instructions below.
+3. Get sample data for testing. You can use the sample data provided by Microsoft by following the instructions.
+4. Create a new converter workspace by pressing CTRL+W. You will select the root template folder and the data folder during the process.
+5. Select template file and test data file using the context menu.
 6. Convert data by pressing CTRL+R or by the command in the context menu. After converting, the extension should open a 3-pane view including data, template and converted FHIR bundle in the panes.
 7. Edit template and/or data files and save them. Press CTRL+R to refresh the output. The output pane should get refreshed and highlight the changes in the output.
 8. Save and push the changed templates to your Azure Container Registry in order to use it in $convert-data API in the FHIR Server.
 
-See relevant service documentation for using the templates in data conversion process: 
+See relevant service documentation for using the templates in data conversion process:
 
+1. [$convert-data](https://docs.microsoft.com/en-us/azure/healthcare-apis/convert-data) operation in Azure API for FHIR.
+1. [$convert-data](https://github.com/microsoft/fhir-server/blob/master/docs/ConvertDataOperation.md) operation in FHIR Server for Azure.
 1. [FHIR Converter command line tool](https://github.com/microsoft/FHIR-Converter#command-line-tool) in FHIR Converter OSS project.
-2. [$convert-data](https://github.com/microsoft/fhir-server/blob/master/docs/ConvertDataOperation.md) operation in FHIR Server for Azure.
-
 
 ## How to guide
 
-### 1. Login to ACR (Azure Container Registry) 
+### 1. Login to ACR (Azure Container Registry)
 
-Before pulling and pushing templates using private ACR, you need to log in to your ACR.
+You need to login to your ACR if you want to push or pull templates from there. Otherwise, you can skip this step. You do not need to login to pull templates and sample data published by Microsoft.
 
 Use the command `FHIR Converter: Login to Azure Container Registry (Ctrl + I)`:
 - Type in the name of your ACR `<registry-name>.azurecr.io`, and press enter. It will open the terminal and run the oras tool.
 - Input the username and password interactively. Your username and password are not stored.
 
-If you have installed Azure CLI or Docker, you can refer to this [documentation](https://github.com/microsoft/FHIR-Converter/blob/main/docs/TemplateManagementCLI.md#authentication) to log in by its ways. 
+Alternatively, you can use Docker login by following this [documentation](https://github.com/microsoft/FHIR-Converter/blob/main/docs/TemplateManagementCLI.md#authentication). 
 
-After you are done editing and pushing templates, you can logout from the registry by running the command `FHIR Converter: Logout registry (Ctrl + O)`. You will need to enter the name of you registry.
+You can logout from the ACR by running the command `FHIR Converter: Logout registry (Ctrl + O)` after you are done editing and pushing templates. You will need to enter the name of you registry.
 
 ![login-logout](assets/login-logout.gif)
 
@@ -53,15 +54,15 @@ You can use the command `FHIR Converter: Pull Microsoft templates (Ctrl + D)` to
 ![pull-default-templates](assets/pull-default-templates.gif)
 
 If you want to pull templates from your private registry, you can use the command `FHIR Converter: Pull templates (Ctrl + L)` to pull templates:
-- Login to ACR.
-- Enter your image reference `<registry-name>.azurecr.io/<image-name><:tag|@digest>` (image name should be lowcase). 
+- Login to ACR if needed by following Step 1.
+- Enter your image reference `<registry-name>.azurecr.io/<image-name><:tag|@digest>` (image name should be lower case). 
 - Select the output folder to store the templates. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
 
 ![pull-templates](assets/pull-templates.gif)
 
 ### 3. Pull sample data
 
-If you need, you can use the command `FHIR Converter: Pull sample data (Ctrl + T)` to pull the sample data publicly published by Microsoft. In this command, you only need to select the output folder to store the data. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
+If you need, you can use the command `FHIR Converter: Pull sample data (Ctrl + T)` to pull the sample data  published by Microsoft. Select the output folder to store the data. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
 
 ![pull-sample-data](assets/pull-sample-data.gif)
 
@@ -111,7 +112,7 @@ After modifying the templates or data, remember to save the template files or da
 
 ![editing](assets/editing.gif)
 
-If you want to jump into the snippet templates to make some modification, you can select the context menu item `Go to Definition (F12)`  or press the keyborad shortcut `Ctrl + Click` when hovering over the snippet templates. If you just hover over the snippet templates and press `Ctrl`, a quick content preview of snippet templates will be shown for you.
+If you want to jump into the snippet templates to make some modification, you can select the context menu item `Go to Definition (F12)`  or press the keyboard shortcut `Ctrl + Click` when hovering over the snippet templates. If you just hover over the snippet templates and press `Ctrl`, a quick content preview of snippet templates will be shown for you.
 
 Currently, the following features for snippet templates editing are supported:
 
