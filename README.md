@@ -1,4 +1,4 @@
-# Azure API for FHIR Tools - VS Code Extensions
+# Azure Healthcare APIs tools - VS Code Extensions
 
 This project will include various tools for Azure API for FHIR, and FHIR Server for Azure.
 
