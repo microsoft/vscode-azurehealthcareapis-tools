@@ -1,4 +1,4 @@
-## 1.2.0 (2021-01-14)
+## 1.2.0 (2021-02-25)
 ### Added
 * Ability to pull a specific version of the Microsoft published templates.
 * Diagnostic for unused data segments in the FHIR results.
