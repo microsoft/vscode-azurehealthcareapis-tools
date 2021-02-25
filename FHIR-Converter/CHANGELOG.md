@@ -1,10 +1,10 @@
-## 1.2.0 (2021-01-14)
+## 1.2.0 (2021-02-25)
 ### Added
 * Ability to pull a specific version of the Microsoft published templates.
 * Diagnostic for unused data segments in the FHIR results.
 
 ### Updated
-* FHIR Converter Engine - v3.2
+* FHIR Converter Engine - v3.3.1
 
 ## 1.1.0 (2020-12-24)
 ### Added
