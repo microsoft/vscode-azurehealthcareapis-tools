@@ -4,7 +4,7 @@
 * Diagnostic for unused data segments in the FHIR results.
 
 ### Updated
-* FHIR Converter Engine - v3.2
+* FHIR Converter Engine - v3.3.2
 
 ## 1.1.0 (2020-12-24)
 ### Added
