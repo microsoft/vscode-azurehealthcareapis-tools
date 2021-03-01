@@ -33,11 +33,11 @@ See relevant service documentation for using the templates in data conversion pr
 
 ### 1. Login to ACR (Azure Container Registry)
 
-You need to login to your ACR if you want to push or pull templates from there. Otherwise, you can skip this step. You do not need to login to pull templates and sample data published by Microsoft.
+You need to login to your ACR with push or pull permission if you want to push or pull templates from there. Otherwise, you can skip this step. You do not need to login to pull templates and sample data published by Microsoft.
 
 Use the command `FHIR Converter: Login to Azure Container Registry (Ctrl + I)`:
 - Type in the name of your ACR `<registry-name>.azurecr.io`, and press enter. It will open the terminal and run the oras tool.
-- Input the username and password interactively. Your username and password are not stored.
+- Input the username and password interactively. Your username and password are not stored. You can obtain the username and password by navigating to the Access Keys blade of your container registry in the Azure Portal.
 
 Alternatively, you can use Docker login by following this [documentation](https://github.com/microsoft/FHIR-Converter/blob/main/docs/TemplateManagementCLI.md#authentication). 
 
