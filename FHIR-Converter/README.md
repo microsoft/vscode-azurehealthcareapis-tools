@@ -138,10 +138,13 @@ If you need to switch to another template folder, you can use the command `FHIR 
 
 ## Other useful extensions
 
-You may want to install other extensions from the marketplace to obtain some language support, such as syntax highlighting, for `.hl7` and `.liquid` files.
+Here are some extensions available from the Microsoft Azure Martketplace that may improve your template editing experience.
 
-- `HL7Tools` provides some basic language support for `.hl7` files
-- `Liquid Languages Support` provides some basic language support for `.liquid` files.
+- [HL7Tools](https://marketplace.visualstudio.com/items?itemName=RobHolme.hl7tools) provides some basic language support for .hl7 files
+- [Liquid Languages Support](https://marketplace.visualstudio.com/items?itemName=neilding.language-liquid) provides some basic language support for .liquid files
+- [FHIR tools](https://marketplace.visualstudio.com/items?itemName=Yannick-Lagger.vscode-fhir-tools) provides FHIR validation capabilities
+
+Microsoft provides you links to these extensions only as a convenience, and the inclusion of links to these extensions do not imply endorsement by Microsoft.  Microsoft makes no warranties, express or implied, guarantees or conditions with respect to your use of these extensions.  Microsoft disclaims all liability for any damages or losses, including direct, consequential, special, indirect, incidental or punitive, resulting from your use of these extensions.  
 
 ## Contributing
 
