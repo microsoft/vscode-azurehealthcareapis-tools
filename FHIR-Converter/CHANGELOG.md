@@ -1,3 +1,9 @@
+## 1.2.1 (2021-05-11)
+### Added
+* Activation event when the workspace contains liquid files.
+### Updated
+* FHIR Converter Engine - v3.5.1.
+
 ## 1.2.0 (2021-02-25)
 ### Added
 * Ability to pull a specific version of the Microsoft published templates.
