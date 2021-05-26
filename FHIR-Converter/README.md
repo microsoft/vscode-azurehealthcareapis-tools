@@ -7,7 +7,7 @@ FHIR Converter VS Code Extension accompanies the following Microsoft products:
 2. [FHIR Server for Azure](https://github.com/microsoft/fhir-server): An open-source implementation of the [HL7 FHIR](https://www.hl7.org/fhir/) specification designed for the Microsoft cloud.
 3. [FHIR Converter OSS](https://github.com/microsoft/FHIR-Converter): An open-source project that enables conversion of health data from legacy format to FHIR.
 
-These products have the capability to convert HL7v2 data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 to FHIR conversion.
+These products have the capability to convert HL7v2 and C-CDA data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 and C-CDA to FHIR conversion.
 
 This extension provides an interactive editing and verification experience to create new templates and customize the default templates to meet specific needs.
 
@@ -48,6 +48,7 @@ You can logout from the ACR by running the command `FHIR Converter: Logout regis
 ### 2. Pull templates
 
 You can use the command `FHIR Converter: Pull Microsoft templates (Ctrl + D)` to pull the default templates publicly published by Microsoft:
+- Select a specific template type.
 - Select a specific version.
 - Select the output folder to store the templates.
 
@@ -62,7 +63,9 @@ If you want to pull templates from your private registry, you can use the comman
 
 ### 3. Pull sample data
 
-If you need, you can use the command `FHIR Converter: Pull sample data (Ctrl + T)` to pull the sample data  published by Microsoft. Select the output folder to store the data. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
+If you need, you can use the command `FHIR Converter: Pull sample data (Ctrl + T)` to pull the sample data published by Microsoft:
+- Select a specific template type.
+- Select the output folder to store the data. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
 
 ![pull-sample-data](assets/pull-sample-data.gif)
 
@@ -92,11 +95,11 @@ If a converter workspace is already opened and you want to switch to another con
 
 ![open-switch-workspace](assets/open-switch-workspace.gif)
 
-### 6. Convert the HL7v2 messages into FHIR bundles
+### 6. Convert the HL7v2/C-CDA messages into FHIR bundles
 
 In a converter workspace, template files and data files are shown in the explorer view. To start template editing, select a template file and a data file.
 
-To select a file as the root template file, right click on the file having extension `.liquid` in the explorer view and select the menu item `FHIR Converter: Select as template (*.liquid)`. Similarly, to select a data file, right click on the data file having extension `.hl7` and select the menu item `FHIR Converter: Select as data file (*.hl7)`.
+To select a file as the root template file, right click on the file having extension `.liquid` in the explorer view and select the menu item `FHIR Converter: Select as template (*.liquid)`. Similarly, to select a data file, right click on the data file having extension `.hl7` or `.ccda` and select the menu item `FHIR Converter: Select as data file (*.hl7 or *.ccda)`.
 
 Both template file and data file are necessary, and you can view the selected files in the status bar before converting Data. If one of them is missing, you will be prompted to select the missing one. If both template file and data file are selected, you can convert data by selecting the context menu item `FHIR Converter: Convert data` or using the keyboard shortcut (`Ctrl + R`), and the result will be shown in results pane.
 
