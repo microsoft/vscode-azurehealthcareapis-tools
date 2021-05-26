@@ -6,8 +6,7 @@
 import localize from '../../i18n/localize';
 import * as configurationConstants from '../common/constants/workspace-configuration';
 import * as stateConstants from '../common/constants/workspace-state';
-import { Hl7v2FhirConverterEngine } from './engine/hl7v2-fhir-converter-engine';
-import { ConverterType } from '../common/enum/converter-type';
+import { FhirConverterEngine } from './engine/fhir-converter-engine';
 import { Converter } from './converter';
 import { ConversionError} from '../common/errors/conversion-error';
 import { ConfigurationError } from '../common/errors/configuration-error';
@@ -34,35 +33,25 @@ export class ConverterEngineFactory {
 			throw new ConversionError(localize('message.resultFolderNotExits', resultFolder));
 		}
 
-		let engine;
-		const converterType = globals.settingManager.getWorkspaceConfiguration(configurationConstants.ConverterTypeKey);
-		if (!converterType) {
-			throw new ConfigurationError(localize('message.noConverterTypeProvided'));
+		// Check that the template folder is available
+		const templateFolder: string = globals.settingManager.getWorkspaceConfiguration(configurationConstants.TemplateFolderKey);
+		if (!templateFolder) {
+			throw new ConfigurationError(localize('message.noTemplateFolderProvided'));
 		}
 
-		if (converterType === ConverterType.hl7v2ToFhir) {
-			// Check that the template folder is available
-			const templateFolder: string = globals.settingManager.getWorkspaceConfiguration(configurationConstants.TemplateFolderKey);
-			if (!templateFolder) {
-				throw new ConfigurationError(localize('message.noTemplateFolderProvided'));
-			}
-
-			// Check if template folder exists
-			if (!fs.existsSync(templateFolder)) {
-				throw new ConversionError(localize('message.templateFolderNotExits', templateFolder));
-			}
-
-			// Check that the entry template is available
-			const rootTemplate = globals.settingManager.getWorkspaceState(stateConstants.TemplateKey);
-			if (!rootTemplate) {
-				throw new ConversionError(localize('message.needSelectTemplate'));
-			}
-
-			// create the engine
-			engine = new Hl7v2FhirConverterEngine(templateFolder, rootTemplate, resultFolder);
-		} else {
-			throw new ConversionError(localize('message.converterEngineNotSupported', converterType));
+		// Check if template folder exists
+		if (!fs.existsSync(templateFolder)) {
+			throw new ConversionError(localize('message.templateFolderNotExits', templateFolder));
 		}
+
+		// Check that the entry template is available
+		const rootTemplate = globals.settingManager.getWorkspaceState(stateConstants.TemplateKey);
+		if (!rootTemplate) {
+			throw new ConversionError(localize('message.needSelectTemplate'));
+		}
+
+		// create the engine
+		let engine = new FhirConverterEngine(templateFolder, rootTemplate, resultFolder);
 
 		// create the converter
 		return new Converter(engine, resultFolder);

@@ -52,7 +52,9 @@
 	"message.openFolder": "Open the folder",
 	"message.copyDigestToClipboard": "Copy digest to clipboard",
 	"message.unusedSegment": "Unused Segment: {0}",
-	"message.selectTemplateVesion": "Select a template version",
+	"message.selectTemplateVesion": "Select template version",
+	"message.selectTemplateType": "Select template type",
+	"message.selectSampleDataType": "Select sample data type",
 	"common.templateFolder.suffix": "(Templates)",
 	"common.template": "template",
 	"common.data": "data"

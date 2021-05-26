@@ -5,16 +5,25 @@
 
 import * as path from 'path';
 import * as glob from 'glob';
-import * as constants from '../common/constants'; 
+import * as constants from '../common/constants';
 
 export function addUnderlineExt(filePath: string) {
-	filePath = path.join(path.dirname(filePath), '_' + path.basename(filePath) + constants.EngineTemplateFileExt);
+	const dirname = path.dirname(filePath);
+	const filenameWithExt = path.join(path.basename(filePath) + constants.EngineTemplateFileExt);
+	if (dirname === '.') {
+		filePath = filenameWithExt;
+	} else {
+		filePath = path.join(dirname, '_' + filenameWithExt);
+	}
 	filePath = filePath.replace(/\\/g, '/');
 	return filePath;
 }
 
 export function getSnippetTemplateName(dirname: string, basename: string): string {
-	return "\'" + path.join(dirname, basename.substring(1, basename.length)).replace(constants.EngineTemplateFileExt, '').replace(/\\/g, '/') + "\'";
+	if (dirname !== '.') {
+		basename = basename.substring(1, basename.length);
+	}
+	return "\'" + path.join(dirname, basename).replace(constants.EngineTemplateFileExt, '').replace(/\\/g, '/') + "\'";
 }
 
 export  function getAllTemplatePaths(directory: string): string[] {

@@ -111,7 +111,7 @@ connection.onCompletion( async (_textDocumentPosition: TextDocumentPositionParam
 	for (let templatePath of templates) {
 		const dirname = path.dirname(templatePath);
 		const basename = path.basename(templatePath);
-		if (basename === undefined || basename[0] !== '_') {
+		if (basename === undefined) {
 			continue;
 		}
 		templatePath = utils.getSnippetTemplateName(dirname, basename);

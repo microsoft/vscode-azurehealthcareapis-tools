@@ -14,7 +14,7 @@ import * as stringUtils from '../../common/utils/string-utils';
 import * as engineUtils from '../../common/utils/engine-utils';
 import * as fileUtils from '../../common/utils/file-utils';
 
-export class Hl7v2FhirConverterEngine implements IConverterEngine {
+export class FhirConverterEngine implements IConverterEngine {
 	private _exePath: string;
 	private _templateFolder: string;
 	private _rootTemplate: string;
@@ -38,19 +38,13 @@ export class Hl7v2FhirConverterEngine implements IConverterEngine {
 			throw new ConversionError(localize('message.dataFileNotExits', dataFile));
 		}
 
-		// Check if data is empty 
-		const data = fs.readFileSync(dataFile).toString().replace(/^\uFEFF/, '');
-		if (data.length === 0) {
-			throw new ConversionError(localize('message.dataIsEmpty'));
-		}
-
 		// Call the engine
 		const timestamp = new Date().getTime().toString();
 		const resultFile = path.join(this._resultFolder, stringUtils.getResultFileName(dataFile, this._rootTemplate, timestamp));
 		const defaultResultFile = path.join(this._resultFolder, engineConstants.DefaultResultFile);
 		const rootTemplate = stringUtils.getFileNameWithoutExt(this._rootTemplate);
 		try {
-			cp.execFileSync(this._exePath, ['convert', '-d', this._templateFolder, '-r',  rootTemplate, '-c', data, '-f', defaultResultFile, '-t']);
+			cp.execFileSync(this._exePath, ['convert', '-d', this._templateFolder, '-r',  rootTemplate, '-n', dataFile, '-f', defaultResultFile, '-t']);
 		} catch (err) {
 			throw new ConversionError(err.stderr.toString());
 		}

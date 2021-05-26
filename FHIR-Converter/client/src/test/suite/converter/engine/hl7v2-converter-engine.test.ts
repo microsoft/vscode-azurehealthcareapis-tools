@@ -6,7 +6,7 @@
 import * as assert from 'assert';
 import * as fs from 'fs';
 import * as path from 'path';
-import { Hl7v2FhirConverterEngine } from '../../../../core/converter/engine/hl7v2-fhir-converter-engine';
+import { FhirConverterEngine } from '../../../../core/converter/engine/fhir-converter-engine';
 import { beforeEach } from 'mocha';
 
 suite('Hl7v2 Converter Engine Test Suite', () => {
@@ -20,7 +20,7 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 	const resultFile = path.join(resultFolder, 'temp.json');
 	const rootTemplate = 'ADT_A01.liquid';
 	const invalidrootTemplate = 'Invalid_template';
-	const hl7v2Engine = new Hl7v2FhirConverterEngine(templateFolder, rootTemplate, resultFolder);
+	const hl7v2Engine = new FhirConverterEngine(templateFolder, rootTemplate, resultFolder);
 
 	beforeEach(() => {
 		if (fs.existsSync(resultFile)) {
@@ -29,8 +29,8 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 	});
 
 	test('Function constructor - should return a engine', async () => {
-		const engine = new Hl7v2FhirConverterEngine(templateFolder, rootTemplate, resultFolder);
-		assert.strictEqual(engine instanceof Hl7v2FhirConverterEngine, true);
+		const engine = new FhirConverterEngine(templateFolder, rootTemplate, resultFolder);
+		assert.strictEqual(engine instanceof FhirConverterEngine, true);
 	});
 
 	test('Function process - should return a json object with OK status given data, template and template folder', async () => {
@@ -53,7 +53,7 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 	
 	test('Function process - should throw an error given invalid entry template', async () => {
 		try {
-			const hl7v2EngineInvalidrootTemplate = new Hl7v2FhirConverterEngine(templateFolder, invalidrootTemplate, resultFolder);
+			const hl7v2EngineInvalidrootTemplate = new FhirConverterEngine(templateFolder, invalidrootTemplate, resultFolder);
 			hl7v2EngineInvalidrootTemplate.process(activeDataPath);
 			assert.strictEqual(true, false);
 		} catch (error) {
@@ -63,7 +63,7 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 
 	test('Function process - should throw an error given invalid template folder', async () => {
 		try {
-			const hl7v2EngineInvalidTemplateFolder = new Hl7v2FhirConverterEngine(invalidTemplateFolder, rootTemplate, resultFolder);
+			const hl7v2EngineInvalidTemplateFolder = new FhirConverterEngine(invalidTemplateFolder, rootTemplate, resultFolder);
 			hl7v2EngineInvalidTemplateFolder.process(activeDataPath);
 			assert.strictEqual(true, false);
 		} catch (error) {

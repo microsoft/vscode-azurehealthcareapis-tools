@@ -5,9 +5,15 @@
 
 import * as path from 'path';
 
+const Hl7v2TemplatesImage = 'hl7v2defaulttemplates';
+const CcdaTemplatesImage = 'ccdadefaulttemplates';
+const OfficialLoginServer = 'healthplatformregistry.azurecr.io';
 export const DefaultTemplateManagementExePath = path.join(__dirname, '../../../../engine/Microsoft.Health.Fhir.Liquid.Converter.Tool.exe');
 export const DefaultOrasExePath = path.join(__dirname, '../../../../engine/oras.exe');
-export const SampleDataReference = 'healthplatformregistry.azurecr.io/hl7v2sampledata:v3.1.2';
-export const OfficialImageBaseReference = 'healthplatformregistry.azurecr.io/hl7v2defaulttemplates';
-export const OfficialRepoTokenUrl = 'https://healthplatformregistry.azurecr.io/oauth2/token?scope=repository:*:*&service=healthplatformregistry.azurecr.io';
-export const OfficialRepoTagsUrl = 'https://healthplatformregistry.azurecr.io/acr/v1/hl7v2defaulttemplates/_tags';
+export const Hl7v2SampleDataReference = `${OfficialLoginServer}/hl7v2sampledata:latest`;
+export const CcdaSampleDataReference = `${OfficialLoginServer}/ccdasampledata:latest`;
+export const Hl7v2ImageBaseReference = `${OfficialLoginServer}/${Hl7v2TemplatesImage}`;
+export const CcdaImageBaseReference = `${OfficialLoginServer}/${CcdaTemplatesImage}`;
+export const OfficialRepoTokenUrl = `https://${OfficialLoginServer}/oauth2/token?scope=repository:*:*&service=${OfficialLoginServer}`;
+export const Hl7v2TagsUrl = `https://${OfficialLoginServer}/acr/v1/${Hl7v2TemplatesImage}/_tags`;
+export const CcdaTagsUrl = `https://${OfficialLoginServer}/acr/v1/${CcdaTemplatesImage}/_tags`;

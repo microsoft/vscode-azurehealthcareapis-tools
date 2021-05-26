@@ -3,6 +3,7 @@
  * Licensed under the MIT License. See License in the project root for license information.
  */
 
-export enum ConverterType { 
-	hl7v2ToFhir = 'hl7v2ToFhir'
+export enum TemplateType { 
+	ccda = 'C-CDA', 
+	hl7v2 = 'HL7v2' 
 }
