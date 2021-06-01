@@ -1,0 +1,30 @@
+{% case code -%}
+    {% when "registered" -%}
+        "registered",
+    {% when "received" -%}
+        "registered",
+    {% when "preliminary" -%}
+        "preliminary",
+    {% when "final" -%}
+        "final",
+    {% when "completed" -%}
+        "final",
+    {% when "amended" -%}
+        "amended",
+    {% when "corrected" -%}
+        "corrected",
+    {% when "appended" -%}
+        "appended",
+    {% when "cancelled" -%}
+        "cancelled",
+    {% when "abandoned" -%}
+        "cancelled",
+    {% when "entered-in-error" -%}
+        "entered-in-error",
+    {% when "error" -%}
+        "entered-in-error",
+    {% when "unknown" -%}
+        "unknown",
+    {% else -%}
+        "{{ code }}",
+{% endcase -%}
