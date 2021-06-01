@@ -20,7 +20,7 @@ export function addUnderlineExt(filePath: string) {
 }
 
 export function getSnippetTemplateName(dirname: string, basename: string): string {
-	if (dirname !== '.') {
+	if (dirname !== '.' && basename[0] === '_') {
 		basename = basename.substring(1, basename.length);
 	}
 	return "\'" + path.join(dirname, basename).replace(constants.EngineTemplateFileExt, '').replace(/\\/g, '/') + "\'";
