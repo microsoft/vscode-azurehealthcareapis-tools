@@ -5,7 +5,7 @@
 
 import * as vscode from 'vscode';
 
-export async function showQucikPick(placeHolder: string, itemList: string[]) {
+export async function showQuickPick(placeHolder: string, itemList: string[]) {
 	const inputOption = {
 		placeHolder: placeHolder,
 		canPickMany: false,

@@ -7,11 +7,11 @@ import * as constants from '../../core/common/constants/template-management';
 import { pullImage } from '../common/registry/pull-image';
 import localize from '../../i18n/localize';
 import { TemplateType } from '../../core/common/enum/template-type';
-import { showQucikPick } from '../common/input/quick-pick';
+import { showQuickPick } from '../common/input/quick-pick';
 
 export async function pullSampleDataCommand() {
 	// Get the template type
-	const selectedType = await showQucikPick(localize('message.selectSampleDataType'), Object.values(TemplateType));
+	const selectedType = await showQuickPick(localize('message.selectSampleDataType'), Object.values(TemplateType));
 	let imageReference;
 	if(selectedType == TemplateType.hl7v2) {
 		imageReference = constants.Hl7v2SampleDataReference;

@@ -51,7 +51,7 @@ suite('Hl7v2 Converter Engine Test Suite', () => {
 		}
 	});
 	
-	test('Function process - should throw an error given invalid entry template', async () => {
+	test('Function process - should throw an error given invalid root template', async () => {
 		try {
 			const hl7v2EngineInvalidrootTemplate = new FhirConverterEngine(templateFolder, invalidrootTemplate, resultFolder);
 			hl7v2EngineInvalidrootTemplate.process(activeDataPath);
@@ -140,7 +140,7 @@ suite('CCDA Converter Engine Test Suite', () => {
 		}
 	});
 	
-	test('Function process - should throw an error given invalid entry template', async () => {
+	test('Function process - should throw an error given invalid root template', async () => {
 		try {
 			const ccdaEngineInvalidrootTemplate = new FhirConverterEngine(templateFolder, invalidrootTemplate, resultFolder);
 			ccdaEngineInvalidrootTemplate.process(activeDataPath);
