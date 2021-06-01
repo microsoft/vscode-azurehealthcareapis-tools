@@ -99,7 +99,7 @@ If a converter workspace is already opened and you want to switch to another con
 
 In a converter workspace, template files and data files are shown in the explorer view. To start template editing, select a template file and a data file.
 
-To select a file as the root template file, right click on the file having extension `.liquid` in the explorer view and select the menu item `FHIR Converter: Select as template (*.liquid)`. Similarly, to select a data file, right click on the data file having extension `.hl7` or `.ccda` and select the menu item `FHIR Converter: Select as data file (*.hl7 or *.ccda)`.
+To select a file as the root template file, right click on the file having extension `.liquid` in the explorer view and select the menu item `FHIR Converter: Select as template (*.liquid)`. Similarly, to select a data file, right click on the data file having extension `.hl7`, `.ccda` or `.xml` and select the menu item `FHIR Converter: Select as data file (*.hl7, *.ccda or *.xml)`.
 
 Both template file and data file are necessary, and you can view the selected files in the status bar before converting Data. If one of them is missing, you will be prompted to select the missing one. If both template file and data file are selected, you can convert data by selecting the context menu item `FHIR Converter: Convert data` or using the keyboard shortcut (`Ctrl + R`), and the result will be shown in results pane.
 

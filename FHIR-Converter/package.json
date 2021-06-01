@@ -67,7 +67,7 @@
 			},
 			{
 				"command": "microsoft.health.fhir.converter.selectData",
-				"title": "FHIR Converter: Select as data (*.hl7 or *.ccda)"
+				"title": "FHIR Converter: Select as data (*.hl7, *.ccda or *.xml)"
 			},
 			{
 				"command": "microsoft.health.fhir.converter.createConverterWorkspace",
@@ -123,7 +123,7 @@
 				{
 					"command": "microsoft.health.fhir.converter.selectData",
 					"group": "1_converter",
-					"when": "resourceExtname == .hl7 || resourceExtname == .ccda"
+					"when": "resourceExtname == .hl7 || resourceExtname == .ccda || resourceExtname == .xml"
 				},
 				{
 					"command": "microsoft.health.fhir.converter.updateTemplateFolder",

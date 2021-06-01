@@ -30,7 +30,7 @@ export class ConverterEngineFactory {
 
 		// Check if result folder exists
 		if (!fs.existsSync(resultFolder)) {
-			throw new ConversionError(localize('message.resultFolderNotExits', resultFolder));
+			throw new ConversionError(localize('message.resultFolderNotExists', resultFolder));
 		}
 
 		// Check that the template folder is available
@@ -41,10 +41,10 @@ export class ConverterEngineFactory {
 
 		// Check if template folder exists
 		if (!fs.existsSync(templateFolder)) {
-			throw new ConversionError(localize('message.templateFolderNotExits', templateFolder));
+			throw new ConversionError(localize('message.templateFolderNotExists', templateFolder));
 		}
 
-		// Check that the entry template is available
+		// Check that the root template is available
 		const rootTemplate = globals.settingManager.getWorkspaceState(stateConstants.TemplateKey);
 		if (!rootTemplate) {
 			throw new ConversionError(localize('message.needSelectTemplate'));

@@ -16,11 +16,11 @@ suite('Converter Test Suite', () => {
 	const activeDataPath = path.join(testPath, 'data/Hl7v2/ADT01-23.hl7');
 	const templateFolder = path.join(testPath, 'templates/Hl7v2');
 	const rootTemplate = 'ADT_A01';
-	const hl7v2Engine = new FhirConverterEngine(templateFolder, rootTemplate, resultFolder);
-	const converter = new Converter(hl7v2Engine, historyFolder);
+	const fhirConverterEngine = new FhirConverterEngine(templateFolder, rootTemplate, resultFolder);
+	const converter = new Converter(fhirConverterEngine, historyFolder);
 
 	test('Function constructor - should return a converter given a engine and a result folder', async () => {
-		const newConverter = new Converter(hl7v2Engine, resultFolder);
+		const newConverter = new Converter(fhirConverterEngine, resultFolder);
 		assert.strictEqual(newConverter instanceof Converter, true);
 	});
 
@@ -34,7 +34,6 @@ suite('Converter Test Suite', () => {
 	}).timeout(20000);
 	
 	test('Function getHistory - should return a list of files given a file path', async () => {
-	
 			const filename = 'D:/ADT04-28 - ADT_A01.1605683976874.json';
 			const expectedList = [
 				path.join(historyFolder, 'ADT04-28 - ADT_A01.1605684048847.json').replace(/\\/g, '/'),
@@ -46,7 +45,6 @@ suite('Converter Test Suite', () => {
 	});
 
 	test('Function clearHistory - should clear historical files correctly', async () => {
-	
 		const createFiles = ['test.1.json', 'test.2.json', 'test.3.json', 'test.4.json', 'test.5.json', 'test.6.json'];
 		for ( const file of createFiles) {
 			fs.writeFileSync(path.join(historyFolder, file), 'test');

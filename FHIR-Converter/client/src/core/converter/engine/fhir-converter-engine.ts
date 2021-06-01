@@ -35,7 +35,7 @@ export class FhirConverterEngine implements IConverterEngine {
 
 		// Check if data file exists
 		if (!fs.existsSync(dataFile)) {
-			throw new ConversionError(localize('message.dataFileNotExits', dataFile));
+			throw new ConversionError(localize('message.dataFileNotExists', dataFile));
 		}
 
 		// Call the engine
