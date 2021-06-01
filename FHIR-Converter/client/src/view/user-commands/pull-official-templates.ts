@@ -4,7 +4,7 @@
  */
 
 import { pullImage } from '../common/registry/pull-image';
-import { showQucikPick } from '../common/input/quick-pick';
+import { showQuickPick } from '../common/input/quick-pick';
 import * as constants from '../../core/common/constants/template-management';
 import localize from '../../i18n/localize';
 import { getToken, getAcrTags} from '../../core/http/acr-request';
@@ -16,7 +16,7 @@ export async function pullOfficialTemplatesCommand() {
 	const token = await getToken(tokenUrl);
 
 	// Get the template type
-	const selectedTemplateType = await showQucikPick(localize('message.selectTemplateType'), Object.values(TemplateType));
+	const selectedTemplateType = await showQuickPick(localize('message.selectTemplateType'), Object.values(TemplateType));
 	let tagsUrl, templateImageBaseReference;
 	if(selectedTemplateType == TemplateType.hl7v2) {
 		tagsUrl = constants.Hl7v2TagsUrl;
@@ -29,7 +29,7 @@ export async function pullOfficialTemplatesCommand() {
 	if (tagsUrl && templateImageBaseReference) {
 		const tags = await getAcrTags(tagsUrl, token);
 		// Get the version
-		const selectedVersion = await showQucikPick(localize('message.selectTemplateVesion'), tags);
+		const selectedVersion = await showQuickPick(localize('message.selectTemplateVesion'), tags);
 		if (selectedVersion) {
 			// If user selected a version, pull the image with this verison
 			const imageReference = `${templateImageBaseReference}:${selectedVersion}`;
