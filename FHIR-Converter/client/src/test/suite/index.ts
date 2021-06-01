@@ -48,7 +48,7 @@ export async function run(): Promise<void> {
 	runner.useColors(true);
 	runner.addFile(join(__dirname, './view/extension.test'));
 	runner.addFile(join(__dirname, './converter/converter.test'));
-	runner.addFile(join(__dirname, './converter/engine/hl7v2-converter-engine.test'));
+	runner.addFile(join(__dirname, './converter/engine/fhir-converter-engine.test'));
 
 	const options = { cwd: __dirname };
 	const files = glob.sync('**/*utils.test.js', options);
