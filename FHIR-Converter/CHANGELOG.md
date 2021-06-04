@@ -1,4 +1,4 @@
-## 1.3.0 (2021-05-28)
+## 1.3.0 (2021-06-04)
 ### Added
 * Support for converting data from C-CDA to FHIR with liquid templates
 
