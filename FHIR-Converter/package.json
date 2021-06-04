@@ -3,7 +3,7 @@
 	"publisher": "ms-azuretools",
 	"displayName": "FHIR Converter",
 	"description": "Enables the conversion of legacy formatted health data to FHIR, expanding the use cases for health data and enabling interoperability.",
-	"version": "1.2.1",
+	"version": "1.3.0",
 	"license": "MIT",
 	"preview": true,
 	"homepage": "https://github.com/microsoft/vscode-azurehealthcareapis-tools/blob/main/FHIR-Converter/README.md",
@@ -32,6 +32,7 @@
 		"FHIR Server for Azure",
 		"Healthcare",
 		"HL7v2",
+		"C-CDA",
 		"Liquid"
 	],
 	"aiKey": "AIF-d9b70cd4-b9f9-4d70-929b-a071c400b217",
@@ -66,7 +67,7 @@
 			},
 			{
 				"command": "microsoft.health.fhir.converter.selectData",
-				"title": "FHIR Converter: Select as data (*.hl7)"
+				"title": "FHIR Converter: Select as data (*.hl7, *.ccda or *.xml)"
 			},
 			{
 				"command": "microsoft.health.fhir.converter.createConverterWorkspace",
@@ -122,7 +123,7 @@
 				{
 					"command": "microsoft.health.fhir.converter.selectData",
 					"group": "1_converter",
-					"when": "resourceExtname == .hl7"
+					"when": "resourceExtname == .hl7 || resourceExtname == .ccda || resourceExtname == .xml"
 				},
 				{
 					"command": "microsoft.health.fhir.converter.updateTemplateFolder",
@@ -195,11 +196,6 @@
 			"type": "object",
 			"title": "FHIR Converter",
 			"properties": {
-				"microsoft.health.fhir.converter.converterType": {
-					"type": "string",
-					"default": "",
-					"description": "The type of converter (support 'hl7v2ToFhir' now)."
-				},
 				"microsoft.health.fhir.converter.enableDiffView": {
 					"type": "boolean",
 					"default": "true",

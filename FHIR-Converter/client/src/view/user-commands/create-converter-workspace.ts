@@ -10,7 +10,6 @@ import * as fileUtils from '../../core/common/utils/file-utils';
 import * as stringUtils from '../../core/common/utils/string-utils';
 import * as configurationConstants from '../../core/common/constants/workspace-configuration';
 import * as path from 'path';
-import { ConverterType } from '../../core/common/enum/converter-type';
 
 export async function createConverterWorkspaceCommand() {
 	let templateFolder: vscode.Uri;
@@ -42,7 +41,7 @@ export async function createConverterWorkspaceCommand() {
 	}
 
 	// Init workspace configuration
-	const workspaceConfig = getDefaultConverterWorkspaceConfig(ConverterType.hl7v2ToFhir, templateFolder.fsPath, dataFolder.fsPath);
+	const workspaceConfig = getDefaultConverterWorkspaceConfig(templateFolder.fsPath, dataFolder.fsPath);
 
 	// Save the workpace configuration
 	fileUtils.writeJsonToFile(workspacePath.fsPath, workspaceConfig);
@@ -51,7 +50,7 @@ export async function createConverterWorkspaceCommand() {
 	await vscode.commands.executeCommand('vscode.openFolder', workspacePath, false);
 }
 
-function getDefaultConverterWorkspaceConfig(converterType: ConverterType, templateFolder?: string, dataFolder?: string) {
+function getDefaultConverterWorkspaceConfig(templateFolder?: string, dataFolder?: string) {
 	const folderName = stringUtils.generatePrettyFolderName(templateFolder, localize('common.templateFolder.suffix'));
 	const folders: any[] = [];
 	const settings = {
@@ -67,7 +66,6 @@ function getDefaultConverterWorkspaceConfig(converterType: ConverterType, templa
 			'path': templateFolder
 		});
 		settings[`${configurationConstants.ConfigurationSection}.${configurationConstants.TemplateFolderKey}`] = templateFolder;
-		settings[`${configurationConstants.ConfigurationSection}.${configurationConstants.ConverterTypeKey}`] = converterType;
 
 		if (dataFolder) {
 			folders.push({

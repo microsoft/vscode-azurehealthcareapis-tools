@@ -1,6 +1,15 @@
+## 1.3.0 (2021-06-04)
+### Added
+* Support for converting data from C-CDA to FHIR with liquid templates
+
+### Updated
+* FHIR Converter Engine - v4.0.
+* Commands for pulling templates and sample data published by Microsoft (support Hl7v2 and C-CDA).
+
 ## 1.2.1 (2021-05-11)
 ### Added
 * Activation event when the workspace contains liquid files.
+
 ### Updated
 * FHIR Converter Engine - v3.5.1.
 

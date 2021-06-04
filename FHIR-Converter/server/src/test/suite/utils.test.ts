@@ -12,8 +12,13 @@ suite('Utils Test Suite', () => {
 	const testPath = path.join(__dirname, '../../../../test-data');
 
 	test('Function addUnderlineExt - should return the fullname of snippet template with underline and extension', () => {
+		const templateName = utils.addUnderlineExt('folder/snippet_template');
+		assert.strictEqual(templateName, 'folder/_snippet_template.liquid');
+	});
+
+	test('Function addUnderlineExt - should return the fullname of snippet template with extension but without underline', () => {
 		const templateName = utils.addUnderlineExt('snippet_template');
-		assert.strictEqual(templateName, '_snippet_template.liquid');
+		assert.strictEqual(templateName, 'snippet_template.liquid');
 	});
 
 	test('Function getSnippetTemplateName - should return the path of snippet template for completion', () => {
