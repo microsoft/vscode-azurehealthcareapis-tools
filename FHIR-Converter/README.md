@@ -1,6 +1,6 @@
 # FHIR Converter VS Code extension
 
-[![Build Status](https://microsofthealth.visualstudio.com/Health/_apis/build/status/Resolute/Converter/Dev-CI-SecurityAssessment-VSCode-Tools?branchName=main)](https://microsofthealth.visualstudio.com/Health/_build/latest?definitionId=531&branchName=main)
+[![Build Status](https://microsofthealthoss.visualstudio.com/FhirConverter/_apis/build/status/microsoft.vscode-azurehealthcareapis-tools?branchName=main)](https://microsofthealthoss.visualstudio.com/FhirConverter/_build/latest?definitionId=64&branchName=main)
 
 FHIR Converter VS Code Extension accompanies the following Microsoft products:
 1. [Azure API for FHIR](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/): A managed PaaS offering in Azure that enables rapid exchange of data through Fast Healthcare Interoperability Resources (FHIR®) APIs.
