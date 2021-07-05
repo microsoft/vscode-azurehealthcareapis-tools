@@ -6,26 +6,48 @@ steps:
   displayName: 'Install Node.js'
 
 - bash: |
-    /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-    echo ">>> Started xvfb"
-  displayName: Start xvfb
-  condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
-
-- bash: |
     echo ">>> Installing dependencies:"
     npm install typescript && npm install vsce && npm run postinstall
-  displayName: Install Dependencies
-  env:
-    DISPLAY: ':99.0'
+  displayName: Install dependencies
   workingDirectory: $(basicPath)
+
+- task: DownloadPipelineArtifact@2
+  inputs:
+    buildType: 'specific'
+    project: '3ec5df0c-1a0f-4dd5-92db-9a0b3fe70714'
+    definition: '48'
+    buildVersionToDownload: 'latestFromBranch'
+    branchName: refs/heads/main
+    itemPattern: 'nuget/Microsoft.Health.Fhir.Liquid.Converter.Tool**'
+    targetPath: $(Build.SourcesDirectory)/FHIR-Converter/client
+  displayName: Download FhirConverter artifact
+
+- task: ExtractFiles@1
+  inputs:
+    archiveFilePatterns: '**/Microsoft.Health.Fhir.Liquid.Converter.Tool**.nupkg'
+    destinationFolder: '$(Build.SourcesDirectory)/FHIR-Converter/client/engine-temp'
+    cleanDestinationFolder: true
+    overwriteExistingFiles: false
+  displayName: Extract artifact
+
+- bash: |
+    echo ">>> Moving files:"
+    if [ ! -d "engine" ]; then
+      mkdir engine
+    else
+      rm -r engine/*
+    fi
+    mv engine-temp/contentFiles/any/netcoreapp**/Microsoft.Health.Fhir.Liquid.Converter.Tool/* engine/
+    rm -r nuget engine-temp
+  workingDirectory: $(Build.SourcesDirectory)/FHIR-Converter/client
+  displayName: Move files
 
 - bash: |
     echo ">>> Testing project:"
     npm run test
   workingDirectory: $(basicPath)
-  displayName: Run Tests
-  env:
-    DISPLAY: ':99.0'
+  displayName: Run tests
+  condition: and(succeeded(), eq(variables['Agent.OS'], 'Windows'))
 
 - bash: |
     echo ">>> Packaging project:"
@@ -36,11 +58,9 @@ steps:
     echo "##vso[task.setvariable variable=packageVersion]$PACKAGE_VERSION"
   workingDirectory: $(basicPath)
   displayName: Package project
-  env:
-    DISPLAY: ':99.0'
 
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: $(basicPath)/$(packageName)-$(packageVersion).vsix
     artifactName: Artifact@$(imageName)
-  displayName: Publish Pipeline Artifact
+  displayName: Publish pipeline artifact
