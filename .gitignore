@@ -1,8 +1,9 @@
 # User-specific files
 coverage
+engine
 node_modules
 out
-result/
+result
 *.vsix
 *.rsuser
 *.suo

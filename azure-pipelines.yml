@@ -1,26 +1,27 @@
 trigger:
   branches:
     include:
-    - personal/yankhuan/converter-vsc-extension
     - main
-  tags:
-    include:
-    - v*
 
-jobs:
-- job: FHIR_Converter_CI_Tests
-  displayName: FHIR-Converter CI Tests
+stages: 
+- stage: FhirConverter
+  jobs:
+  - job: Build
+    displayName: FHIR Converter Build -
 
-  strategy:
-    matrix:
-      windows:
-        imageName: 'windows-2019'
+    strategy:
+      matrix:
+        Windows:
+          imageName: 'windows-latest'
+        MacOS:
+          imageName: "macos-latest"
+      maxParallel: 2
 
-  pool:
-    vmImage: $(imageName)
+    pool:
+      vmImage: $(imageName)
 
-  variables:
-    basicPath: $(Build.SourcesDirectory)/FHIR-Converter
+    variables:
+      basicPath: $(Build.SourcesDirectory)/FHIR-Converter
 
-  steps:
-  - template: ./fhir-converter-pipeline.yml
+    steps:
+    - template: ./fhir-converter-pipeline.yml
