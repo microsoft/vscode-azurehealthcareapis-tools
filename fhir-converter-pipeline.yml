@@ -6,17 +6,9 @@ steps:
   displayName: 'Install Node.js'
 
 - bash: |
-    /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
-    echo ">>> Started xvfb"
-  displayName: Start xvfb
-  condition: and(succeeded(), eq(variables['Agent.OS'], 'Linux'))
-
-- bash: |
     echo ">>> Installing dependencies:"
     npm install typescript && npm install vsce && npm run postinstall
   displayName: Install Dependencies
-  env:
-    DISPLAY: ':99.0'
   workingDirectory: $(basicPath)
 
 - bash: |
@@ -24,8 +16,7 @@ steps:
     npm run test
   workingDirectory: $(basicPath)
   displayName: Run Tests
-  env:
-    DISPLAY: ':99.0'
+  condition: and(succeeded(), eq(variables['Agent.OS'], 'Windows_NT'))
 
 - bash: |
     echo ">>> Packaging project:"
@@ -36,8 +27,6 @@ steps:
     echo "##vso[task.setvariable variable=packageVersion]$PACKAGE_VERSION"
   workingDirectory: $(basicPath)
   displayName: Package project
-  env:
-    DISPLAY: ':99.0'
 
 - task: PublishPipelineArtifact@1
   inputs:
