@@ -14,6 +14,7 @@ assets/**/*.gif
 azure-pipelines.yml
 client/.nyc_output/**
 client/coverage/**
+client/install-engine.sh
 client/out/test/**
 client/src/**
 client/test/**
