@@ -10,5 +10,5 @@ if [ ! -d "engine" ]; then
 else
     rm -r ./engine/*
 fi
-mv ./engine-tmp/contentFiles/any/netcoreapp**/Microsoft.Health.Fhir.Liquid.Converter.Tool/* ./engine/
+mv ./engine-tmp/contentFiles/any/netcoreapp*/Microsoft.Health.Fhir.Liquid.Converter.Tool/* ./engine/
 rm -r engine-tmp
