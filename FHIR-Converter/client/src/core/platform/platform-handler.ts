@@ -11,10 +11,12 @@ import * as cp from 'child_process';
 import * as engineConstants from '../common/constants/engine';
 import { TemplateManagementError } from '../common/errors/template-management-error';
 import * as path from 'path';
+import * as os from 'os';
 
 export class PlatformHandler {
 	private static _instance = new PlatformHandler();
 	private platformData: IPlatformData;
+	private supportedOS: Array<string> = ['win32', 'darwin'];
 	
 	private constructor() {
 		if (osUtils.isWindows()) {
@@ -33,18 +35,18 @@ export class PlatformHandler {
 	}
 
 	isSupporedOS(): Boolean {
-		if (!osUtils.isWindows() && !osUtils.isMac()) {
-			return false;
+		if (this.supportedOS.includes(os.platform())) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	extractOras() {
 		try {
 			if (osUtils.isMac()) {
-				const renameCmd = 'mv ' + engineConstants.DefaultEngineOrasName + ' ' + this.platformData.orasExecCmd;
-				const tarCmd =  'tar -zxvf ' + engineConstants.DefaultEngineOrasPackageName;
-				const cmd = tarCmd + ";" + renameCmd;
+				const renameCmd = `mv ${engineConstants.DefaultEngineOrasName} ${this.platformData.orasExecCmd}`;
+				const tarCmd =  `tar -zxvf ${engineConstants.DefaultEngineOrasPackageName}`;
+				const cmd = `${tarCmd}; ${renameCmd}`;
 				cp.execSync(cmd, {
 					cwd: engineConstants.DefaultEngineFolder
 				});

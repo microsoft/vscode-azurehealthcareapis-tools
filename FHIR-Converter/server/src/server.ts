@@ -146,8 +146,7 @@ connection.onDefinition(async (params: DefinitionParams): Promise<DefinitionLink
 		const relativeFilePath = utils.addUnderlineExt(match[1]);
 		const templateFolder = await getTemplateFolder(params.textDocument.uri);
 		if (utils.getAllTemplatePaths(templateFolder).some(uri => uri === relativeFilePath)) {
-			const filePrefix = templateFolder[0] === '/' ?  'file://' : 'file:///';
-			const fileUri =  filePrefix + templateFolder + '/' + relativeFilePath;
+			const fileUri =  utils.getFileUri(templateFolder, relativeFilePath);
 			const firstChar = {
 				start: {
 					line: 0,

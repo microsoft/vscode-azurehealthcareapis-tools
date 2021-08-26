@@ -80,5 +80,5 @@ export function getDigest(str: string) {
 }
 
 export function addQuotes(path) {
-	return '\"' + path + '\"';
+	return `"${path}"`;
 }
