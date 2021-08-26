@@ -35,6 +35,8 @@ export class AcrTemplateManager implements ITemplateManager {
 			cp.execSync(cmd);
 			return 'Logout succeeded.';
 		} catch (err) {
+			// On MAC system, if an application is not trusted, it will be killed. 
+			// In this way, there is no stderr, and the error information can be obtained through err.message
 			if (err.stderr) {
 				throw new TemplateManagementError(err.stderr.toString());
 			} else {

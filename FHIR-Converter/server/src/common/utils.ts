@@ -32,6 +32,8 @@ export function getAllTemplatePaths(directory: string): string[] {
 	return files;
 }
 
+// Handle the file protocol difference between different platforms (add 'file:///' before path), 
+// On Mac system, the file will start with '/' such as '/home/filename', so we just need to add 'file://'
 export function getFileUriPrefix(path: string) {
 	return path[0] === '/' ?  'file://' : 'file:///';
 }
