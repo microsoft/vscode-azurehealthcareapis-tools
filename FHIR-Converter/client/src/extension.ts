@@ -29,6 +29,7 @@ import { ConfigurationError } from './core/common/errors/configuration-error';
 import { converterWorkspaceExists } from './view/common/workspace/converter-workspace-exists';
 import { Reporter } from './telemetry/telemetry';
 import { checkCreateFolders } from './core/common/utils/file-utils';
+import { PlatformHandler } from './core/platform/platform-handler';
 
 let client: LanguageClient;
 
@@ -85,6 +86,9 @@ export async function activate(context: vscode.ExtensionContext) {
 	// Start the client. This will also launch the server
 	client = createLanguageClient(context);
 	client.start();
+
+	// Extract Oras
+	PlatformHandler.getInstance().extractOras();
 }
 
 export function deactivate(context: vscode.ExtensionContext): Thenable<void> | undefined {

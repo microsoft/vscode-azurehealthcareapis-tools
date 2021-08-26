@@ -6,7 +6,10 @@
 import * as path from 'path';
 
 export const DefaultResultFile = 'temp.json';
-export const DefaultHl7v2ExePath = path.join(__dirname, '../../../../engine/Microsoft.Health.Fhir.Liquid.Converter.Tool.exe');
+export const DefaultEngineExecCmd = 'dotnet Microsoft.Health.Fhir.Liquid.Converter.Tool.dll';
+export const DefaultEngineOrasPackageName = 'oras_osx_amd64.tar.gz';
+export const DefaultEngineOrasName = 'oras';
+export const DefaultEngineFolder = path.join(__dirname, '../../../../engine');
 export const TemplateFileExt = '.liquid';
 export const MaxHistoryFilesNum = 20;
 export const RemainHistoryFilesNum = 2;

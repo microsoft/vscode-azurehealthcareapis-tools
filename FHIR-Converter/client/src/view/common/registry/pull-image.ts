@@ -7,6 +7,7 @@ import localize from '../../../i18n/localize';
 import * as vscode from 'vscode';
 import * as interaction from '../../common/file-dialog/file-dialog-interaction';
 import { TemplateManagerFactory } from '../../../core/template-manager/template-manager-factory';
+import { PlatformHandler } from '../../../core/platform/platform-handler';
 import * as fileUtils from '../../../core/common/utils/file-utils'; 
 import * as cp from 'child_process';
 import * as path from 'path';
@@ -55,7 +56,8 @@ export async function pullImage(imageReference, text) {
 		vscode.window.showInformationMessage(output.replace(/\n/g, '; '), buttonLabel)
 		.then( (selected) => {
 			if (selected === buttonLabel) {
-				cp.exec(`explorer.exe "${outputFolder.fsPath}"`);
+				const openFolderCmd = PlatformHandler.getInstance().getPlatformData().openFolderCmd;
+				cp.exec(`${openFolderCmd} "${outputFolder.fsPath}"`);
 			}
 		});
 	} finally {

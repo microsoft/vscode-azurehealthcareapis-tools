@@ -78,3 +78,7 @@ export function getDigest(str: string) {
 	}
 	return result[0];
 }
+
+export function addQuotes(path) {
+	return '\"' + path + '\"';
+}

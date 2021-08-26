@@ -10,6 +10,7 @@ import * as fileUtils from '../../core/common/utils/file-utils';
 import * as stringUtils from '../../core/common/utils/string-utils';
 import * as configurationConstants from '../../core/common/constants/workspace-configuration';
 import * as path from 'path';
+import { PlatformHandler } from '../../core/platform/platform-handler';
 
 export async function createConverterWorkspaceCommand() {
 	let templateFolder: vscode.Uri;
@@ -31,11 +32,13 @@ export async function createConverterWorkspaceCommand() {
 		return undefined;
 	}
 
+	const defaultWorkspaceUri = PlatformHandler.getInstance().getDefaultWorkspaceUri(parentFolder);
+	
 	// Select workspace path
 	workspacePath = await interaction.showDialogSaveWorkspace(
 		localize('message.saveWorkspaceFileAs'), 
 		configurationConstants.WorkspaceFileExtension,
-		parentFolder);
+		defaultWorkspaceUri);
 	if (!workspacePath) {
 		return undefined;
 	}
