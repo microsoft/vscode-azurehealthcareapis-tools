@@ -34,7 +34,7 @@ export class PlatformHandler {
 		return this.platformData;
 	}
 
-	isSupporedOS(): Boolean {
+	isSupportedOS(): Boolean {
 		if (this.supportedOS.includes(os.platform())) {
 			return true;
 		}

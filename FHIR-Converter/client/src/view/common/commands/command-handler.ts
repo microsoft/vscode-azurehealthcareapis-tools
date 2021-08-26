@@ -17,7 +17,7 @@ const commandsNeedWorkspace = ['selectDataCommand', 'selectTemplateCommand', 'co
 export async function commandHandler(event) {
 	try {
 		// Check if the operating system is supported.
-		if (!PlatformHandler.getInstance().isSupporedOS()) {
+		if (!PlatformHandler.getInstance().isSupportedOS()) {
 			throw new ConversionError(localize('message.osNotSupported'));
 		}
 		
