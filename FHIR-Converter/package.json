@@ -51,6 +51,12 @@
 		"workspaceContains:**/*.liquid"
 	],
 	"main": "./client/out/extension.js",
+	"capabilities": {
+		"untrustedWorkspaces": {
+			"supported": true
+		},
+		"virtualWorkspaces": false
+	},
 	"contributes": {
 		"commands": [
 			{
