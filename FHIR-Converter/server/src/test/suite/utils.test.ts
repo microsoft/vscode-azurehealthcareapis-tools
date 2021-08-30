@@ -22,9 +22,9 @@ suite('Utils Test Suite', () => {
 	});
 
 	test('Function getSnippetTemplateName - should return the path of snippet template for completion', () => {
-		let completionString = utils.getSnippetTemplateName('.\\Resource', '_Patient.liquid');
+		let completionString = utils.getSnippetTemplateName('Resource', '_Patient.liquid');
 		assert.strictEqual(completionString, "\'Resource/Patient\'");
-		completionString = utils.getSnippetTemplateName('.\\Reference\\Account', '_Coverage_Coverage.liquid');
+		completionString = utils.getSnippetTemplateName(path.join('Reference','Account'), '_Coverage_Coverage.liquid');
 		assert.strictEqual(completionString, "\'Reference/Account/Coverage_Coverage\'");
 	});
 

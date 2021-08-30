@@ -4,40 +4,57 @@
  */
 
 import * as cp from 'child_process';
-import * as templateManagementConstants from '../common/constants/template-management';
+import * as engineConstants from '../common/constants/engine';
+import * as stringUtils from '../common/utils/string-utils';
 import { TemplateManagementError } from '../../core/common/errors/template-management-error';
 import { ITemplateManager } from './template-manager';
+import { PlatformHandler } from '../platform/platform-handler';
+import * as path from 'path';
 
 export class AcrTemplateManager implements ITemplateManager {
-	private _orasExePath: string;
-	private _templateManagementExePath: string;
-	
-	constructor (templateManagementExePath = templateManagementConstants.DefaultTemplateManagementExePath, orasExePath = templateManagementConstants.DefaultOrasExePath) {
-		this._templateManagementExePath = templateManagementExePath;
-		this._orasExePath = orasExePath;
+	private _orasExecCmd: string;
+	private _engineExecCmd: string;
+
+	constructor (engineExecCmd = engineConstants.DefaultEngineExecCmd, 
+		orasExecCmd = PlatformHandler.getInstance().getPlatformData().orasExecCmd) {
+		this._engineExecCmd = engineExecCmd;
+		this._orasExecCmd = orasExecCmd;
 	}
 
 	login(registryName: string) {
 		// Return cmd string to use terminal
-		return `${this._orasExePath} login ${registryName}`;
+		const orasExecCmd = path.join(engineConstants.DefaultEngineFolder, this._orasExecCmd);
+		return `${orasExecCmd} login ${registryName}`;
 	}
 
 	logout(registryName: string) {
 		try {
-			cp.execFileSync(this._orasExePath, ['logout', registryName]);
+			const orasExecCmd = path.join(engineConstants.DefaultEngineFolder, this._orasExecCmd);
+			const paramList = [' logout', registryName];
+			const cmd =  orasExecCmd + paramList.join(' ');
+			cp.execSync(cmd);
 			return 'Logout succeeded.';
 		} catch (err) {
-			throw new TemplateManagementError(err.stderr.toString());
+			// On MAC system, if an application is not trusted, it will be killed. 
+			// In this way, there is no stderr, and the error information can be obtained through err.message
+			if (err.stderr) {
+				throw new TemplateManagementError(err.stderr.toString());
+			} else {
+				throw new TemplateManagementError(err.message);
+			}
 		}
 	}
 
 	pullTemplates(imageReference: string, outputFolder: string, force: boolean) {
 		try {
-			const paramList = ['pull', imageReference, outputFolder];
+			const paramList = [' pull', stringUtils.addQuotes(imageReference), stringUtils.addQuotes(outputFolder)];
 			if (force) {
 				paramList.push('-f');
 			}
-			const output = cp.execFileSync(this._templateManagementExePath, paramList);
+			const cmd =  this._engineExecCmd + paramList.join(' ');
+			const output = cp.execSync(cmd, {
+				cwd: engineConstants.DefaultEngineFolder
+			});
 			return output.toString();
 		} catch (err) {
 			throw new TemplateManagementError(err.stderr.toString());
@@ -46,7 +63,11 @@ export class AcrTemplateManager implements ITemplateManager {
 
 	pushTemplates(imageReference: string, inputFolder: string) {
 		try {
-			const output = cp.execFileSync(this._templateManagementExePath, ['push', imageReference, inputFolder]);
+			const paramList = [' push', stringUtils.addQuotes(imageReference), stringUtils.addQuotes(inputFolder)];
+			const cmd =  this._engineExecCmd + paramList.join(' ');
+			const output = cp.execSync(cmd, {
+				cwd: engineConstants.DefaultEngineFolder
+			});
 			return output.toString();
 		} catch (err) {
 			throw new TemplateManagementError(err.stderr.toString());

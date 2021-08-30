@@ -26,8 +26,19 @@ export function getSnippetTemplateName(dirname: string, basename: string): strin
 	return "\'" + path.join(dirname, basename).replace(constants.EngineTemplateFileExt, '').replace(/\\/g, '/') + "\'";
 }
 
-export  function getAllTemplatePaths(directory: string): string[] {
+export function getAllTemplatePaths(directory: string): string[] {
 	const searchPattern = directory + `/**/*${constants.EngineTemplateFileExt}`;
 	const files: string[] = glob.sync(searchPattern, {}).map(uri => path.relative(directory, uri).replace(/\\/g, '/'));
 	return files;
+}
+
+// Handle the file protocol difference between different platforms (add 'file:///' before path), 
+// On Mac system, the file will start with '/' such as '/home/filename', so we just need to add 'file://'
+export function getFileUriPrefix(path: string) {
+	return path[0] === '/' ?  'file://' : 'file:///';
+}
+
+export function getFileUri(folder: string, file: string) {
+	const prefix = getFileUriPrefix(folder);
+	return `${prefix}${folder}/${file}`;
 }

@@ -94,4 +94,16 @@ suite('String Utils Test Suite', () => {
 		const actualList = stringUtils.getDescendingSortString(list);
 		assert.deepStrictEqual(actualList, expectedList);
 	});
+
+	test('Function addQuotes - should return a string with quotes', () => {
+		const actualList = stringUtils.addQuotes('./test path');
+		const expectedList = '\"./test path\"'
+		assert.deepStrictEqual(actualList, expectedList);
+	});
+	
+	test('Function addQuotes - should keep the quotes when the path has quotes', () => {
+		const actualList = stringUtils.addQuotes('\"./test path\"');
+		const expectedList = '\"./test path\"'
+		assert.deepStrictEqual(actualList, expectedList);
+	});
 });

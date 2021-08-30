@@ -4,6 +4,7 @@
 **/tslint.json
 **/@types/**
 *.vsix
+.DS_Store
 .gitignore
 .mocha-reporter/**
 .vscode/**

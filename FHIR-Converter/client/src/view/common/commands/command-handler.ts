@@ -10,14 +10,14 @@ import { ConversionError } from '../../../core/common/errors/conversion-error';
 import { ConfigurationError } from '../../../core/common/errors/configuration-error';
 import * as configurationConstants from '../../../core/common/constants/workspace-configuration';
 import { reporter } from '../../../telemetry/telemetry';
-import * as osUtils from '../../../core/common/utils/os-utils';
+import { PlatformHandler } from '../../../core/platform/platform-handler';
 
 const commandsNeedWorkspace = ['selectDataCommand', 'selectTemplateCommand', 'convertCommand', 'updateTemplateFolderCommand'];
 
 export async function commandHandler(event) {
 	try {
 		// Check if the operating system is supported.
-		if (!osUtils.isWindows()) {
+		if (!PlatformHandler.getInstance().isSupportedOS()) {
 			throw new ConversionError(localize('message.osNotSupported'));
 		}
 		

@@ -3,7 +3,7 @@ coverage
 engine
 node_modules
 out
-result
+**/test-data/result
 *.vsix
 *.rsuser
 *.suo
@@ -11,5 +11,6 @@ result
 *.userosscache
 *.sln.docstates
 *.log
+.DS_Store
 .nyc_output
 .vscode-test

@@ -8,3 +8,7 @@ import * as os from 'os';
 export function isWindows(): boolean {
 	return os.platform() === 'win32';
 }
+
+export function isMac(): boolean {
+	return os.platform() === 'darwin';
+}

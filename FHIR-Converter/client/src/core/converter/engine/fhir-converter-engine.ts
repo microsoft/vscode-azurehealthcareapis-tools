@@ -15,16 +15,16 @@ import * as engineUtils from '../../common/utils/engine-utils';
 import * as fileUtils from '../../common/utils/file-utils';
 
 export class FhirConverterEngine implements IConverterEngine {
-	private _exePath: string;
+	private _engineExecCmd: string;
 	private _templateFolder: string;
 	private _rootTemplate: string;
 	private _resultFolder: string;
 
-	constructor(templateFolder: string, rootTemplate: string, resultFolder: string, exePath: string = engineConstants.DefaultHl7v2ExePath) {
+	constructor(templateFolder: string, rootTemplate: string, resultFolder: string, engineExecCmd: string = engineConstants.DefaultEngineExecCmd) {
 		this._templateFolder = templateFolder;
 		this._rootTemplate = rootTemplate;
 		this._resultFolder = resultFolder;
-		this._exePath = exePath;
+		this._engineExecCmd = engineExecCmd;
 	}
 
 	process(dataFile: string) {
@@ -43,8 +43,17 @@ export class FhirConverterEngine implements IConverterEngine {
 		const resultFile = path.join(this._resultFolder, stringUtils.getResultFileName(dataFile, this._rootTemplate, timestamp));
 		const defaultResultFile = path.join(this._resultFolder, engineConstants.DefaultResultFile);
 		const rootTemplate = stringUtils.getFileNameWithoutExt(this._rootTemplate);
+		const paramList = [' convert', 
+			'-d', stringUtils.addQuotes(this._templateFolder), 
+			'-r',  stringUtils.addQuotes(rootTemplate), 
+			'-n', stringUtils.addQuotes(dataFile), 
+			'-f', stringUtils.addQuotes(defaultResultFile), 
+			'-t'];
+		const cmd =  this._engineExecCmd + paramList.join(' ');
 		try {
-			cp.execFileSync(this._exePath, ['convert', '-d', this._templateFolder, '-r',  rootTemplate, '-n', dataFile, '-f', defaultResultFile, '-t']);
+			cp.execSync(cmd, {
+				cwd: engineConstants.DefaultEngineFolder
+			});
 		} catch (err) {
 			throw new ConversionError(err.stderr.toString());
 		}

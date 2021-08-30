@@ -78,3 +78,11 @@ export function getDigest(str: string) {
 	}
 	return result[0];
 }
+
+export function addQuotes(path: string) {
+	if (! (path.startsWith("\"") && path.endsWith("\""))) {
+		return `"${path}"`;
+	 } else {
+		return path;
+	}
+}
