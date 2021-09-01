@@ -1,3 +1,11 @@
+## 1.4.0 (2021-09-*)
+### Added
+* Support for macOS.
+
+### Updated
+* Keyboard shortcuts of pulling sample data and Microsoft templates.
+* FHIR Converter Engine - *. (Note: I will update it after the tool is released.)
+
 ## 1.3.0 (2021-06-04)
 ### Added
 * Support for converting data from C-CDA to FHIR with liquid templates
