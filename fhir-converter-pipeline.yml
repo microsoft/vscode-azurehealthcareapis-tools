@@ -13,7 +13,7 @@ steps:
 
 - bash: |
     echo ">>> Testing project:"
-    npm run test
+    npm run download-templates && npm run test
   workingDirectory: $(basicPath)
   displayName: Run Tests
 
