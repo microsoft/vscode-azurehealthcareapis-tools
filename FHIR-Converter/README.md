@@ -13,7 +13,7 @@ This extension provides an interactive editing and verification experience to cr
 
 ## Getting started
 
-Before using the extension, you need to confirm whether the [.Net Core](https://dotnet.microsoft.com/download) is installed in your machine. If not, you should download it first.
+Before using the extension, you need to confirm whether the [.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1) is installed in your machine. If not, you should download it first.
 
 After you have installed the extension, follow these steps to edit the templates:
 1. Login to your ACR if needed.
