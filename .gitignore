@@ -3,6 +3,7 @@ coverage
 engine
 node_modules
 out
+**/test-data/templates
 **/test-data/result
 *.vsix
 *.rsuser
