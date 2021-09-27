@@ -5,6 +5,11 @@
 
 import * as vscode from 'vscode';
 import * as path from 'path';
+import * as fileUtils from '../../../core/common/utils/file-utils';
+import localize from '../../../i18n/localize';
+import { showQuickPick } from '../../common/input/quick-pick';
+import { TemplateType } from '../../../core/common/enum/template-type';
+import { MetadataType } from '../../../core/common/enum/metadata-type';
 
 export async function openDialogSelectFolder(label: string, defaultUri: string | undefined = undefined) {
 	const options = { canSelectMany: false, canSelectFiles: false, canSelectFolders: true, openLabel: label };
@@ -37,6 +42,23 @@ export async function askSaveFiles(unsavedFiles: vscode.TextDocument[], infoMess
 	.then(async function (select) {
 		if (select === acceptButtonLabel) {
 			await saveAllFiles(unsavedFiles);
+		}
+	});
+}
+
+export async function askCreateMetadata(infoMessage: string, createButtonLabel: string, templateFolder: string) {
+	return await vscode.window.showErrorMessage(infoMessage, createButtonLabel)
+	.then(async function (select) {
+		if (select === createButtonLabel) {
+			const selectedTemplateType = await showQuickPick(localize('message.selectTemplateType'), Object.values(TemplateType));
+			let metadata: object;
+			if (selectedTemplateType === TemplateType.ccda)
+				metadata = { type: MetadataType.ccda };
+			else if (selectedTemplateType === TemplateType.hl7v2)
+				metadata = { type: MetadataType.hl7v2 };
+			const metadataPath = path.join(templateFolder, 'metadata.json');
+			fileUtils.writeJsonToFile(metadataPath, metadata);
+			vscode.window.showInformationMessage(localize('message.createdMetadata', templateFolder))
 		}
 	});
 }

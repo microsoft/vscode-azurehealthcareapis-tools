@@ -55,6 +55,9 @@
 	"message.selectTemplateVesion": "Select template version",
 	"message.selectTemplateType": "Select template type",
 	"message.selectSampleDataType": "Select sample data type",
+	"message.createMetadata": "Create metadata.json",
+	"message.noMetadata": "Could not find metadata.json in template directory: {0}. Please create metadata.json before converting data.",
+	"message.createdMetadata": "Created metadata.json in {0} successfully.",
 	"common.templateFolder.suffix": "(Templates)",
 	"common.template": "template",
 	"common.data": "data"
