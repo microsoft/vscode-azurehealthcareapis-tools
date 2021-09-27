@@ -9,9 +9,11 @@ FHIR Converter VS Code Extension accompanies the following Microsoft products:
 
 These products have the capability to convert HL7v2 and C-CDA data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 and C-CDA to FHIR conversion.
 
-This extension provides an interactive editing and verification experience to create new templates and customize the default templates to meet specific needs.
+This extension provides an interactive editing and verification experience to create new templates and customize the default templates to meet specific needs. Currently, this extension is available on Windows and macOS system.
 
 ## Getting started
+
+Before using the extension, you need to confirm whether the [.Net Core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1) is installed in your machine. If not, you should download it first.
 
 After you have installed the extension, follow these steps to edit the templates:
 1. Login to your ACR if needed.
@@ -47,7 +49,7 @@ You can logout from the ACR by running the command `FHIR Converter: Logout regis
 
 ### 2. Pull templates
 
-You can use the command `FHIR Converter: Pull Microsoft templates (Ctrl + D)` to pull the default templates publicly published by Microsoft:
+You can use the command `FHIR Converter: Pull Microsoft templates (Ctrl + T)` to pull the default templates publicly published by Microsoft:
 - Select a specific template type.
 - Select a specific version.
 - Select the output folder to store the templates.
@@ -63,7 +65,7 @@ If you want to pull templates from your private registry, you can use the comman
 
 ### 3. Pull sample data
 
-If you need, you can use the command `FHIR Converter: Pull sample data (Ctrl + T)` to pull the sample data published by Microsoft:
+If you need, you can use the command `FHIR Converter: Pull sample data (Ctrl + D)` to pull the sample data published by Microsoft:
 - Select a specific template type.
 - Select the output folder to store the data. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
 
@@ -115,7 +117,7 @@ After modifying the templates or data, remember to save the template files or da
 
 ![editing](assets/editing.gif)
 
-If you want to jump into the snippet templates to make some modification, you can select the context menu item `Go to Definition (F12)`  or press the keyboard shortcut `Ctrl + Click` when hovering over the snippet templates. If you just hover over the snippet templates and press `Ctrl`, a quick content preview of snippet templates will be shown for you.
+If you want to jump into the snippet templates to make some modification, you can select the context menu item `Go to Definition (F12)`  or press the keyboard shortcut `Ctrl + Click (Windows) / ⌘ + Click (macOS)` when hovering over the snippet templates. If you just hover over the snippet templates and press `Ctrl / ⌘`, a quick content preview of snippet templates will be shown for you.
 
 Currently, the following features for snippet templates editing are supported:
 
