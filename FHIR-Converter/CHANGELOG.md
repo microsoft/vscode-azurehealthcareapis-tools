@@ -1,6 +1,7 @@
 ## 1.4.0
 ### Added
 * Support for macOS.
+* Feature to detect and create metadata.json file when converting data
 
 ### Updated
 * Keyboard shortcuts of pulling sample data and Microsoft templates.

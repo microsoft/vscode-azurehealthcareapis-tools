@@ -3,12 +3,12 @@
  * Licensed under the MIT License. See License in the project root for license information.
  */
 
-import * as errorHandler from '../../../core/common/errors/error-handler';
+import * as errorHandler from '../error/error-handler';
+import * as configurationConstants from '../../../core/common/constants/workspace-configuration';
 import localize from '../../../i18n/localize';
 import { converterWorkspaceExists } from '../workspace/converter-workspace-exists';
 import { ConversionError } from '../../../core/common/errors/conversion-error';
 import { ConfigurationError } from '../../../core/common/errors/configuration-error';
-import * as configurationConstants from '../../../core/common/constants/workspace-configuration';
 import { reporter } from '../../../telemetry/telemetry';
 import { PlatformHandler } from '../../../core/platform/platform-handler';
 
@@ -35,6 +35,6 @@ export async function commandHandler(event) {
 		reporter.sendTelemetryEvent('command', { command: this.name }, { costTime: costTime } );
 	} catch (error) {
 		// Handle the error
-		errorHandler.handle(error);
+		await errorHandler.handle(error);
 	}
 }
