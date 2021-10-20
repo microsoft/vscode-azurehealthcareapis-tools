@@ -5,5 +5,5 @@
 
 export enum TemplateType { 
 	ccda = 'C-CDA', 
-	hl7v2 = 'HL7v2' 
+	hl7v2 = 'HL7v2'
 }

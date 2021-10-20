@@ -1,3 +1,7 @@
+## 1.4.1
+### Added
+* Support for converting data from JSON to FHIR with liquid templates
+
 ## 1.4.0
 ### Added
 * Support for macOS.

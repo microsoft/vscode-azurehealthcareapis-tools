@@ -3,7 +3,7 @@
 	"publisher": "ms-azuretools",
 	"displayName": "FHIR Converter",
 	"description": "Enables the conversion of legacy formatted health data to FHIR, expanding the use cases for health data and enabling interoperability.",
-	"version": "1.4.0",
+	"version": "1.4.1",
 	"license": "MIT",
 	"preview": true,
 	"homepage": "https://github.com/microsoft/vscode-azurehealthcareapis-tools/blob/main/FHIR-Converter/README.md",
@@ -73,7 +73,7 @@
 			},
 			{
 				"command": "microsoft.health.fhir.converter.selectData",
-				"title": "FHIR Converter: Select as data (*.hl7, *.ccda or *.xml)"
+				"title": "FHIR Converter: Select as data (*.[hl7|ccda|json|xml])"
 			},
 			{
 				"command": "microsoft.health.fhir.converter.createConverterWorkspace",
@@ -128,7 +128,7 @@
 				{
 					"command": "microsoft.health.fhir.converter.selectData",
 					"group": "1_converter",
-					"when": "resourceExtname == .hl7 || resourceExtname == .ccda || resourceExtname == .xml"
+					"when": "resourceExtname == .hl7 || resourceExtname == .ccda || resourceExtname == .xml || resourceExtname == .json"
 				}
 			],
 			"editor/context": [

@@ -18,13 +18,8 @@ export async function pullOfficialTemplatesCommand() {
 	// Get the template type
 	const selectedTemplateType = await showQuickPick(localize('message.selectTemplateType'), Object.values(TemplateType));
 	let tagsUrl, templateImageBaseReference;
-	if(selectedTemplateType == TemplateType.hl7v2) {
-		tagsUrl = constants.Hl7v2TagsUrl;
-		templateImageBaseReference = constants.Hl7v2ImageBaseReference;
-	} else if (selectedTemplateType == TemplateType.ccda) {
-		tagsUrl = constants.CcdaTagsUrl;
-		templateImageBaseReference = constants.CcdaImageBaseReference;
-	}
+	tagsUrl = constants.ImageTagsUrls[selectedTemplateType];
+	templateImageBaseReference = constants.TemplateImageBaseReferences[selectedTemplateType];
 	
 	if (tagsUrl && templateImageBaseReference) {
 		const tags = await getAcrTags(tagsUrl, token);
