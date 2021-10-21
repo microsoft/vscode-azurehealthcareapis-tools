@@ -7,7 +7,7 @@ FHIR Converter VS Code Extension accompanies the following Microsoft products:
 2. [FHIR Server for Azure](https://github.com/microsoft/fhir-server): An open-source implementation of the [HL7 FHIR](https://www.hl7.org/fhir/) specification designed for the Microsoft cloud.
 3. [FHIR Converter OSS](https://github.com/microsoft/FHIR-Converter): An open-source project that enables conversion of health data from legacy format to FHIR.
 
-These products have the capability to convert HL7v2 and C-CDA data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 and C-CDA to FHIR conversion.
+These products have the capability to convert HL7v2, C-CDA and JSON data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 and C-CDA to FHIR conversion, as well as sample templates for JSON to FHIR conversion.
 
 This extension provides an interactive editing and verification experience to create new templates and customize the default templates to meet specific needs. Currently, this extension is available on Windows and macOS system.
 
@@ -17,7 +17,7 @@ Before using the extension, you need to confirm whether the [.Net Core 3.1](http
 
 After you have installed the extension, follow these steps to edit the templates:
 1. Login to your ACR if needed.
-2. Get starting templates and put those in a folder. You can also use the templates published by Microsoft by following the instructions below.
+2. Get starting templates and put those in a folder. You can also use the sample templates published by Microsoft by following the instructions below.
 3. Get sample data for testing. You can use the sample data provided by Microsoft by following the instructions.
 4. Create a new converter workspace by pressing CTRL+W. You will select the root template folder and the data folder during the process.
 5. Select template file and test data file using the context menu.
@@ -35,7 +35,7 @@ See relevant service documentation for using the templates in data conversion pr
 
 ### 1. Login to ACR (Azure Container Registry)
 
-You need to login to your ACR with push or pull permission if you want to push or pull templates from there. Otherwise, you can skip this step. You do not need to login to pull templates and sample data published by Microsoft.
+You need to login to your ACR with push or pull permission if you want to push or pull templates from there. Otherwise, you can skip this step. You do not need to login to pull sample templates and sample data published by Microsoft.
 
 Use the command `FHIR Converter: Login to Azure Container Registry (Ctrl + I)`:
 - Type in the name of your ACR `<registry-name>.azurecr.io`, and press enter. It will open the terminal and run the oras tool.
@@ -49,14 +49,14 @@ You can logout from the ACR by running the command `FHIR Converter: Logout regis
 
 ### 2. Pull templates
 
-You can use the command `FHIR Converter: Pull Microsoft templates (Ctrl + T)` to pull the default templates publicly published by Microsoft:
+You can use the command `FHIR Converter: Pull sample templates (Ctrl + T)` to pull the sample templates publicly published by Microsoft:
 - Select a specific template type.
 - Select a specific version.
 - Select the output folder to store the templates.
 
 ![pull-default-templates](assets/pull-default-templates.gif)
 
-If you want to pull templates from your private registry, you can use the command `FHIR Converter: Pull templates (Ctrl + L)` to pull templates:
+If you want to pull templates from your private registry, you can use the command `FHIR Converter: Pull custom templates (Ctrl + L)` to pull templates:
 - Login to ACR if needed by following Step 1.
 - Enter your image reference `<registry-name>.azurecr.io/<image-name><:tag|@digest>` (image name should be lower case). 
 - Select the output folder to store the templates. If the output folder is not empty, a prompt will pop up. If you choose to force overwrite, the files with the same name will be overwritten in the output folder.
@@ -77,7 +77,7 @@ If the converter workspace has not been created, you need to create a new conver
 
 After the command is triggered, following actions will be needed to create a workspace:
 
-- Select a root template folder. You can point to the folder containing Microsoft templates if you have fetched those.
+- Select a root template folder. You can point to the folder containing sample templates if you have fetched those.
 
 - Select a data folder.
   
@@ -101,7 +101,7 @@ If a converter workspace is already opened and you want to switch to another con
 
 In a converter workspace, template files and data files are shown in the explorer view. To start template editing, select a template file and a data file.
 
-To select a file as the root template file, right click on the file having extension `.liquid` in the explorer view and select the menu item `FHIR Converter: Select as template (*.liquid)`. Similarly, to select a data file, right click on the data file having extension `.hl7`, `.ccda` or `.xml` and select the menu item `FHIR Converter: Select as data file (*.hl7, *.ccda or *.xml)`.
+To select a file as the root template file, right click on the file having extension `.liquid` in the explorer view and select the menu item `FHIR Converter: Select as template (*.liquid)`. Similarly, to select a data file, right click on the data file having extension `.hl7`, `.ccda`, `.json` or `.xml` and select the menu item `FHIR Converter: Select as data file (*.[hl7|ccda|json|xml])`.
 
 Both template file and data file are necessary, and you can view the selected files in the status bar before converting Data. If one of them is missing, you will be prompted to select the missing one. If both template file and data file are selected, you can convert data by selecting the context menu item `FHIR Converter: Convert data` or using the keyboard shortcut (`Ctrl + R`), and the result will be shown in results pane.
 
@@ -130,9 +130,9 @@ Currently, the following features for snippet templates editing are supported:
 
 ### 8. Push templates
 
-After modifying the templates, you can save and push the templates to your private ACR. You must be logged in to your ACR in order to push the templates.
+After modifying the templates, you can save and push the custom templates to your private ACR. You must be logged in to your ACR in order to push the templates.
 
-You can use the command `FHIR Converter: Push templates (Ctrl + H)` to push templates:
+You can use the command `FHIR Converter: Push custom templates (Ctrl + H)` to push templates:
 - Enter the image reference `<registry-name>.azurecr.io/<image-name>:<tag>`(image name should be lowcase). 
 - If template folder exists in workspace, the location of template folder will be opened by default. In any case, you need to make sure to select a folder to be pushed to ACR.
 

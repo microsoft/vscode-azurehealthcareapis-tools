@@ -7,20 +7,24 @@ import { TemplateType } from '../enum/template-type'
 const OfficialLoginServer = 'healthplatformregistry.azurecr.io';
 const Hl7v2TemplatesImage = 'hl7v2defaulttemplates';
 const CcdaTemplatesImage = 'ccdadefaulttemplates';
+const JsonTemplatesImage = 'jsondefaulttemplates';
 
 export const OfficialRepoTokenUrl = `https://${OfficialLoginServer}/oauth2/token?scope=repository:*:*&service=${OfficialLoginServer}`;
 
 export const ImageTagsUrls = {
 	[TemplateType.hl7v2]: `https://${OfficialLoginServer}/acr/v1/${Hl7v2TemplatesImage}/_tags`,
-	[TemplateType.ccda]: `https://${OfficialLoginServer}/acr/v1/${CcdaTemplatesImage}/_tags`
+	[TemplateType.ccda]: `https://${OfficialLoginServer}/acr/v1/${CcdaTemplatesImage}/_tags`,
+	[TemplateType.json]: `https://${OfficialLoginServer}/acr/v1/${JsonTemplatesImage}/_tags`
 };
 
 export const SampleDataImageReferences = {
 	[TemplateType.hl7v2]: `${OfficialLoginServer}/hl7v2sampledata:latest`,
-	[TemplateType.ccda]: `${OfficialLoginServer}/ccdasampledata:latest`
+	[TemplateType.ccda]: `${OfficialLoginServer}/ccdasampledata:latest`,
+	[TemplateType.json]: `${OfficialLoginServer}/jsonsampledata:latest`
 };
 
 export const TemplateImageBaseReferences = {
 	[TemplateType.hl7v2]: `${OfficialLoginServer}/${Hl7v2TemplatesImage}`,
-	[TemplateType.ccda]: `${OfficialLoginServer}/${CcdaTemplatesImage}`
+	[TemplateType.ccda]: `${OfficialLoginServer}/${CcdaTemplatesImage}`,
+	[TemplateType.json]: `${OfficialLoginServer}/${JsonTemplatesImage}`
 };

@@ -81,11 +81,11 @@
 			},
 			{
 				"command": "microsoft.health.fhir.converter.pullTemplates",
-				"title": "FHIR Converter: Pull templates"
+				"title": "FHIR Converter: Pull custom templates"
 			},
 			{
 				"command": "microsoft.health.fhir.converter.pullOfficialTemplates",
-				"title": "FHIR Converter: Pull Microsoft templates"
+				"title": "FHIR Converter: Pull sample templates"
 			},
 			{
 				"command": "microsoft.health.fhir.converter.pullSampleData",
@@ -93,7 +93,7 @@
 			},
 			{
 				"command": "microsoft.health.fhir.converter.pushTemplates",
-				"title": "FHIR Converter: Push templates"
+				"title": "FHIR Converter: Push custom templates"
 			},
 			{
 				"command": "microsoft.health.fhir.converter.loginRegistry",
