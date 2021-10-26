@@ -7,7 +7,7 @@ FHIR Converter VS Code Extension accompanies the following Microsoft products:
 2. [FHIR Server for Azure](https://github.com/microsoft/fhir-server): An open-source implementation of the [HL7 FHIR](https://www.hl7.org/fhir/) specification designed for the Microsoft cloud.
 3. [FHIR Converter OSS](https://github.com/microsoft/FHIR-Converter): An open-source project that enables conversion of health data from legacy format to FHIR.
 
-These products have the capability to convert HL7v2, C-CDA and JSON data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 and C-CDA to FHIR conversion, as well as sample templates for JSON to FHIR conversion.
+These products have the capability to convert HL7v2, C-CDA and JSON data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 and C-CDA to FHIR conversion, as well as sample templates for JSON to FHIR conversion. JSON messages do not have a standardized message type structure like HL7v2 or C-CDA do, so we provide you with sample JSON messages and the corresponding liquid templates for you to easily modify per your own JSON.
 
 This extension provides an interactive editing and verification experience to create new templates and customize the default templates to meet specific needs. Currently, this extension is available on Windows and macOS system.
 
@@ -97,7 +97,7 @@ If a converter workspace is already opened and you want to switch to another con
 
 ![open-switch-workspace](assets/open-switch-workspace.gif)
 
-### 6. Convert the HL7v2/C-CDA messages into FHIR bundles
+### 6. Convert messages into FHIR bundles
 
 In a converter workspace, template files and data files are shown in the explorer view. To start template editing, select a template file and a data file.
 
