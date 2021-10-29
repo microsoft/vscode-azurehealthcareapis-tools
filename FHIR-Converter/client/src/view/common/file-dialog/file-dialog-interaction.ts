@@ -8,7 +8,6 @@ import * as path from 'path';
 import * as fileUtils from '../../../core/common/utils/file-utils';
 import localize from '../../../i18n/localize';
 import { showQuickPick } from '../../common/input/quick-pick';
-import { TemplateType } from '../../../core/common/enum/template-type';
 import { MetadataType } from '../../../core/common/enum/metadata-type';
 
 export async function openDialogSelectFolder(label: string, defaultUri: string | undefined = undefined) {
@@ -50,12 +49,8 @@ export async function askCreateMetadata(infoMessage: string, createButtonLabel: 
 	return await vscode.window.showErrorMessage(infoMessage, createButtonLabel)
 	.then(async function (select) {
 		if (select === createButtonLabel) {
-			const selectedTemplateType = await showQuickPick(localize('message.selectTemplateType'), Object.values(TemplateType));
-			let metadata: object;
-			if (selectedTemplateType === TemplateType.ccda)
-				metadata = { type: MetadataType.ccda };
-			else if (selectedTemplateType === TemplateType.hl7v2)
-				metadata = { type: MetadataType.hl7v2 };
+			const selectedTemplateType = await showQuickPick(localize('message.selectTemplateType'), Object.keys(MetadataType));
+			let metadata = { type: MetadataType[selectedTemplateType] };
 			const metadataPath = path.join(templateFolder, 'metadata.json');
 			fileUtils.writeJsonToFile(metadataPath, metadata);
 			vscode.window.showInformationMessage(localize('message.createdMetadata', templateFolder))

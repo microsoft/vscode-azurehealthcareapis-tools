@@ -13,15 +13,10 @@ export async function pullSampleDataCommand() {
 	// Get the template type
 	const selectedType = await showQuickPick(localize('message.selectSampleDataType'), Object.values(TemplateType));
 	let imageReference;
-	if(selectedType == TemplateType.hl7v2) {
-		imageReference = constants.Hl7v2SampleDataReference;
-	} else if (selectedType == TemplateType.ccda) {
-		imageReference = constants.CcdaSampleDataReference;
-	}
+	imageReference = constants.SampleDataImageReferences[selectedType];
 
 	// Pull image
 	if (imageReference) {
 		await pullImage(imageReference, localize('message.pullingSampleData'));
 	}
-	
 }
