@@ -60,9 +60,9 @@ suite('File Utils Test Suite', () => {
 	});
 
 	test('Function getAllPaths - should return all file paths according to the pattern', () => {
-		const templateFolder = path.join(testPath, './templates/Hl7v2');
-		const files = fileUtils.getAllPaths(templateFolder, '/**/O*.liquid');
-		assert.strictEqual(files.length, 2);
+		const templateFolder = path.join(testPath, './data/Hl7v2');
+		const files = fileUtils.getAllPaths(templateFolder, '/**/**.hl7');
+		assert.strictEqual(files.length, 19);
 	});
 });
 
