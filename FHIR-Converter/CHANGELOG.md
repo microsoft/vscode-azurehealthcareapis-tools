@@ -1,3 +1,10 @@
+## 1.4.2
+### Added
+* Support for more filters such as split_data_by_segments.
+
+### Updated
+* FHIR Converter Engine - v4.5.0.
+  
 ## 1.4.1
 ### Added
 * Support for converting data from JSON to FHIR with liquid templates
@@ -9,7 +16,7 @@
 
 ### Updated
 * Keyboard shortcuts of pulling sample data and Microsoft templates.
-* FHIR Converter Engine - 4.2.0. 
+* FHIR Converter Engine - v4.2.0.
 
 ## 1.3.0
 ### Added
