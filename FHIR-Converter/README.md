@@ -2,10 +2,13 @@
 
 [![Build Status](https://microsofthealth.visualstudio.com/Health/_apis/build/status/Resolute/Converter/Dev-CI-SecurityAssessment-VSCode-Tools?branchName=main)](https://microsofthealth.visualstudio.com/Health/_build/latest?definitionId=531&branchName=main)
 
-FHIR Converter VS Code Extension accompanies the following Microsoft products:
-1. [Azure API for FHIR](https://azure.microsoft.com/en-us/services/azure-api-for-fhir/): A managed PaaS offering in Azure that enables rapid exchange of data through Fast Healthcare Interoperability Resources (FHIR®) APIs.
-2. [FHIR Server for Azure](https://github.com/microsoft/fhir-server): An open-source implementation of the [HL7 FHIR](https://www.hl7.org/fhir/) specification designed for the Microsoft cloud.
-3. [FHIR Converter OSS](https://github.com/microsoft/FHIR-Converter): An open-source project that enables conversion of health data from legacy format to FHIR.
+FHIR Converter VS Code Extension accompanies the following Microsoft FHIR managed services:
+1. [FHIR Service in Azure Health Data Services](https://docs.microsoft.com/en-us/azure/healthcare-apis/fhir/): A new managed FHIR offering in Azure that lets you put other healthcare data (like DICOM® images) in the same workspace.
+2. [Azure API for FHIR](https://azure.microsoft.com/services/azure-api-for-fhir/): A managed PaaS offering in Azure that enables rapid exchange of data through Fast Healthcare Interoperability Resources (FHIR®) APIs.
+
+FHIR Converted VS Code Extension also accompanies the following Microsoft open-source projects:
+1. [FHIR Server for Azure](https://github.com/microsoft/fhir-server): An open-source implementation of the [HL7 FHIR](https://www.hl7.org/fhir/) specification designed for the Microsoft cloud.
+2. [FHIR Converter OSS](https://github.com/microsoft/FHIR-Converter): An open-source project that enables conversion of health data from legacy format to FHIR.
 
 These products have the capability to convert HL7v2, C-CDA and JSON data to FHIR bundles using [Liquid](https://shopify.github.io/liquid/) templates. Microsoft publishes ready-to-use Liquid templates for HL7v2 and C-CDA to FHIR conversion, as well as sample templates for JSON to FHIR conversion. JSON messages do not have a standardized message type structure like HL7v2 or C-CDA do, so we provide you with sample JSON messages and the corresponding liquid templates for you to easily modify per your own JSON.
 
