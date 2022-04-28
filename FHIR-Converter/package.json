@@ -27,9 +27,11 @@
 	"keywords": [
 		"Azure",
 		"Azure API for FHIR",
+		"Azure FHIR Service",
 		"Converter",
 		"FHIR",
 		"FHIR Server for Azure",
+		"FHIR Service",
 		"Healthcare",
 		"HL7v2",
 		"C-CDA",
