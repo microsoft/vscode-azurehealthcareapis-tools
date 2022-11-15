@@ -45,7 +45,7 @@ export async function run(): Promise<void> {
 
 	const runner = new Mocha(mochaOpts);
 
-	runner.useColors(true);
+	runner.options.useColors = true;
 
 	const options = { cwd: __dirname };
 	const files = glob.sync('**/*utils.test.js', options);

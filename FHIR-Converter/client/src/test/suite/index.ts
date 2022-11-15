@@ -45,7 +45,7 @@ export async function run(): Promise<void> {
 
 	const runner = new Mocha(mochaOpts);
 
-	runner.useColors(true);
+	runner.options.useColors = true;
 	runner.addFile(join(__dirname, './view/extension.test'));
 	runner.addFile(join(__dirname, './converter/converter.test'));
 	runner.addFile(join(__dirname, './converter/engine/fhir-converter-engine.test'));
