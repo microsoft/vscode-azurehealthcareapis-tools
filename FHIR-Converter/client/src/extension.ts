@@ -58,6 +58,10 @@ export async function activate(context: vscode.ExtensionContext) {
 		vscode.workspace.onDidChangeConfiguration(async () => {
 			updateTemplateFolderToWorkspaceFolder();
 		});
+
+		// Start the client. This will also launch the server
+		client = createLanguageClient(context);
+		client.start();
 	}
 
 	// Register commands
@@ -82,10 +86,6 @@ export async function activate(context: vscode.ExtensionContext) {
 	registerCommand(context, 'microsoft.health.fhir.converter.loginRegistry', loginRegistryCommand);
 
 	registerCommand(context, 'microsoft.health.fhir.converter.logoutRegistry', logoutRegistryCommand);
-
-	// Start the client. This will also launch the server
-	client = createLanguageClient(context);
-	client.start();
 
 	// Extract Oras
 	PlatformHandler.getInstance().extractOras();
