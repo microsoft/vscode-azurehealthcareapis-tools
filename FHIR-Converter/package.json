@@ -245,8 +245,8 @@
 		"nyc": "^15.1.0",
 		"reflect-metadata": "^0.1.13",
 		"tslint": "^5.19.0",
-		"typescript": "^3.8.3",
-		"vsce": "^1.96.1",
+		"typescript": "^3.9.10",
+		"vsce": "^1.103.1",
 		"vscode-test": "^1.2.0"
 	}
 }
