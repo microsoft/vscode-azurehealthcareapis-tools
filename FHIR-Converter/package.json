@@ -247,6 +247,6 @@
 		"tslint": "^5.19.0",
 		"typescript": "^3.9.10",
 		"vsce": "^1.103.1",
-		"vscode-test": "^1.2.0"
+		"vscode-test": "^1.6.1"
 	}
 }
