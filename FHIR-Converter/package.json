@@ -18,7 +18,7 @@
 	},
 	"enableProposedApi": true,
 	"engines": {
-		"vscode": "^1.44.0"
+		"vscode": "^1.97.2"
 	},
 	"categories": [
 		"Azure",
@@ -235,7 +235,7 @@
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^5.2.6",
 		"@types/node": "^14.11.2",
-		"@types/vscode": "^1.44.0",
+		"@types/vscode": "^1.97.2",
 		"chai": "^4.2.0",
 		"chai-as-promised": "^7.1.1",
 		"chai-subset": "^1.6.0",
